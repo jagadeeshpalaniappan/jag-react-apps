@@ -1,7 +1,7 @@
 import React from "react";
 // import { BrowserRouter } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import { history } from "./store/app.store";
+import { history } from "../store/app.store";
 
 /*
 const AppRouteProvider = ({ children }) => {
