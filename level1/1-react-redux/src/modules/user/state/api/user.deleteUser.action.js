@@ -1,13 +1,11 @@
 import { push } from "connected-react-router";
+import AppError from "../../../common/utils/AppError";
+import { deleteUser } from "../../service/user.service";
 import {
+  API_DELETE_USER_FAILURE,
   API_DELETE_USER_START,
   API_DELETE_USER_SUCCESS,
-  API_DELETE_USER_FAILURE,
 } from "../user.actionTypes";
-
-import { apiGetUsersAction } from "./user.getUsers.action";
-import { deleteUser } from "../../service/user.service";
-import AppError from "../../../common/utils/AppError";
 
 // ACTION-CREATORS:
 export const apiDeleteUserStartAction = () => {

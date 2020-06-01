@@ -1,19 +1,15 @@
 import React from "react";
 import {
-  Alert,
+  Button,
+  Card,
+  Container,
+  Input,
   ListGroup,
   ListGroupItem,
   ListGroupItemHeading,
   ListGroupItemText,
-  Button,
   Modal,
-  Input,
-  Card,
-  Container,
-  Spinner,
 } from "reactstrap";
-
-import { STATUS_TYPES } from "../constants";
 
 export const AppCard = ({ children }) => {
   return <Card body>{children}</Card>;

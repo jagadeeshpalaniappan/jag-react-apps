@@ -1,12 +1,10 @@
 import { push } from "connected-react-router";
+import { createUser } from "../../service/user.service";
 import {
+  API_CREATE_USER_FAILURE,
   API_CREATE_USER_START,
   API_CREATE_USER_SUCCESS,
-  API_CREATE_USER_FAILURE,
 } from "../user.actionTypes";
-
-import { apiGetUsersAction } from "./user.getUsers.action";
-import { createUser } from "../../service/user.service";
 
 // ACTION-CREATORS:
 export const apiCreateUserStartAction = () => {

@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-
 import LoadingIndicator from "../../common/components/LoadingIndicator";
-import StatusBar from "../../common/components/StatusBar";
-import { getUserAction, deleteUserAction } from "../state/user.action";
 import UserDetailsToolbar from "../components/UserDetailsToolbar";
 import UserLayout from "../layout/UserLayout";
+import { deleteUserAction, getUserAction } from "../state/user.action";
 
 function UserDetails({ user, status, getUser, deleteUser }) {
   let { id } = useParams();

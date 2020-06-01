@@ -1,19 +1,7 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  FormText,
-  Card,
-  Container,
-} from "reactstrap";
 import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-
+import { Button, Form, FormGroup, Input } from "reactstrap";
 import { STATUS_TYPES } from "../../common/constants";
 
 function UserForm({ user, status, onSave }) {
