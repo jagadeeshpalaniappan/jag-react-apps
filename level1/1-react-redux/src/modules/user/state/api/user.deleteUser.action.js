@@ -1,5 +1,5 @@
 import { push } from "connected-react-router";
-import AppError from "../../../common/utils/AppError";
+import { AppError } from "../../../common/utils/error.utils";
 import { deleteUser } from "../../service/user.service";
 import {
   API_DELETE_USER_FAILURE,
