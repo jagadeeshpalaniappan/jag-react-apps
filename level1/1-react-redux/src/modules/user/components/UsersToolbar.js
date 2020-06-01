@@ -15,6 +15,7 @@ const UsersToolbar = ({ resetUser }) => {
         to={`${path}/create`}
         color="primary"
         className="ml-2"
+        exact
       >
         Add User
       </Button>

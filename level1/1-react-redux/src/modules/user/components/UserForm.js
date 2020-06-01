@@ -78,6 +78,7 @@ function UserForm({ user, status, onSave }) {
           <Button
             tag={NavLink}
             to={user && user.id ? `/users/${user.id}` : `/users`}
+            exact
             className="ml-2"
             disabled={status.type === STATUS_TYPES.LOADING}
           >

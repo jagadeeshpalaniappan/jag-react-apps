@@ -10,7 +10,7 @@ import {
 const UserListItem = ({ item, ...rest }) => {
   let { path } = useRouteMatch();
   return (
-    <ListGroupItem tag={NavLink} to={`${path}/${item.id}`} {...rest}>
+    <ListGroupItem tag={NavLink} to={`${path}/${item.id}`} {...rest} NavLink>
       <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
       <ListGroupItemText>
         {Object.keys(item).map(

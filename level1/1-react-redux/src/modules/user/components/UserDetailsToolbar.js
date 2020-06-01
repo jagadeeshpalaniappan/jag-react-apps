@@ -15,7 +15,7 @@ const UserDetailsToolbar = ({ user, status, onDelete }) => {
     <div className="d-flex align-items-center">
       {!deleteSuccess && (
         <>
-          <Button tag={NavLink} to={`/users`} className="ml-2">
+          <Button tag={NavLink} to={`/users`} className="ml-2" exact>
             Back
           </Button>
           <Button
