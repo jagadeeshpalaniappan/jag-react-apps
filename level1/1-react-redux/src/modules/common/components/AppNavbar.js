@@ -1,22 +1,17 @@
 import React, { useState } from "react";
+import { NavLink as RRNavLink } from "react-router-dom";
 import {
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
+  Collapse,
   Nav,
+  Navbar,
+  NavbarBrand,
+  NavbarText,
+  NavbarToggler,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
-  Collapse,
 } from "reactstrap";
 
-import { NavLink as RRNavLink } from "react-router-dom";
-
-const AppNav = ({ title, secondaryTitle }) => {
+const AppNavbar = ({ title, secondaryTitle }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -38,19 +33,10 @@ const AppNav = ({ title, secondaryTitle }) => {
               Posts
             </NavLink>
           </NavItem>
-          <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              Jagadeesh Palaniappan
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem>Profile</DropdownItem>
-              <DropdownItem>Logout</DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
         </Nav>
       </Collapse>
     </Navbar>
   );
 };
 
-export default AppNav;
+export default AppNavbar;
