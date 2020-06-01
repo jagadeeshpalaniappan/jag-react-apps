@@ -1,11 +1,11 @@
-## App Architecture Overview
+## React App (Redux, Hooks)
 
-| Key:              | Technolgies                                     |
-| ----------------- | ----------------------------------------------- |
-| Components:       | **React** (Functional Components - using Hooks) |
-| State Management: | **LocalState:** Redux, **RemoteState:** Redux   |
-| API:              | REST / GraphQL                                  |
-| Language:         | JavaScript                                      |
+| **Key:**              | **Technolgies**                                 |
+| --------------------- | ----------------------------------------------- |
+| **Components:**       | **React** (Functional Components - using Hooks) |
+| **State Management:** | **LocalState:** Redux, **RemoteState:** Redux   |
+| **API:**              | REST / GraphQL                                  |
+| **Language:**         | JavaScript                                      |
 
 ## Available Scripts
 
