@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Card, Col, Row } from "reactstrap";
-import ErrorStatus from "../../common/components/ErrorStatus";
-import LoadingStatus from "../../common/components/LoadingStatus";
+import StatusQueryError from "../../common/components/StatusQueryError";
+import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import UserDetailsToolbar from "../components/UserDetailsToolbar";
 import UserLayout from "../layout/UserLayout";
 import { deleteUserAction, getUserAction } from "../state/user.action";
@@ -34,8 +34,8 @@ function UserDetails({ user, loading, error, getUser, deleteUser }) {
         />
       }
     >
-      <LoadingStatus loading={loading} text="Loading user details" />
-      <ErrorStatus
+      <StatusQueryLoading loading={loading} text="Loading user details" />
+      <StatusQueryError
         error={error}
         text="Error while getting user details"
         onRetry={handleRetry}

@@ -1,8 +1,8 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 import { Spinner } from "reactstrap";
 
-function LoadingStatus({ loading, text }) {
+function StatusQueryLoading({ loading, text }) {
   return (
     <>
       {loading && (
@@ -15,9 +15,9 @@ function LoadingStatus({ loading, text }) {
   );
 }
 
-LoadingStatus.propTypes = {
+StatusQueryLoading.propTypes = {
   loading: PropTypes.bool.isRequired,
   text: PropTypes.string,
 };
 
-export default LoadingStatus;
+export default StatusQueryLoading;

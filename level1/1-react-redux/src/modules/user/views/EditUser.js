@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import ErrorStatus from "../../common/components/ErrorStatus";
-import LoadingStatus from "../../common/components/LoadingStatus";
+import StatusQueryError from "../../common/components/StatusQueryError";
+import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import UserForm from "../components/UserForm";
 import UserLayout from "../layout/UserLayout";
 import { getUserAction, updateUserAction } from "../state/user.action";
@@ -31,8 +31,8 @@ function EditUser({
 
   return (
     <UserLayout title="Edit User">
-      <LoadingStatus loading={loading} text="Loading user details" />
-      <ErrorStatus
+      <StatusQueryLoading loading={loading} text="Loading user details" />
+      <StatusQueryError
         error={error}
         text="Error while getting user details"
         onRetry={handleRetry}

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
 import { Button, Modal, ModalBody } from "reactstrap";
 
 function ErrorDetailsModal({ triggerText, item }) {

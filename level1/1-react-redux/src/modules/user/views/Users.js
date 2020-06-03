@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import LoadingStatus from "../../common/components/LoadingStatus";
-import ErrorStatus from "../../common/components/ErrorStatus";
+import StatusQueryLoading from "../../common/components/StatusQueryLoading";
+import StatusQueryError from "../../common/components/StatusQueryError";
 import {
   getUsersAction,
   setUserSearchKeywordAction,
@@ -41,8 +41,8 @@ const Users = ({
       <div className="my-3">
         <SearchInput placeholder="Search user" onChange={handleSearch} />
       </div>
-      <LoadingStatus loading={loading} text="Loading users" />
-      <ErrorStatus
+      <StatusQueryLoading loading={loading} text="Loading users" />
+      <StatusQueryError
         error={error}
         text="Error while getting users"
         onRetry={handleRetry}

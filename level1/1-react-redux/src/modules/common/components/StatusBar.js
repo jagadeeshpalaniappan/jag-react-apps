@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useState } from "react";
 import { Alert } from "reactstrap";
-import ErrorDetailsModal from "./ErrorDetailsModal";
+import StatusErrorDetailsBtnAndModal from "./StatusErrorDetailsBtnAndModal";
 
 const getColor = (status) => {
   if (status.success) {
@@ -47,7 +47,7 @@ function StatusBar({ status, text, onClose, timeout }) {
           {status.error && (
             <>
               <span>{text.error}</span>
-              <ErrorDetailsModal
+              <StatusErrorDetailsBtnAndModal
                 triggerText="...more details"
                 item={status.error}
               />

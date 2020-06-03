@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React from "react";
 import { MdError } from "react-icons/md";
 import { Button } from "reactstrap";
-import ErrorDetailsModal from "./ErrorDetailsModal";
+import StatusErrorDetailsBtnAndModal from "./StatusErrorDetailsBtnAndModal";
 
-function ErrorStatus({ error, text, onRetry }) {
+function StatusQueryError({ error, text, onRetry }) {
   return (
     <>
       {error && (
@@ -22,7 +22,7 @@ function ErrorStatus({ error, text, onRetry }) {
                     <span className="mx-1">|</span>
                   </>
                 )}
-                <ErrorDetailsModal
+                <StatusErrorDetailsBtnAndModal
                   triggerText="Show error details"
                   item={error}
                 />
@@ -35,10 +35,10 @@ function ErrorStatus({ error, text, onRetry }) {
   );
 }
 
-ErrorStatus.propTypes = {
+StatusQueryError.propTypes = {
   error: PropTypes.string,
   text: PropTypes.string,
   onRetry: PropTypes.func,
 };
 
-export default ErrorStatus;
+export default StatusQueryError;
