@@ -2,17 +2,15 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Card, Col, Row } from "reactstrap";
 import LoadingIndicator from "../../common/components/LoadingIndicator";
 import UserDetailsToolbar from "../components/UserDetailsToolbar";
 import UserLayout from "../layout/UserLayout";
 import { deleteUserAction, getUserAction } from "../state/user.action";
-import Card from "reactstrap/lib/Card";
-import CardTitle from "reactstrap/lib/CardTitle";
-import CardText from "reactstrap/lib/CardText";
-import Row from "reactstrap/lib/Row";
-import Col from "reactstrap/lib/Col";
+import LoadingStatus from "../../common/components/LoadingStatus";
+import ErrorStatus from "../../common/components/ErrorStatus";
 
-function UserDetails({ user, status, getUser, deleteUser }) {
+function UserDetails({ user, loading, error, getUser, deleteUser }) {
   let { id } = useParams();
 
   useEffect(() => {
@@ -24,18 +22,25 @@ function UserDetails({ user, status, getUser, deleteUser }) {
     deleteUser(user);
   };
 
+  const handleRetry = () => getUser({ id });
+
   return (
     <UserLayout
       title="User"
       actions={
         <UserDetailsToolbar
           user={user}
-          status={status}
+          hidden={loading || error}
           onDelete={handleDelete}
         />
       }
     >
-      <LoadingIndicator status={status} />
+      <LoadingStatus loading={loading} text="Loading user details" />
+      <ErrorStatus
+        error={error}
+        text="Error while getting user details"
+        onRetry={handleRetry}
+      />
       {user && Object.keys(user).length > 0 && (
         <>
           {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
@@ -74,15 +79,16 @@ function UserDetails({ user, status, getUser, deleteUser }) {
 
 UserDetails.propTypes = {
   user: PropTypes.object.isRequired,
-  status: PropTypes.object.isRequired,
   getUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   console.log("UserDetails", state);
+  const { loading, error, data } = state.userState.user;
   return {
-    user: state.userState.user.data,
-    status: state.userState.user.status,
+    loading,
+    error,
+    user: data,
   };
 };
 const mapDispatchToProps = (dispatch) => {

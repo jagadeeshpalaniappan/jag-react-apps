@@ -6,8 +6,17 @@ import LoadingIndicator from "../../common/components/LoadingIndicator";
 import { getUserAction, updateUserAction } from "../state/user.action";
 import UserLayout from "../layout/UserLayout";
 import UserForm from "../components/UserForm";
+import LoadingStatus from "../../common/components/LoadingStatus";
+import ErrorStatus from "../../common/components/ErrorStatus";
 
-function EditUser({ user, status, mutationStatus, getUser, updateUser }) {
+function EditUser({
+  user,
+  loading,
+  error,
+  mutationStatus,
+  getUser,
+  updateUser,
+}) {
   let { id } = useParams();
   useEffect(() => {
     // onInit:
@@ -17,10 +26,18 @@ function EditUser({ user, status, mutationStatus, getUser, updateUser }) {
   const handleSave = (e, updatedUser) => {
     updateUser(updatedUser);
   };
+  const handleRetry = () => {
+    getUser({ id });
+  };
 
   return (
     <UserLayout title="Edit User">
-      <LoadingIndicator status={status} />
+      <LoadingStatus loading={loading} text="Loading user details" />
+      <ErrorStatus
+        error={error}
+        text="Error while getting user details"
+        onRetry={handleRetry}
+      />
       {user && Object.keys(user).length > 0 && (
         <>
           <UserForm user={user} status={mutationStatus} onSave={handleSave} />
@@ -32,17 +49,18 @@ function EditUser({ user, status, mutationStatus, getUser, updateUser }) {
 
 EditUser.propTypes = {
   user: PropTypes.object.isRequired,
-  status: PropTypes.object.isRequired,
   getUser: PropTypes.func.isRequired,
   updateUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   console.log("EditUser", state);
+  const { loading, error, data } = state.userState.user;
   return {
+    loading,
+    error,
+    user: data,
     mutationStatus: state.userState.mutationStatus,
-    status: state.userState.user.status,
-    user: state.userState.user.data,
   };
 };
 const mapDispatchToProps = (dispatch) => {

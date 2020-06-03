@@ -68,10 +68,6 @@ const mapStateToProps = (state) => {
   console.log(state);
   const { loading, error, data } = state.userState.users;
   return {
-    // status: state.userState.users.status,
-    // users: state.userState.users.data,
-    // queryStatus: { loading, error },
-
     loading,
     error,
     users: getFilteredUsers(data, state.userState.searchKeyword),

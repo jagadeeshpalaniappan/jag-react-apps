@@ -5,24 +5,19 @@ import { Button } from "reactstrap";
 import UserDeleteModal from "./UserDeleteModal";
 import { STATUS_TYPES } from "../../common/constants";
 
-const UserDetailsToolbar = ({ user, status, onDelete }) => {
+const UserDetailsToolbar = ({ user, hidden, onDelete }) => {
   const [delModalOpen, setDelModalOpen] = useState(false);
   const openDeleteModal = () => setDelModalOpen(true);
   const closeDeleteModal = () => setDelModalOpen(false);
 
-  const deleteSuccess = status.msg === "User Deleted Successfully";
   return (
     <div className="d-flex align-items-center">
-      {!deleteSuccess && (
+      {!hidden && (
         <>
           <Button tag={NavLink} to={`/users`} className="ml-2" exact>
             Back
           </Button>
-          <Button
-            className="ml-2"
-            onClick={openDeleteModal}
-            disabled={status.type === STATUS_TYPES.LOADING}
-          >
+          <Button className="ml-2" onClick={openDeleteModal}>
             Delete
           </Button>
           <Button
@@ -30,7 +25,6 @@ const UserDetailsToolbar = ({ user, status, onDelete }) => {
             to={`/users/edit/${user.id}`}
             color="primary"
             className="ml-2"
-            disabled={status.type === STATUS_TYPES.LOADING}
           >
             Edit
           </Button>

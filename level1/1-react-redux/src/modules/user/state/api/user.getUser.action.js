@@ -34,6 +34,7 @@ export const apiGetUserAction = (user) => async (dispatch) => {
     const data = await getUser(user);
     dispatch(apiGetUserSuccessAction(data));
   } catch (e) {
+    console.log("apiGetUserAction:: err", e);
     dispatch(apiGetUserFailureAction(e.message));
   }
 };
