@@ -1,9 +1,20 @@
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useState } from "react";
-import { Alert as BSAlert } from "reactstrap";
+import { Alert } from "reactstrap";
 import ErrorDetailsModal from "./ErrorDetailsModal";
 
-function Alert({ status, text, onClose, timeout }) {
+const getColor = (status) => {
+  if (status.success) {
+    return "success";
+  } else if (status.loading) {
+    return "primary";
+  } else if (status.error) {
+    return "danger";
+  }
+  return "primary";
+};
+
+function StatusBar({ status, text, onClose, timeout }) {
   const [visible, setVisible] = useState(true);
   const onDismiss = useCallback(() => {
     setVisible(false);
@@ -27,7 +38,7 @@ function Alert({ status, text, onClose, timeout }) {
   return (
     <>
       {status && (
-        <BSAlert
+        <Alert
           color={getColor(status)}
           isOpen={visible}
           toggle={status.loading ? null : onDismiss}
@@ -43,72 +54,7 @@ function Alert({ status, text, onClose, timeout }) {
             </>
           )}
           {status.success && text.success}
-        </BSAlert>
-      )}
-    </>
-  );
-}
-
-const getColor = (status) => {
-  if (status.success) {
-    return "success";
-  } else if (status.loading) {
-    return "primary";
-  } else if (status.error) {
-    return "danger";
-  }
-  return "primary";
-};
-
-const statusText = {
-  createUserStatus: {
-    loading: "Creating user...",
-    error: "Error while creating user",
-    success: "User created successfuly",
-  },
-  updateUserStatus: {
-    loading: "Updating user...",
-    error: "Error while updating user",
-    success: "User updated successfuly",
-  },
-
-  deleteUserStatus: {
-    loading: "Deleting user...",
-    error: "Error while deleting user",
-    success: "User deleted successfuly",
-  },
-};
-
-function StatusBar({ status, onClose, timeout }) {
-  const { createUserStatus, updateUserStatus, deleteUserStatus } = status;
-
-  return (
-    <>
-      <p>StatusBar</p>
-      <pre>{JSON.stringify(status, null, 2)}</pre>
-      {createUserStatus && (
-        <Alert
-          status={createUserStatus}
-          text={statusText.createUserStatus}
-          timeout={timeout}
-          onClose={onClose}
-        ></Alert>
-      )}
-      {updateUserStatus && (
-        <Alert
-          status={updateUserStatus}
-          text={statusText.updateUserStatus}
-          timeout={timeout}
-          onClose={onClose}
-        ></Alert>
-      )}
-      {deleteUserStatus && (
-        <Alert
-          status={deleteUserStatus}
-          text={statusText.deleteUserStatus}
-          timeout={timeout}
-          onClose={onClose}
-        ></Alert>
+        </Alert>
       )}
     </>
   );
