@@ -23,11 +23,13 @@ const errorMessage = (error) => {
 
 function UserForm({ user, status, onSave }) {
   console.log("UserFormContainer:", { user });
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm({ defaultValues: user });
   const onSubmit = (data) => {
     console.log({ data, errors });
     onSave(data);
   };
+
+  // console.log({ errors });
 
   return (
     <div>
@@ -56,18 +58,18 @@ function UserForm({ user, status, onSave }) {
             name="name"
             placeholder="Name"
             invalid={!!errors.name}
-            innerRef={register({ required: true, maxLength: 30 })}
+            innerRef={register({
+              required: {
+                value: true,
+                message: "Name is required",
+              },
+              maxLength: {
+                value: 30,
+                message: "Name cannot exceed 30 chars",
+              },
+            })}
           />
-          {errors.name && (
-            <>
-              {errors.name.type === "required" && (
-                <FormFeedback>Name is required</FormFeedback>
-              )}
-              {errors.name.type === "maxLength" && (
-                <FormFeedback>Name cannot exceed 30 chars</FormFeedback>
-              )}
-            </>
-          )}
+          {errors.name && <FormFeedback>{errors.name.message}</FormFeedback>}
         </FormGroup>
         <FormGroup>
           <label htmlFor="email">Email:</label>
@@ -77,18 +79,18 @@ function UserForm({ user, status, onSave }) {
             name="email"
             placeholder="Email"
             invalid={!!errors.email}
-            innerRef={register({ required: true, pattern: /^\S+@\S+$/i })}
+            innerRef={register({
+              required: {
+                value: true,
+                message: "Email is required",
+              },
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "Invalid email address",
+              },
+            })}
           />
-          {errors.email && (
-            <>
-              {errors.email.type === "required" && (
-                <FormFeedback>Email is required</FormFeedback>
-              )}
-              {errors.email.type === "pattern" && (
-                <FormFeedback>Invalid email</FormFeedback>
-              )}
-            </>
-          )}
+          {errors.email && <FormFeedback>{errors.email.message}</FormFeedback>}
         </FormGroup>
         <FormGroup>
           <label htmlFor="age">Age:</label>
@@ -98,15 +100,11 @@ function UserForm({ user, status, onSave }) {
             name="age"
             placeholder="Age"
             invalid={!!errors.age}
-            innerRef={register({ required: true, maxLength: 10 })}
+            innerRef={register({
+              required: { value: true, message: "Age is required" },
+            })}
           />
-          {errors.age && (
-            <>
-              {errors.age.type === "required" && (
-                <FormFeedback>Age is required</FormFeedback>
-              )}
-            </>
-          )}
+          {errors.age && <FormFeedback>{errors.age.message}</FormFeedback>}
         </FormGroup>
 
         <div className="d-flex justify-content-end align-items-center my-3">
