@@ -28,6 +28,8 @@ const initialUserState = {
   },
   users: {
     data: [],
+    loading: false,
+    error: null,
     status: {
       type: null,
       msg: "",
@@ -35,6 +37,8 @@ const initialUserState = {
   },
   user: {
     data: {},
+    loading: false,
+    error: null,
     status: {
       type: null,
       msg: "",
@@ -59,13 +63,8 @@ export const userReducer = (userState = initialUserState, action) => {
         ...userState,
         users: {
           ...userState.users,
-          status: {
-            type: STATUS_TYPES.LOADING,
-            msg:
-              action.payload.config && action.payload.config.reload
-                ? "Reloading Users.."
-                : "Loading Users...",
-          },
+          loading: true,
+          error: null,
         },
       };
     case API_GET_USERS_SUCCESS:
@@ -74,9 +73,8 @@ export const userReducer = (userState = initialUserState, action) => {
         users: {
           ...userState.users,
           data: action.payload.users,
-          status: {
-            type: STATUS_TYPES.SUCCESS,
-          },
+          loading: false,
+          error: null,
         },
       };
     case API_GET_USERS_FAILURE:
@@ -84,14 +82,8 @@ export const userReducer = (userState = initialUserState, action) => {
         ...userState,
         users: {
           ...userState.users,
-          status: {
-            type: STATUS_TYPES.FAILURE,
-            msg:
-              action.payload.config && action.payload.config.reload
-                ? "Problem while reloading users."
-                : "Problem while getting users",
-            more: action.payload.error,
-          },
+          loading: false,
+          error: action.payload.error,
         },
       };
     case API_GET_USER_START:

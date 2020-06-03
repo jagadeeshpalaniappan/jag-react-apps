@@ -5,6 +5,7 @@ import {
 } from "../user.actionTypes";
 
 import { getUsers } from "../../service/user.service";
+// import { getUsers } from "../../service/user.service.json";
 
 // ACTION-CREATORS:
 export const apiGetUsersStartAction = (config) => {

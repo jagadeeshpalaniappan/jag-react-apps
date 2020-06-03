@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import LoadingIndicator from "../../common/components/LoadingIndicator";
+import LoadingStatus from "../../common/components/LoadingStatus";
+import ErrorStatus from "../../common/components/ErrorStatus";
 import {
   getUsersAction,
   setUserSearchKeywordAction,
@@ -15,7 +16,14 @@ import { filterItemsByVal } from "../../common/utils/search.utils";
 
 // const users = [{ id: 101, name: "Jag1" }];
 
-const Users = ({ users, status, searchKeyword, searchUser, getUsers }) => {
+const Users = ({
+  users,
+  loading,
+  error,
+  searchKeyword,
+  searchUser,
+  getUsers,
+}) => {
   useEffect(() => {
     // onInit:
     getUsers();
@@ -26,12 +34,19 @@ const Users = ({ users, status, searchKeyword, searchUser, getUsers }) => {
     searchUser(keyword);
   };
 
+  const handleRetry = () => getUsers();
+
   return (
     <UserLayout title="Users" actions={<UsersToolbar />}>
       <div className="my-3">
         <SearchInput placeholder="Search user" onChange={handleSearch} />
       </div>
-      <LoadingIndicator status={status} />
+      <LoadingStatus loading={loading} text="Loading users" />
+      <ErrorStatus
+        error={error}
+        text="Error while getting users"
+        onRetry={handleRetry}
+      />
       <UsersList users={users} />
     </UserLayout>
   );
@@ -39,7 +54,6 @@ const Users = ({ users, status, searchKeyword, searchUser, getUsers }) => {
 
 Users.propTypes = {
   users: PropTypes.array.isRequired,
-  status: PropTypes.object.isRequired,
   getUsers: PropTypes.func.isRequired,
 };
 
@@ -52,13 +66,15 @@ const getFilteredUsers = (users, keyword) => {
 
 const mapStateToProps = (state) => {
   console.log(state);
+  const { loading, error, data } = state.userState.users;
   return {
-    status: state.userState.users.status,
+    // status: state.userState.users.status,
     // users: state.userState.users.data,
-    users: getFilteredUsers(
-      state.userState.users.data,
-      state.userState.searchKeyword
-    ),
+    // queryStatus: { loading, error },
+
+    loading,
+    error,
+    users: getFilteredUsers(data, state.userState.searchKeyword),
     searchKeyword: state.userState.searchKeyword,
   };
 };

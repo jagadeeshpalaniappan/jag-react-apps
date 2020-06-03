@@ -8,7 +8,7 @@ export const getUsers = async () => {
   const response = await axios.get(USER_REST_API);
   console.log("fetch::getUsers:: response:", response);
 
-  return response;
+  return response.data;
 };
 
 export const getUser = async (user) => {

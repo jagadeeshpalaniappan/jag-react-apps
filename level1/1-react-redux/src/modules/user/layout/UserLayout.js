@@ -30,7 +30,7 @@ const UserLayout = ({
 };
 
 UserLayout.propTypes = {
-  prop: PropTypes,
+  title: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
