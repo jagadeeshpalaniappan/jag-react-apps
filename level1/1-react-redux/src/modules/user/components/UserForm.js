@@ -2,24 +2,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
-import {
-  Button,
-  Form,
-  FormGroup,
-  FormFeedback,
-  FormText,
-  Input,
-} from "reactstrap";
+import { Button, Form, FormFeedback, FormGroup, Input } from "reactstrap";
 import { STATUS_TYPES } from "../../common/constants";
-
-// Messages
-const required = "This field is required";
-const maxLength = "Your input exceed maximum length";
-
-// Error Component
-const errorMessage = (error) => {
-  return <div className="invalid-feedback">{error}</div>;
-};
 
 function UserForm({ user, status, onSave }) {
   console.log("UserFormContainer:", { user });
