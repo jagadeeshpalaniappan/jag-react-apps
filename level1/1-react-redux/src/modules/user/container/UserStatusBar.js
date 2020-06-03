@@ -63,7 +63,7 @@ function UserStatusBar({ mutationStatus, resetMutationStatus, timeout }) {
 }
 
 UserStatusBar.propTypes = {
-  status: PropTypes.object.isRequired,
+  mutationStatus: PropTypes.object.isRequired,
   timeout: PropTypes.number,
 };
 UserStatusBar.defaultProps = {

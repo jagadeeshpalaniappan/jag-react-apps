@@ -22,7 +22,7 @@ function EditUser({
     getUser({ id });
   }, [id, getUser]);
 
-  const handleSave = (e, updatedUser) => {
+  const handleSave = (updatedUser) => {
     updateUser(updatedUser);
   };
   const handleRetry = () => {
