@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import LoadingIndicator from "../../common/components/LoadingIndicator";
-import { getUserAction, updateUserAction } from "../state/user.action";
-import UserLayout from "../layout/UserLayout";
-import UserForm from "../components/UserForm";
-import LoadingStatus from "../../common/components/LoadingStatus";
 import ErrorStatus from "../../common/components/ErrorStatus";
+import LoadingStatus from "../../common/components/LoadingStatus";
+import UserForm from "../components/UserForm";
+import UserLayout from "../layout/UserLayout";
+import { getUserAction, updateUserAction } from "../state/user.action";
 
 function EditUser({
   user,

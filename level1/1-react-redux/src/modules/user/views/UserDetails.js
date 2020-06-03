@@ -3,12 +3,11 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Card, Col, Row } from "reactstrap";
-import LoadingIndicator from "../../common/components/LoadingIndicator";
+import ErrorStatus from "../../common/components/ErrorStatus";
+import LoadingStatus from "../../common/components/LoadingStatus";
 import UserDetailsToolbar from "../components/UserDetailsToolbar";
 import UserLayout from "../layout/UserLayout";
 import { deleteUserAction, getUserAction } from "../state/user.action";
-import LoadingStatus from "../../common/components/LoadingStatus";
-import ErrorStatus from "../../common/components/ErrorStatus";
 
 function UserDetails({ user, loading, error, getUser, deleteUser }) {
   let { id } = useParams();
