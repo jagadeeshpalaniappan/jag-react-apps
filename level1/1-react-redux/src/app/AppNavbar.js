@@ -18,7 +18,9 @@ const AppNavbar = ({ title, secondaryTitle }) => {
 
   return (
     <Navbar color="light" light expand="md">
-      <NavbarBrand href="/">{title}</NavbarBrand>
+      <NavbarBrand to="/" tag={RRNavLink}>
+        {title}
+      </NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <NavbarText className="mr-auto">{secondaryTitle}</NavbarText>
