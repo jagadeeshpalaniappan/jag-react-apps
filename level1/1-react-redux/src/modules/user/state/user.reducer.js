@@ -21,8 +21,6 @@ import {
 // REDUCER:
 const initialUserState = {
   mutationStatus: {
-    // type: null,
-    // msg: "",
     createUserStatus: null,
     updateUserStatus: null,
     deleteUserStatus: null,
