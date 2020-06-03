@@ -16,26 +16,30 @@ const UserDetailsToolbar = ({ user, hidden, onDelete }) => {
           <Button tag={NavLink} to={`/users`} className="ml-2" exact>
             Back
           </Button>
-          <Button className="ml-2" onClick={openDeleteModal}>
-            Delete
-          </Button>
-          <Button
-            tag={NavLink}
-            to={`/users/edit/${user.id}`}
-            color="primary"
-            className="ml-2"
-          >
-            Edit
-          </Button>
-          <UserDeleteModal
-            item={user}
-            isOpen={delModalOpen}
-            onOk={() => {
-              closeDeleteModal();
-              onDelete();
-            }}
-            onCancel={closeDeleteModal}
-          />
+          {user && (
+            <>
+              <Button className="ml-2" onClick={openDeleteModal}>
+                Delete
+              </Button>
+              <Button
+                tag={NavLink}
+                to={`/users/edit/${user.id}`}
+                color="primary"
+                className="ml-2"
+              >
+                Edit
+              </Button>
+              <UserDeleteModal
+                item={user}
+                isOpen={delModalOpen}
+                onOk={() => {
+                  closeDeleteModal();
+                  onDelete();
+                }}
+                onCancel={closeDeleteModal}
+              />
+            </>
+          )}
         </>
       )}
     </div>

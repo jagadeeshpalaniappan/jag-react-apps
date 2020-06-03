@@ -218,9 +218,6 @@ export const userReducer = (userState = initialUserState, action) => {
     case API_DELETE_USER_FAILURE:
       return {
         ...userState,
-        user: {
-          data: null,
-        },
         mutationStatus: {
           ...userState.mutationStatus,
           deleteUserStatus: {
