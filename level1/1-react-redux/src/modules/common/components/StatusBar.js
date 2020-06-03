@@ -1,28 +1,18 @@
-import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
-import { Alert } from "reactstrap";
+import React, { useCallback, useEffect, useState } from "react";
+import { Alert as BSAlert } from "reactstrap";
+import ErrorDetailsModal from "./ErrorDetailsModal";
 
-import { STATUS_TYPES } from "../constants";
-
-function StatusBar({ status, onClose, timeout }) {
+function Alert({ status, text, onClose, timeout }) {
   const [visible, setVisible] = useState(true);
   const onDismiss = useCallback(() => {
     setVisible(false);
     onClose();
   }, [onClose]);
 
-  let color = "light";
-  if (status.type === STATUS_TYPES.LOADING) {
-    color = "primary";
-  } else if (status.type === STATUS_TYPES.FAILURE) {
-    color = "danger";
-  } else if (status.type === STATUS_TYPES.SUCCESS) {
-    color = "success";
-  }
-
   useEffect(() => {
     let myTimer = null;
-    if (status.type === STATUS_TYPES.SUCCESS) {
+    if (status && status.success) {
       // call: onDismiss after '1000ms'
       myTimer = setTimeout(onDismiss, timeout);
     }
@@ -32,18 +22,93 @@ function StatusBar({ status, onClose, timeout }) {
         clearTimeout(myTimer);
       }
     };
-  }, [status.type, onDismiss, timeout]);
+  }, [status, onDismiss, timeout]);
 
   return (
     <>
-      {status.msg && (
-        <Alert
-          color={color}
+      {status && (
+        <BSAlert
+          color={getColor(status)}
           isOpen={visible}
-          toggle={status.type === STATUS_TYPES.LOADING ? null : onDismiss}
+          toggle={status.loading ? null : onDismiss}
         >
-          {status.msg} {status.more && `:: ${status.more}`}
-        </Alert>
+          {status.loading && text.loading}
+          {status.error && (
+            <>
+              <span>{text.error}</span>
+              <ErrorDetailsModal
+                triggerText="...more details"
+                item={status.error}
+              />
+            </>
+          )}
+          {status.success && text.success}
+        </BSAlert>
+      )}
+    </>
+  );
+}
+
+const getColor = (status) => {
+  if (status.success) {
+    return "success";
+  } else if (status.loading) {
+    return "primary";
+  } else if (status.error) {
+    return "danger";
+  }
+  return "primary";
+};
+
+const statusText = {
+  createUserStatus: {
+    loading: "Creating user...",
+    error: "Error while creating user",
+    success: "User created successfuly",
+  },
+  updateUserStatus: {
+    loading: "Updating user...",
+    error: "Error while updating user",
+    success: "User updated successfuly",
+  },
+
+  deleteUserStatus: {
+    loading: "Deleting user...",
+    error: "Error while deleting user",
+    success: "User deleted successfuly",
+  },
+};
+
+function StatusBar({ status, onClose, timeout }) {
+  const { createUserStatus, updateUserStatus, deleteUserStatus } = status;
+
+  return (
+    <>
+      <p>StatusBar</p>
+      <pre>{JSON.stringify(status, null, 2)}</pre>
+      {createUserStatus && (
+        <Alert
+          status={createUserStatus}
+          text={statusText.createUserStatus}
+          timeout={timeout}
+          onClose={onClose}
+        ></Alert>
+      )}
+      {updateUserStatus && (
+        <Alert
+          status={updateUserStatus}
+          text={statusText.updateUserStatus}
+          timeout={timeout}
+          onClose={onClose}
+        ></Alert>
+      )}
+      {deleteUserStatus && (
+        <Alert
+          status={deleteUserStatus}
+          text={statusText.deleteUserStatus}
+          timeout={timeout}
+          onClose={onClose}
+        ></Alert>
       )}
     </>
   );

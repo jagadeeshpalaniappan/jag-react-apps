@@ -23,8 +23,11 @@ import { STATUS_TYPES } from "../../common/constants";
 // REDUCER:
 const initialUserState = {
   mutationStatus: {
-    type: null,
-    msg: "",
+    // type: null,
+    // msg: "",
+    createUserStatus: null,
+    updateUserStatus: null,
+    deleteUserStatus: null,
   },
   users: {
     data: [],
@@ -112,66 +115,104 @@ export const userReducer = (userState = initialUserState, action) => {
       return {
         ...userState,
         mutationStatus: {
-          type: STATUS_TYPES.LOADING,
-          msg: "Creating User...",
+          ...initialUserState.mutationStatus,
+          createUserStatus: {
+            ...userState.createUserStatus,
+            loading: true,
+            error: null,
+            success: false,
+          },
         },
       };
     case API_CREATE_USER_SUCCESS:
       return {
         ...userState,
         mutationStatus: {
-          type: STATUS_TYPES.SUCCESS,
-          msg: "User Created Successfully",
+          ...userState.mutationStatus,
+          createUserStatus: {
+            ...userState.createUserStatus,
+            loading: false,
+            error: null,
+            success: true,
+          },
         },
       };
     case API_CREATE_USER_FAILURE:
       return {
         ...userState,
         mutationStatus: {
-          type: STATUS_TYPES.FAILURE,
-          msg: "User Creation Failed",
-          more: action.payload,
+          ...userState.mutationStatus,
+          createUserStatus: {
+            ...userState.createUserStatus,
+            loading: false,
+            error: action.payload,
+            success: false,
+          },
         },
       };
     case API_UPDATE_USER_START:
       return {
         ...userState,
         mutationStatus: {
-          type: STATUS_TYPES.LOADING,
-          msg: "Updating User...",
+          ...initialUserState.mutationStatus,
+          updateUserStatus: {
+            ...userState.updateUserStatus,
+            loading: true,
+            error: null,
+            success: false,
+          },
         },
       };
     case API_UPDATE_USER_SUCCESS:
       return {
         ...userState,
         mutationStatus: {
-          type: STATUS_TYPES.SUCCESS,
-          msg: "User Updated Successfully",
+          ...userState.mutationStatus,
+          updateUserStatus: {
+            ...userState.updateUserStatus,
+            loading: false,
+            error: null,
+            success: true,
+          },
         },
       };
     case API_UPDATE_USER_FAILURE:
       return {
         ...userState,
         mutationStatus: {
-          type: STATUS_TYPES.FAILURE,
-          msg: "User Updation Failed",
-          more: action.payload,
+          ...userState.mutationStatus,
+          updateUserStatus: {
+            ...userState.updateUserStatus,
+            loading: false,
+            error: action.payload,
+            success: false,
+          },
         },
       };
     case API_DELETE_USER_START:
       return {
         ...userState,
         mutationStatus: {
-          type: STATUS_TYPES.LOADING,
-          msg: "Deleting User...",
+          ...initialUserState.mutationStatus,
+          deleteUserStatus: {
+            ...userState.deleteUserStatus,
+            loading: true,
+            error: null,
+            success: false,
+          },
         },
       };
     case API_DELETE_USER_SUCCESS:
       return {
         ...userState,
         mutationStatus: {
-          type: STATUS_TYPES.SUCCESS,
-          msg: "User Deleted Successfully",
+          ...userState.mutationStatus,
+          deleteUserStatus: {
+            ...userState.deleteUserStatus,
+            loading: false,
+            error: null,
+            success: true,
+          },
         },
       };
     case API_DELETE_USER_FAILURE:
@@ -181,9 +222,13 @@ export const userReducer = (userState = initialUserState, action) => {
           data: null,
         },
         mutationStatus: {
-          type: STATUS_TYPES.FAILURE,
-          msg: "User Deletion Failed",
-          more: action.payload,
+          ...userState.mutationStatus,
+          deleteUserStatus: {
+            ...userState.deleteUserStatus,
+            loading: false,
+            error: action.payload,
+            success: false,
+          },
         },
       };
     default:
