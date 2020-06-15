@@ -29,8 +29,8 @@ const Users = ({
 }) => {
   useEffect(() => {
     // onInit:
-    getUsers({ sortBy });
-  }, [getUsers, sortBy]);
+    getUsers({ sortBy, searchBy: searchKeyword });
+  }, [getUsers, sortBy, searchKeyword]);
 
   const handleSearch = (e, keyword) => {
     console.log("handleSearch: ", { keyword });
@@ -51,7 +51,11 @@ const Users = ({
       }
     >
       <div className="my-3">
-        <SearchInput placeholder="Search user" onChange={handleSearch} />
+        <SearchInput
+          value={searchKeyword}
+          placeholder="Search user"
+          onChange={handleSearch}
+        />
       </div>
       <StatusQueryLoading loading={loading} text="Loading users" />
       <StatusQueryError
@@ -82,7 +86,8 @@ const mapStateToProps = (state) => {
   return {
     loading,
     error,
-    users: getFilteredUsers(data, state.userState.searchKeyword),
+    // users: getFilteredUsers(data, state.userState.searchKeyword), // LOCAL-SEARCH
+    users: data, // SERVER-SEARCH
     searchKeyword: state.userState.searchKeyword,
     sortBy: state.userState.sortBy,
   };

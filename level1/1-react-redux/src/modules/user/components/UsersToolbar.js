@@ -54,9 +54,11 @@ const UsersToolbar = ({ sortBy, onSortValChange }) => {
   // };
   return (
     <div className="d-flex align-items-center">
+      {/* 
       <Button className="ml-2">Import</Button>
       <Button className="ml-2">Export</Button>
       <Button className="ml-2">Delete All</Button>
+       */}
       <Button
         tag={NavLink}
         to={`${path}/create`}

@@ -11,6 +11,8 @@ export const getUsers = async (config) => {
   console.log("fetch::getUsers::", config);
   const params = {};
   if (config.sortBy && config.sortBy !== "default") params.sort = config.sortBy;
+  if (config.searchBy && config.searchBy.length > 0)
+    params.search = config.searchBy;
 
   const response = await axios.get(USER_REST_API, { params });
   console.log("fetch::getUsers:: response:", response);
