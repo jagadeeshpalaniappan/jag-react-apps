@@ -11,6 +11,7 @@ import { apiDeleteUserAction } from "./api/user.deleteUser.action";
 import {
   RESET_USER_MUTATION_STATUS,
   SET_USER_SEARCH_KEYWORD,
+  SET_USER_SORT,
 } from "./user.actionTypes";
 
 // LOCAL-ACTIONS:
@@ -27,10 +28,14 @@ export const setUserSearchKeywordAction = (keyword) => {
   return { type: SET_USER_SEARCH_KEYWORD, payload: keyword };
 };
 
+export const setUserSortAction = (payload) => {
+  return { type: SET_USER_SORT, payload };
+};
+
 // API-ACTIONS:
 
-export const getUsersAction = () => {
-  return apiGetUsersAction();
+export const getUsersAction = (config) => {
+  return apiGetUsersAction(config);
 };
 
 export const getUserAction = (user) => {

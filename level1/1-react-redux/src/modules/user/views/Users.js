@@ -6,6 +6,7 @@ import StatusQueryError from "../../common/components/StatusQueryError";
 import {
   getUsersAction,
   setUserSearchKeywordAction,
+  setUserSortAction,
 } from "../state/user.action";
 
 import UsersList from "../components/UsersList";
@@ -22,12 +23,14 @@ const Users = ({
   error,
   searchKeyword,
   searchUser,
+  sortBy,
+  setSortBy,
   getUsers,
 }) => {
   useEffect(() => {
     // onInit:
-    getUsers();
-  }, [getUsers]);
+    getUsers({ sortBy });
+  }, [getUsers, sortBy]);
 
   const handleSearch = (e, keyword) => {
     console.log("handleSearch: ", { keyword });
@@ -35,9 +38,18 @@ const Users = ({
   };
 
   const handleRetry = () => getUsers();
+  const handleSortChange = (sortVal) => {
+    console.log("handleSortChange:", sortVal);
+    setSortBy(sortVal);
+  };
 
   return (
-    <UserLayout title="Users" actions={<UsersToolbar />}>
+    <UserLayout
+      title="Users"
+      actions={
+        <UsersToolbar sortBy={sortBy} onSortValChange={handleSortChange} />
+      }
+    >
       <div className="my-3">
         <SearchInput placeholder="Search user" onChange={handleSearch} />
       </div>
@@ -72,12 +84,14 @@ const mapStateToProps = (state) => {
     error,
     users: getFilteredUsers(data, state.userState.searchKeyword),
     searchKeyword: state.userState.searchKeyword,
+    sortBy: state.userState.sortBy,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUsers: () => dispatch(getUsersAction()),
+    getUsers: (config) => dispatch(getUsersAction(config)),
     searchUser: (keyword) => dispatch(setUserSearchKeywordAction(keyword)),
+    setSortBy: (keyword) => dispatch(setUserSortAction(keyword)),
   };
 };
 
