@@ -65,9 +65,9 @@ function UserDetails({ user, loading, error, getUser, deleteUser }) {
             </Row>
             <Row>
               <Col md="1">
-                <b>Age:</b>
+                <b>Username:</b>
               </Col>
-              <Col>{user.age}</Col>
+              <Col>{user.username}</Col>
             </Row>
           </Card>
         </>

@@ -77,18 +77,20 @@ function UserForm({ user, status, onSave }) {
           {errors.email && <FormFeedback>{errors.email.message}</FormFeedback>}
         </FormGroup>
         <FormGroup>
-          <label htmlFor="age">Age:</label>
+          <label htmlFor="username">Username:</label>
           <Input
-            type="number"
-            id="age"
-            name="age"
-            placeholder="Age"
-            invalid={!!errors.age}
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            invalid={!!errors.username}
             innerRef={register({
-              required: { value: true, message: "Age is required" },
+              required: { value: true, message: "Username is required" },
             })}
           />
-          {errors.age && <FormFeedback>{errors.age.message}</FormFeedback>}
+          {errors.username && (
+            <FormFeedback>{errors.username.message}</FormFeedback>
+          )}
         </FormGroup>
 
         <div className="d-flex justify-content-end align-items-center my-3">

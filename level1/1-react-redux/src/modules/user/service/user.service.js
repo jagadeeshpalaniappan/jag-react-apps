@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const USER_REST_API = "https://sweet-awg-staging.begin.app/rest/api/v1/users";
+const USER_REST_API = "https://wonder-31s-staging.begin.app/api/v1/any/users";
 
 const covertKeyToId = (item) => ({ ...item, id: item.key });
-const covertKeyToIdArr = (items) => {
-  return items.map(covertKeyToId);
-};
+// const covertKeyToIdArr = (items) => {
+//   return items.map(covertKeyToId);
+// };
 
 export const getUsers = async () => {
   console.log("fetch::getUsers::");
@@ -13,7 +13,7 @@ export const getUsers = async () => {
   const response = await axios.get(USER_REST_API);
   console.log("fetch::getUsers:: response:", response);
 
-  return covertKeyToIdArr(response.data.data.users);
+  return response.data.users.data;
 };
 
 export const getUser = async (user) => {
@@ -21,7 +21,7 @@ export const getUser = async (user) => {
 
   const response = await axios.get(`${USER_REST_API}/${user.id}`);
   console.log("fetch::getUsers:: response:", response);
-  return covertKeyToId(response.data.data.user);
+  return response.data.user;
 };
 
 export const createUser = async (user) => {
@@ -30,12 +30,12 @@ export const createUser = async (user) => {
   const body = {
     name: user.name,
     email: user.email,
-    age: user.age,
+    username: user.username,
   };
   const response = await axios.post(USER_REST_API, body);
 
   console.log("fetch::createUser:: response:", response);
-  return covertKeyToId(response.data.data.user);
+  return response.data.user;
 };
 
 export const updateUser = async (user) => {
@@ -45,14 +45,14 @@ export const updateUser = async (user) => {
   //   id: user.id,
   //   name: user.name,
   //   email: user.email,
-  //   age: user.age,
+  //   username: user.username,
   // };
 
   const body = user;
   const response = await axios.put(`${USER_REST_API}/${user.id}`, body);
 
   console.log("fetch::updateUser:: response:", response);
-  return covertKeyToId(response.data.data.user);
+  return response.data.user;
 };
 
 export const deleteUser = async (user) => {

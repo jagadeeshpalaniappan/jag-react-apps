@@ -26,7 +26,7 @@ export const createUser = async (user) => {
   const body = {
     name: user.name,
     email: user.email,
-    age: user.age,
+    username: user.username,
   };
   const response = await axios.post(USER_REST_API, body);
 
@@ -41,7 +41,7 @@ export const updateUser = async (user) => {
   //   id: user.id,
   //   name: user.name,
   //   email: user.email,
-  //   age: user.age,
+  //   username: user.username,
   // };
 
   const body = user;
