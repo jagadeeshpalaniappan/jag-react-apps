@@ -30,8 +30,6 @@ const Users = ({
   let query = useQueryParam();
   const sortBy = query.get("sortBy");
   const pageSize = query.get("pageSize");
-  const filterRole = query.get("filter.role");
-  console.log({ filterRole });
 
   useEffect(() => {
     // onInit:
@@ -39,8 +37,9 @@ const Users = ({
       sortBy,
       pageSize,
       searchBy: searchKeyword,
+      filters,
     });
-  }, [getUsers, sortBy, pageSize, searchKeyword]);
+  }, [getUsers, sortBy, pageSize, searchKeyword, filters]);
 
   const handleSearch = (e, keyword) => {
     console.log("handleSearch: ", { keyword });

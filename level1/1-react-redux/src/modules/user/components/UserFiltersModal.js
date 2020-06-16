@@ -25,7 +25,7 @@ const UserFiltersModal = ({ filters, onOk, onCancel, ...rest }) => {
   // const [switchOn, setSwitchOn] = useState(false);
   console.log("UserFiltersModal:", { filters });
   const { register, handleSubmit, reset } = useForm({
-    defaultValues: filters,
+    defaultValues: filters || {},
   });
   const onSubmit = (data) => {
     console.log("FORM-VALUES:", { data });

@@ -38,7 +38,7 @@ const initialUserState = {
   },
   searchKeyword: "",
   sortBy: "default",
-  filters: {},
+  filters: null,
 };
 
 export const userReducer = (userState = initialUserState, action) => {

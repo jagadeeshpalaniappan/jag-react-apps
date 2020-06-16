@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const USER_REST_API = "https://wonder-31s-staging.begin.app/api/v1/any/users";
+// const USER_REST_API = "http://localhost:3333/api/v1/any/users";
 
 // const covertKeyToId = (item) => ({ ...item, id: item.key });
 // const covertKeyToIdArr = (items) => {
@@ -15,7 +16,6 @@ export const getUsers = async (config) => {
   if (config.pageSize) params.pageSize = config.pageSize.slice(0, 1);
   // TODO: remove slice :)
   else params.pageSize = "10"; // default
-
   if (config.pageBefore) params.pageBefore = config.pageBefore;
   if (config.pageAfter) params.pageAfter = config.pageAfter;
 
@@ -23,6 +23,9 @@ export const getUsers = async (config) => {
   if (config.sortBy && config.sortBy !== "default") params.sort = config.sortBy;
   if (config.searchBy && config.searchBy.length > 0)
     params.search = config.searchBy;
+
+  // FILTER:
+  if (config.filters) params.filters = config.filters;
 
   const response = await axios.get(USER_REST_API, { params });
   console.log("fetch::getUsers:: response:", response);
