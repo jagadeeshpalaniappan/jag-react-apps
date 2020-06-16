@@ -1,8 +1,10 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { AppModal, AppCard } from "../../common/components";
-import { Button, Form, ButtonGroup } from "reactstrap";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Button, Form, Input } from "reactstrap";
+import { AppCard, AppModal } from "../../common/components";
 
+/* 
 const ToggleSwitch = ({ checked, onChange }) => {
   return (
     <div className="custom-control custom-switch">
@@ -18,53 +20,106 @@ const ToggleSwitch = ({ checked, onChange }) => {
     </div>
   );
 };
+ */
+const UserFiltersModal = ({ filters, onOk, onCancel, ...rest }) => {
+  // const [switchOn, setSwitchOn] = useState(false);
+  console.log("UserFiltersModal:", { filters });
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: filters,
+  });
+  const onSubmit = (data) => {
+    console.log("FORM-VALUES:", { data });
+    // onSave(data);
+    onOk(data);
+  };
 
-const UserFiltersModal = ({ item, onOk, onCancel, ...rest }) => {
-  const [switchOn, setSwitchOn] = useState(false);
+  useEffect(() => {
+    console.log("useEffect", { filters });
+    reset(filters);
+  }, [reset, filters]);
+
   return (
     <AppModal toggle={onCancel} {...rest}>
       <AppCard>
         <h5>User Filter</h5>
-        <div>
-          <div className="d-flex align-items-center my-3">
-            <div className="flex-grow-1">Filter1</div>
-            <div className="">
-              <select className="custom-select custom-select-sm">
-                <option value="0">Default</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <div className="d-flex align-items-center my-3">
+              <div className="flex-grow-1">Role:</div>
+              <div className="">
+                <Input
+                  type="select"
+                  name="role"
+                  bsSize="sm"
+                  innerRef={register()}
+                >
+                  <option value="all">All</option>
+                  <option value="admin">Admin</option>
+                  <option value="dev">Devloper</option>
+                  <option value="manager">Manager</option>
+                </Input>
+              </div>
             </div>
-          </div>
-          <div className="d-flex align-items-center my-3">
-            <div className="flex-grow-1">Filter2</div>
-            <div className="">
-              <ToggleSwitch
-                checked={switchOn}
-                onChange={() => {
-                  setSwitchOn(!switchOn);
-                  console.log({ switchOn });
-                }}
-              />
+            <div className="d-flex align-items-center my-3">
+              <div className="flex-grow-1">Active Status:</div>
+              <div className="">
+                <Input
+                  type="select"
+                  name="activeStatus"
+                  bsSize="sm"
+                  innerRef={register()}
+                >
+                  <option value="all" defaultChecked>
+                    All
+                  </option>
+                  <option value="active">Active Users</option>
+                  <option value="inactive">InActive Users</option>
+                </Input>
+              </div>
             </div>
-          </div>
-          <div className="d-flex align-items-center my-3">
-            <div className="flex-grow-1">Filter3</div>
-            <div className="">
-              <ButtonGroup size="sm">
-                <Button>Left</Button>
-                <Button active>Right</Button>
-              </ButtonGroup>
+            <div className="d-flex align-items-center my-3">
+              <div className="flex-grow-1">Gender:</div>
+              <div className="">
+                <Input
+                  type="select"
+                  name="sex"
+                  bsSize="sm"
+                  innerRef={register()}
+                >
+                  <option value="all" defaultChecked>
+                    All
+                  </option>
+                  <option value="male">Male Users</option>
+                  <option value="female">Female Users</option>
+                </Input>
+              </div>
             </div>
+            {/* 
+            <div className="d-flex align-items-center my-3">
+              <div className="flex-grow-1">Filter2</div>
+              <div className="">
+                <ToggleSwitch
+                  checked={switchOn}
+                  onChange={() => {
+                    setSwitchOn(!switchOn);
+                    console.log({ switchOn });
+                  }}
+                />
+              </div>
+            </div>
+             */}
+            {/* 
+            <div className="d-flex align-items-center my-3">
+              <div className="flex-grow-1">Filter3</div>
+              <div className="">
+                <ButtonGroup size="sm">
+                  <Button>Left</Button>
+                  <Button active>Right</Button>
+                </ButtonGroup>
+              </div>
+            </div>
+             */}
           </div>
-        </div>
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault();
-            onOk(e, item);
-          }}
-        >
           <div className="d-flex justify-content-end">
             <Button
               type="button"

@@ -11,6 +11,7 @@ import UserLayout from "../layout/UserLayout";
 import {
   getUsersAction,
   setUserSearchKeywordAction,
+  setUserFiltersAction,
 } from "../state/user.action";
 
 // const users = [{ id: 101, name: "Jag1" }];
@@ -21,8 +22,9 @@ const Users = ({
   error,
   page,
   searchKeyword,
+  filters,
   searchUser,
-  setSortBy,
+  setFilters,
   getUsers,
 }) => {
   let query = useQueryParam();
@@ -72,8 +74,16 @@ const Users = ({
     });
   };
 
+  const handleFilter = (newFilters) => {
+    console.log("newFilters", newFilters);
+    setFilters(newFilters);
+  };
+
   return (
-    <UserLayout title="Users" actions={<UsersToolbar />}>
+    <UserLayout
+      title="Users"
+      actions={<UsersToolbar filters={filters} onFilter={handleFilter} />}
+    >
       <div className="my-3">
         <SearchInput
           value={searchKeyword}
@@ -122,12 +132,14 @@ const mapStateToProps = (state) => {
     users, // SERVER-SEARCH
     page,
     searchKeyword: state.userState.searchKeyword,
+    filters: state.userState.filters,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     getUsers: (config) => dispatch(getUsersAction(config)),
     searchUser: (keyword) => dispatch(setUserSearchKeywordAction(keyword)),
+    setFilters: (filters) => dispatch(setUserFiltersAction(filters)),
   };
 };
 

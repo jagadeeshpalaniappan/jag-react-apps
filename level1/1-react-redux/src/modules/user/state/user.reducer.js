@@ -16,7 +16,7 @@ import {
   API_UPDATE_USER_SUCCESS,
   RESET_USER_MUTATION_STATUS,
   SET_USER_SEARCH_KEYWORD,
-  SET_USER_SORT,
+  SET_USER_FILTERS,
 } from "./user.actionTypes";
 
 // REDUCER:
@@ -38,6 +38,7 @@ const initialUserState = {
   },
   searchKeyword: "",
   sortBy: "default",
+  filters: {},
 };
 
 export const userReducer = (userState = initialUserState, action) => {
@@ -52,10 +53,10 @@ export const userReducer = (userState = initialUserState, action) => {
         ...userState,
         searchKeyword: action.payload,
       };
-    case SET_USER_SORT:
+    case SET_USER_FILTERS:
       return {
         ...userState,
-        sortBy: action.payload,
+        filters: action.payload,
       };
     case API_GET_USERS_START:
       return {

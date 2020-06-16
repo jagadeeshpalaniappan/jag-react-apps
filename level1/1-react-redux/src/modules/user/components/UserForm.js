@@ -27,20 +27,6 @@ function UserForm({ user, status, onSave }) {
       <Form onSubmit={handleSubmit(onSubmit)}>
         {/* <pre> {JSON.stringify(errors)} </pre> */}
 
-        {/* {user && user.id && (
-          <FormGroup>
-            <label htmlFor="userId">ID:</label>
-            <Input
-              type="text"
-              id="userId"
-              name="id"
-              value={formVal.id || ""}
-              disabled
-            />
-          </FormGroup>
-        )}
-         */}
-
         <FormGroup>
           <label htmlFor="name">Name:</label>
           <Input

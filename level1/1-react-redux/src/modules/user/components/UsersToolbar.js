@@ -97,12 +97,12 @@ const PageSize = () => {
   );
 };
 
-const UsersToolbar = () => {
+const UsersToolbar = ({ filters, onFilter }) => {
   let { path } = useRouteMatch();
   const [filterModalOpened, setFilterModalOpened] = useState(false);
   const openFilterModal = () => setFilterModalOpened(true);
   const closeFilterModal = () => setFilterModalOpened(false);
-  const onFilter = () => console.log("onFilter");
+
   return (
     <div className="d-flex align-items-center">
       {/* 
@@ -126,11 +126,12 @@ const UsersToolbar = () => {
       <SortBy />
 
       <UserFiltersModal
-        item={null}
+        filters={filters}
         isOpen={filterModalOpened}
-        onOk={() => {
+        onOk={(newFilters) => {
+          console.log("UserFiltersModal:onOk", { newFilters });
           closeFilterModal();
-          onFilter();
+          onFilter(newFilters);
         }}
         onCancel={closeFilterModal}
       />
