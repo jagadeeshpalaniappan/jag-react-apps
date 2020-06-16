@@ -29,8 +29,8 @@ const UserFiltersModal = ({ item, onOk, onCancel, ...rest }) => {
           <div className="d-flex align-items-center my-3">
             <div className="flex-grow-1">Filter1</div>
             <div className="">
-              <select class="custom-select custom-select-sm">
-                <option selected>Default</option>
+              <select className="custom-select custom-select-sm">
+                <option value="0">Default</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>

@@ -18,7 +18,7 @@ const UserListPagination = ({ page, onPrevPage, onNextPage }) => {
 };
 
 UserListPagination.propTypes = {
-  page: PropTypes.object.isRequired,
+  page: PropTypes.object,
   onPrevPage: PropTypes.func.isRequired,
   onNextPage: PropTypes.func.isRequired,
 };

@@ -12,7 +12,10 @@ export const getUsers = async (config) => {
   const params = {};
 
   // PAGINATION:
-  if (config.pageSize) params.pageSize = config.pageSize.slice(0, 1); // TODO: remove slice :)
+  if (config.pageSize) params.pageSize = config.pageSize.slice(0, 1);
+  // TODO: remove slice :)
+  else params.pageSize = "10"; // default
+
   if (config.pageBefore) params.pageBefore = config.pageBefore;
   if (config.pageAfter) params.pageAfter = config.pageAfter;
 

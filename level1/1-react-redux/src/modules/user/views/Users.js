@@ -12,7 +12,6 @@ import {
   getUsersAction,
   setUserSearchKeywordAction,
 } from "../state/user.action";
-import UserListPagination from "../components/UserListPagination";
 
 // const users = [{ id: 101, name: "Jag1" }];
 
@@ -31,14 +30,26 @@ const Users = ({
   const pageSize = query.get("pageSize");
   useEffect(() => {
     // onInit:
-    getUsers({ sortBy, pageSize, searchBy: searchKeyword });
+    getUsers({
+      sortBy,
+      pageSize,
+      searchBy: searchKeyword,
+    });
   }, [getUsers, sortBy, pageSize, searchKeyword]);
 
   const handleSearch = (e, keyword) => {
     console.log("handleSearch: ", { keyword });
     searchUser(keyword);
   };
-  const handleRetry = () => getUsers();
+  const handleRetry = () => {
+    getUsers({
+      sortBy,
+      pageSize,
+      pageBefore: page.before,
+      pageAfter: page.after,
+      searchBy: searchKeyword,
+    });
+  };
 
   // PAGINATION:
   const getPrevPageUsers = () => {
@@ -75,11 +86,6 @@ const Users = ({
       />
       <UsersList
         users={users}
-        onPrevPage={getPrevPageUsers}
-        onNextPage={getNextPageUsers}
-      />
-
-      <UserListPagination
         page={page}
         onPrevPage={getPrevPageUsers}
         onNextPage={getNextPageUsers}
@@ -89,7 +95,7 @@ const Users = ({
 };
 
 Users.propTypes = {
-  users: PropTypes.array.isRequired,
+  users: PropTypes.array,
   getUsers: PropTypes.func.isRequired,
 };
 
