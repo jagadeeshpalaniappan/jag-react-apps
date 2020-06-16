@@ -45,8 +45,8 @@ const Users = ({
     getUsers({
       sortBy,
       pageSize,
-      pageBefore: page.before,
-      pageAfter: page.after,
+      pageBefore: page && page.before,
+      pageAfter: page && page.after,
       searchBy: searchKeyword,
     });
   };
