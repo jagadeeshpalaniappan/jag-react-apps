@@ -1,19 +1,18 @@
-import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import StatusQueryLoading from "../../common/components/StatusQueryLoading";
+import SearchInput from "../../common/components/SearchInput";
 import StatusQueryError from "../../common/components/StatusQueryError";
-import {
-  getUsersAction,
-  setUserSearchKeywordAction,
-  setUserSortAction,
-} from "../state/user.action";
-
+import StatusQueryLoading from "../../common/components/StatusQueryLoading";
+import { useQueryParam } from "../../common/hooks";
 import UsersList from "../components/UsersList";
 import UsersToolbar from "../components/UsersToolbar";
 import UserLayout from "../layout/UserLayout";
-import SearchInput from "../../common/components/SearchInput";
-import { filterItemsByVal } from "../../common/utils/search.utils";
+import {
+  getUsersAction,
+  setUserSearchKeywordAction,
+} from "../state/user.action";
+import UserListPagination from "../components/UserListPagination";
 
 // const users = [{ id: 101, name: "Jag1" }];
 
@@ -21,35 +20,46 @@ const Users = ({
   users,
   loading,
   error,
+  page,
   searchKeyword,
   searchUser,
-  sortBy,
   setSortBy,
   getUsers,
 }) => {
+  let query = useQueryParam();
+  const sortBy = query.get("sortBy");
+  const pageSize = query.get("pageSize");
   useEffect(() => {
     // onInit:
-    getUsers({ sortBy, searchBy: searchKeyword });
-  }, [getUsers, sortBy, searchKeyword]);
+    getUsers({ sortBy, pageSize, searchBy: searchKeyword });
+  }, [getUsers, sortBy, pageSize, searchKeyword]);
 
   const handleSearch = (e, keyword) => {
     console.log("handleSearch: ", { keyword });
     searchUser(keyword);
   };
-
   const handleRetry = () => getUsers();
-  const handleSortChange = (sortVal) => {
-    console.log("handleSortChange:", sortVal);
-    setSortBy(sortVal);
+
+  // PAGINATION:
+  const getPrevPageUsers = () => {
+    getUsers({
+      sortBy,
+      pageSize,
+      pageBefore: page.before,
+      searchBy: searchKeyword,
+    });
+  };
+  const getNextPageUsers = () => {
+    getUsers({
+      sortBy,
+      pageSize,
+      pageAfter: page.after,
+      searchBy: searchKeyword,
+    });
   };
 
   return (
-    <UserLayout
-      title="Users"
-      actions={
-        <UsersToolbar sortBy={sortBy} onSortValChange={handleSortChange} />
-      }
-    >
+    <UserLayout title="Users" actions={<UsersToolbar />}>
       <div className="my-3">
         <SearchInput
           value={searchKeyword}
@@ -63,7 +73,17 @@ const Users = ({
         text="Error while getting users"
         onRetry={handleRetry}
       />
-      <UsersList users={users} />
+      <UsersList
+        users={users}
+        onPrevPage={getPrevPageUsers}
+        onNextPage={getNextPageUsers}
+      />
+
+      <UserListPagination
+        page={page}
+        onPrevPage={getPrevPageUsers}
+        onNextPage={getNextPageUsers}
+      />
     </UserLayout>
   );
 };
@@ -73,30 +93,32 @@ Users.propTypes = {
   getUsers: PropTypes.func.isRequired,
 };
 
+/*
 const getFilteredUsers = (users, keyword) => {
   console.log("getFilteredUsers:", { users, keyword });
   const filteredUsers = filterItemsByVal(users, keyword);
   console.log("getFilteredUsers: after", { filteredUsers, keyword });
   return filteredUsers;
 };
+*/
 
 const mapStateToProps = (state) => {
   console.log(state);
   const { loading, error, data } = state.userState.users;
+  const { data: users, page } = data;
   return {
     loading,
     error,
     // users: getFilteredUsers(data, state.userState.searchKeyword), // LOCAL-SEARCH
-    users: data, // SERVER-SEARCH
+    users, // SERVER-SEARCH
+    page,
     searchKeyword: state.userState.searchKeyword,
-    sortBy: state.userState.sortBy,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     getUsers: (config) => dispatch(getUsersAction(config)),
     searchUser: (keyword) => dispatch(setUserSearchKeywordAction(keyword)),
-    setSortBy: (keyword) => dispatch(setUserSortAction(keyword)),
   };
 };
 

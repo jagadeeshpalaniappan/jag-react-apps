@@ -4,7 +4,7 @@ import { AppModal, AppCard } from "../../common/components";
 
 import { Button, Form } from "reactstrap";
 
-export const UserDeleteModal = ({ item, onOk, onCancel, ...rest }) => {
+const UserDeleteModal = ({ item, onOk, onCancel, ...rest }) => {
   return (
     <AppModal toggle={onCancel} {...rest}>
       <AppCard>

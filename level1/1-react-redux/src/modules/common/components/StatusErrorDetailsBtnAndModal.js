@@ -36,7 +36,7 @@ function ErrorDetailsModal({ triggerText, item }) {
 
 ErrorDetailsModal.propTypes = {
   triggerText: PropTypes.string.isRequired,
-  item: PropTypes.object,
+  item: PropTypes.any,
 };
 
 export default ErrorDetailsModal;
