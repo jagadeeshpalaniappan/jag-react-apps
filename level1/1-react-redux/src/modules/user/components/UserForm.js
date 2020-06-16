@@ -2,14 +2,21 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
-import { Button, Form, FormFeedback, FormGroup, Input } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormFeedback,
+  FormGroup,
+  Input,
+  Label,
+} from "reactstrap";
 import { STATUS_TYPES } from "../../common/constants";
 
 function UserForm({ user, status, onSave }) {
   console.log("UserFormContainer:", { user });
   const { register, handleSubmit, errors } = useForm({ defaultValues: user });
   const onSubmit = (data) => {
-    console.log({ data, errors });
+    console.log("FORM-VALUES:", { data, errors });
     onSave(data);
   };
 
@@ -91,6 +98,62 @@ function UserForm({ user, status, onSave }) {
           {errors.username && (
             <FormFeedback>{errors.username.message}</FormFeedback>
           )}
+        </FormGroup>
+
+        <FormGroup>
+          <label htmlFor="sexGroup">Sex:</label>
+          <FormGroup check>
+            <Label check className="pr-5">
+              <Input
+                type="radio"
+                name="sex"
+                value="male"
+                defaultChecked
+                innerRef={register()}
+              />{" "}
+              Male
+            </Label>
+
+            <Label check>
+              <Input
+                type="radio"
+                name="sex"
+                value="female"
+                innerRef={register()}
+              />{" "}
+              Female
+            </Label>
+          </FormGroup>
+        </FormGroup>
+
+        <FormGroup>
+          <Label for="exampleSelect">Role</Label>
+          <Input
+            type="select"
+            name="role"
+            id="exampleSelect"
+            invalid={!!errors.role}
+            innerRef={register({
+              required: { value: true, message: "Role is required" },
+            })}
+          >
+            <option value="admin">Admin</option>
+            <option value="dev">Devloper</option>
+            <option value="manager">Manager</option>
+          </Input>
+          {errors.role && <FormFeedback>{errors.role.message}</FormFeedback>}
+        </FormGroup>
+
+        <FormGroup check>
+          <Label check>
+            <Input
+              type="checkbox"
+              name="isActive"
+              innerRef={register()}
+              defaultChecked
+            />
+            Active
+          </Label>
         </FormGroup>
 
         <div className="d-flex justify-content-end align-items-center my-3">

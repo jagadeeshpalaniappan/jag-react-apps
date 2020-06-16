@@ -3,6 +3,14 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Card, Col, Row } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormFeedback,
+  FormGroup,
+  Input,
+  Label,
+} from "reactstrap";
 import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import UserDetailsToolbar from "../components/UserDetailsToolbar";
@@ -45,30 +53,34 @@ function UserDetails({ user, loading, error, getUser, deleteUser }) {
           {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
 
           <Card body>
-            <Row>
-              <Col md="1">
-                <b>Name:</b>
-              </Col>
-              <Col>{user.name}</Col>
-            </Row>
-            <Row>
-              <Col md="1">
-                <b>Email:</b>
-              </Col>
-              <Col>{user.email}</Col>
-            </Row>
-            <Row>
-              <Col md="1">
-                <b>ID:</b>
-              </Col>
-              <Col>{user.id}</Col>
-            </Row>
-            <Row>
-              <Col md="1">
-                <b>Username:</b>
-              </Col>
-              <Col>{user.username}</Col>
-            </Row>
+            <div>
+              <label>ID:</label>
+              <legend>{user.id}</legend>
+            </div>
+            <div>
+              <label>Name:</label>
+              <legend>{user.name}</legend>
+            </div>
+            <div>
+              <label>Email:</label>
+              <legend>{user.email}</legend>
+            </div>
+            <div>
+              <label>Username:</label>
+              <legend>{user.username}</legend>
+            </div>
+            <div>
+              <label>Sex:</label>
+              <legend>{user.sex}</legend>
+            </div>
+            <div>
+              <label>Role:</label>
+              <legend>{user.role}</legend>
+            </div>
+            <div>
+              <label>Active:</label>
+              <legend>{user.isActive ? "Yes" : "No"}</legend>
+            </div>
           </Card>
         </>
       )}

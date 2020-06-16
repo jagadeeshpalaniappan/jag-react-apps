@@ -45,6 +45,9 @@ export const createUser = async (user) => {
     name: user.name,
     email: user.email,
     username: user.username,
+    sex: user.sex,
+    role: user.role,
+    isActive: user.isActive,
   };
   const response = await axios.post(USER_REST_API, body);
 

@@ -28,6 +28,9 @@ const Users = ({
   let query = useQueryParam();
   const sortBy = query.get("sortBy");
   const pageSize = query.get("pageSize");
+  const filterRole = query.get("filter.role");
+  console.log({ filterRole });
+
   useEffect(() => {
     // onInit:
     getUsers({
