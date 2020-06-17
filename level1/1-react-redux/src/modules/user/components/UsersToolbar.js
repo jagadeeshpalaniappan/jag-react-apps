@@ -8,6 +8,7 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
+import { FaUserPlus, FaFilter } from "react-icons/fa";
 import { useQueryParam } from "../../common/hooks";
 import UserFiltersModal from "./UserFiltersModal";
 
@@ -25,7 +26,7 @@ const SortBy = () => {
   return (
     <Dropdown isOpen={dropdownOpen} toggle={toggle}>
       <DropdownToggle caret className="ml-2">
-        Sort By
+        Sort by
       </DropdownToggle>
       <DropdownMenu right>
         <DropdownItem
@@ -71,7 +72,7 @@ const PageSize = () => {
   return (
     <Dropdown isOpen={dropdownOpen} toggle={toggle}>
       <DropdownToggle caret className="ml-2">
-        Page Size
+        Page size
       </DropdownToggle>
       <DropdownMenu right>
         <DropdownItem
@@ -115,12 +116,20 @@ const UsersToolbar = ({ filters, onFilter }) => {
         to={`${path}/create`}
         color="primary"
         className="ml-2"
+        prefix={FaUserPlus}
         exact
       >
-        Add User
+        <div className="d-flex align-items-center">
+          <FaUserPlus className="mr-2" />
+          <span>Add user</span>
+        </div>
       </Button>
       <Button className="ml-2" onClick={openFilterModal}>
-        Filters
+        <div className="d-flex align-items-center">
+          <FaFilter className="mr-1" />
+          {filters ? `(${filters.length})` : ""}
+          <span className="ml-1">Filters</span>
+        </div>
       </Button>
       <PageSize />
       <SortBy />

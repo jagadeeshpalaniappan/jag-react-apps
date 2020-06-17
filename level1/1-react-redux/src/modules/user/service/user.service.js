@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const USER_REST_API = "https://wonder-31s-staging.begin.app/api/v1/any/users";
-// const USER_REST_API = "http://localhost:3333/api/v1/any/users";
+// const USER_REST_API = "https://wonder-31s-staging.begin.app/api/v1/any/users";
+const USER_REST_API = "http://localhost:3333/api/v1/any/users";
 
 // const covertKeyToId = (item) => ({ ...item, id: item.key });
 // const covertKeyToIdArr = (items) => {
@@ -25,7 +25,15 @@ export const getUsers = async (config) => {
     params.search = config.searchBy;
 
   // FILTER:
-  if (config.filters) params.filters = config.filters;
+  if (config.filters) {
+    const filters = config.filters.map((filter) => {
+      if (filter.key === "isActive") {
+        filter.value = filter.value === "active";
+      }
+      return filter;
+    });
+    params.filters = JSON.stringify(filters);
+  }
 
   const response = await axios.get(USER_REST_API, { params });
   console.log("fetch::getUsers:: response:", response);

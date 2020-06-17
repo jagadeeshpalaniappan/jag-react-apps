@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Form, Input } from "reactstrap";
+
 import { AppCard, AppModal } from "../../common/components";
 
 /* 
@@ -21,27 +22,59 @@ const ToggleSwitch = ({ checked, onChange }) => {
   );
 };
  */
+
+const mapToArr = (map, skipValues) => {
+  let items = [];
+  if (map) {
+    const keys = Object.keys(map);
+    for (let i = 0, len = keys.length; i < len; i++) {
+      const key = keys[i];
+      const value = map[key];
+      if (!(skipValues && skipValues.has(value))) {
+        items.push({ key, value });
+      }
+    }
+  }
+  return items && items.length > 0 ? items : null;
+};
+
+const arrToMap = (arr, skipValues) => {
+  let itemsMap = [];
+  if (arr) {
+    for (let i = 0, len = arr.length; i < len; i++) {
+      const { key, value } = arr[i];
+      if (!(skipValues && skipValues.has(value))) {
+        itemsMap[key] = value;
+      }
+    }
+  }
+  return itemsMap && Object.keys(itemsMap).length > 0 ? itemsMap : null;
+};
+
 const UserFiltersModal = ({ filters, onOk, onCancel, ...rest }) => {
   // const [switchOn, setSwitchOn] = useState(false);
   console.log("UserFiltersModal:", { filters });
+
   const { register, handleSubmit, reset } = useForm({
-    defaultValues: filters || {},
+    defaultValues: {},
   });
   const onSubmit = (data) => {
     console.log("FORM-VALUES:", { data });
     // onSave(data);
-    onOk(data);
+    const filtersArr = mapToArr(data, new Set(["all"]));
+    onOk(filtersArr);
   };
 
   useEffect(() => {
     console.log("useEffect", { filters });
-    reset(filters);
+    const filtersMap = arrToMap(filters);
+    reset(filtersMap);
   }, [reset, filters]);
 
   return (
     <AppModal toggle={onCancel} {...rest}>
       <AppCard>
-        <h5>User Filter</h5>
+        <legend>User Filter</legend>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div className="d-flex align-items-center my-3">
@@ -52,6 +85,7 @@ const UserFiltersModal = ({ filters, onOk, onCancel, ...rest }) => {
                   name="role"
                   bsSize="sm"
                   innerRef={register()}
+                  style={{ width: "10rem" }}
                 >
                   <option value="all">All</option>
                   <option value="admin">Admin</option>
@@ -65,9 +99,10 @@ const UserFiltersModal = ({ filters, onOk, onCancel, ...rest }) => {
               <div className="">
                 <Input
                   type="select"
-                  name="activeStatus"
+                  name="isActive"
                   bsSize="sm"
                   innerRef={register()}
+                  style={{ width: "10rem" }}
                 >
                   <option value="all" defaultChecked>
                     All
@@ -85,6 +120,7 @@ const UserFiltersModal = ({ filters, onOk, onCancel, ...rest }) => {
                   name="sex"
                   bsSize="sm"
                   innerRef={register()}
+                  style={{ width: "10rem" }}
                 >
                   <option value="all" defaultChecked>
                     All
@@ -128,6 +164,14 @@ const UserFiltersModal = ({ filters, onOk, onCancel, ...rest }) => {
               onClick={onCancel}
             >
               Cancel
+            </Button>
+            <Button
+              type="button"
+              color="secondary"
+              className="mr-2"
+              onClick={() => reset({})}
+            >
+              Reset All
             </Button>
             <Button type="submit" color="primary">
               Apply Filter
