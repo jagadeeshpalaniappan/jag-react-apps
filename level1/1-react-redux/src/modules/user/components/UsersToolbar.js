@@ -48,10 +48,10 @@ const SortBy = () => {
           Username
         </DropdownItem>
         <DropdownItem
-          active={sortBy === "created"}
-          onClick={() => handleChange("created")}
+          active={sortBy === "updatedTs"}
+          onClick={() => handleChange("updatedTs")}
         >
-          Created
+          Updated
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>
