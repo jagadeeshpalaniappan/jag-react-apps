@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const USER_REST_API = "https://wonder-31s-staging.begin.app/api/v1/any/users";
-const USER_REST_API = "https://jag-rest-api.vercel.app/demo/v1/api/users";
+const USER_REST_API = "https://jag-rest-api.vercel.app/demo/rest/v1/api/users";
 // const USER_REST_API = "/demo/v1/api/users"; // LOCAL
 
 // const covertKeyToId = (item) => ({ ...item, id: item.key });
