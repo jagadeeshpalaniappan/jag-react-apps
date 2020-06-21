@@ -24,4 +24,4 @@ UserListPagination.propTypes = {
   onNextPage: PropTypes.func.isRequired,
 };
 
-export default UserListPagination;
+export default React.memo(UserListPagination);

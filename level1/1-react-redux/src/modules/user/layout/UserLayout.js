@@ -3,6 +3,7 @@ import React from "react";
 import UserStatusBar from "../container/UserStatusBar";
 
 const UserLayout = ({ children, title, actions }) => {
+  console.log("### UserLayout:");
   return (
     <div className="container-fluid">
       <UserStatusBar />
@@ -21,4 +22,4 @@ UserLayout.propTypes = {
   title: PropTypes.string,
 };
 
-export default UserLayout;
+export default React.memo(UserLayout);

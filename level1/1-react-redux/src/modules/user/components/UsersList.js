@@ -32,4 +32,4 @@ UserList.propTypes = {
   users: PropTypes.array,
 };
 
-export default UserList;
+export default React.memo(UserList);

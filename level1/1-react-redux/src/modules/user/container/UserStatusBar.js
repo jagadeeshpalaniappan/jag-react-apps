@@ -81,4 +81,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserStatusBar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(UserStatusBar));

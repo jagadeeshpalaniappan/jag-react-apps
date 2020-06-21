@@ -29,4 +29,4 @@ const UserListItem = ({ item, ...rest }) => {
   );
 };
 
-export default UserListItem;
+export default React.memo(UserListItem);

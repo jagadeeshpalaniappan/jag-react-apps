@@ -70,4 +70,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditUser);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(EditUser));

@@ -172,4 +172,4 @@ UserForm.propTypes = {
   onSave: PropTypes.func.isRequired,
 };
 
-export default UserForm;
+export default React.memo(UserForm);

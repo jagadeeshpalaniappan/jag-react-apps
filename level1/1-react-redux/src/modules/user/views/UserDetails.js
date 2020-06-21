@@ -102,4 +102,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(UserDetails));
