@@ -17,11 +17,13 @@ const UserList = ({ users, pagination, onPrevPage, onNextPage }) => {
             ))}
           </List>
 
-          <UserListPagination
-            pagination={pagination}
-            onPrevPage={onPrevPage}
-            onNextPage={onNextPage}
-          />
+          {pagination && (
+            <UserListPagination
+              pagination={pagination}
+              onPrevPage={onPrevPage}
+              onNextPage={onNextPage}
+            />
+          )}
         </>
       )}
     </div>

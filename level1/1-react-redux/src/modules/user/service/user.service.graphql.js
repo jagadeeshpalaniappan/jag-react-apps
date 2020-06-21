@@ -81,6 +81,7 @@ export const getUser = async (user) => {
         phone
         sex
         role
+        isActive
         posts {
           id
           title
@@ -101,7 +102,8 @@ export const getUser = async (user) => {
   const response = await client.request(query, variables);
 
   console.log("fetch::getUsers:: response:", response);
-  return response.user;
+  const { posts, todos, ...userOnly } = response.user;
+  return { user: userOnly, posts, todos };
 };
 
 export const createUser = async (user) => {

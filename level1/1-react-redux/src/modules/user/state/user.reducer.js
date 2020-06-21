@@ -14,6 +14,12 @@ import {
   API_UPDATE_USER_FAILURE,
   API_UPDATE_USER_START,
   API_UPDATE_USER_SUCCESS,
+  API_GET_USER_POSTS_START,
+  API_GET_USER_POSTS_SUCCESS,
+  API_GET_USER_POSTS_FAILURE,
+  API_GET_USER_TODOS_START,
+  API_GET_USER_TODOS_SUCCESS,
+  API_GET_USER_TODOS_FAILURE,
   RESET_USER_MUTATION_STATUS,
   SET_USER_SEARCH_KEYWORD,
   SET_USER_FILTERS,
@@ -33,6 +39,16 @@ const initialUserState = {
   },
   user: {
     data: {},
+    loading: false,
+    error: null,
+  },
+  userPosts: {
+    data: [],
+    loading: false,
+    error: null,
+  },
+  userTodos: {
+    data: [],
     loading: false,
     error: null,
   },
@@ -102,10 +118,22 @@ export const userReducer = (userState = initialUserState, action) => {
         ...userState,
         user: {
           ...userState.user,
-          data: action.payload,
+          data: action.payload.user,
           loading: false,
           error: null,
         },
+        // userPosts: {
+        //   ...userState.userPosts,
+        //   data: action.payload.posts,
+        //   loading: false,
+        //   error: null,
+        // },
+        // userTodos: {
+        //   ...userState.userTodos,
+        //   data: action.payload.todos,
+        //   loading: false,
+        //   error: null,
+        // },
       };
     case API_GET_USER_FAILURE:
       return {
@@ -231,6 +259,64 @@ export const userReducer = (userState = initialUserState, action) => {
             error: action.payload,
             success: false,
           },
+        },
+      };
+    case API_GET_USER_POSTS_START:
+      return {
+        ...userState,
+        userPosts: {
+          ...userState.userPosts,
+          data: [],
+          loading: true,
+          error: null,
+        },
+      };
+    case API_GET_USER_POSTS_SUCCESS:
+      return {
+        ...userState,
+        userPosts: {
+          ...userState.userPosts,
+          data: action.payload.posts,
+          loading: false,
+          error: null,
+        },
+      };
+    case API_GET_USER_POSTS_FAILURE:
+      return {
+        ...userState,
+        userPosts: {
+          ...userState.userPosts,
+          loading: false,
+          error: action.payload.error,
+        },
+      };
+    case API_GET_USER_TODOS_START:
+      return {
+        ...userState,
+        userTodos: {
+          ...userState.userTodos,
+          data: [],
+          loading: true,
+          error: null,
+        },
+      };
+    case API_GET_USER_TODOS_SUCCESS:
+      return {
+        ...userState,
+        userTodos: {
+          ...userState.userTodos,
+          data: action.payload.todos,
+          loading: false,
+          error: null,
+        },
+      };
+    case API_GET_USER_TODOS_FAILURE:
+      return {
+        ...userState,
+        userTodos: {
+          ...userState.userTodos,
+          loading: false,
+          error: action.payload.error,
         },
       };
     default:

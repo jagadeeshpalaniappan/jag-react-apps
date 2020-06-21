@@ -6,10 +6,20 @@ import { Card } from "reactstrap";
 import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import UserDetailsToolbar from "../components/UserDetailsToolbar";
+import UserPostList from "../container/UserPostList";
+import UserTodoList from "../container/UserTodoList";
 import UserLayout from "../layout/UserLayout";
 import { deleteUserAction, getUserAction } from "../state/user.action";
 
-function UserDetails({ user, loading, error, getUser, deleteUser }) {
+function UserDetails({
+  user,
+  loading,
+  error,
+  getUser,
+  deleteUser,
+  userPosts,
+  userTodos,
+}) {
   console.log("### UserDetails:");
   let { id } = useParams();
 
@@ -77,6 +87,8 @@ function UserDetails({ user, loading, error, getUser, deleteUser }) {
           </Card>
         </>
       )}
+      <UserPostList userId={id} posts={userPosts} />
+      <UserTodoList userId={id} todos={userTodos} />
     </UserLayout>
   );
 }
@@ -89,10 +101,14 @@ UserDetails.propTypes = {
 const mapStateToProps = (state) => {
   console.log("UserDetails", state);
   const { loading, error, data } = state.userState.user;
+  const userPosts = state.userState.userPosts;
+  const userTodos = state.userState.userTodos;
   return {
     loading,
     error,
     user: data,
+    userPosts,
+    userTodos,
   };
 };
 const mapDispatchToProps = (dispatch) => {

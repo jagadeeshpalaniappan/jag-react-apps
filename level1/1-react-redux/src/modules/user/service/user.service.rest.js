@@ -45,7 +45,7 @@ export const getUser = async (user) => {
 
   const response = await axios.get(`${USER_REST_API}/${user.id}`);
   console.log("fetch::getUsers:: response:", response);
-  return response.data.user;
+  return { user: response.data.user };
 };
 
 export const createUser = async (user) => {
@@ -77,4 +77,22 @@ export const deleteUser = async (user) => {
 
   console.log("fetch::deleteUser:: response:", response);
   return response.data;
+};
+
+export const getUserPosts = async (config) => {
+  console.log("fetch::getUserPosts::", config);
+
+  const response = await axios.get(`/demo/rest/v1/api/posts`);
+  console.log("fetch::getUserPosts:: response:", response);
+  const { data: posts, meta } = response.data;
+  return { posts, pagination: meta };
+};
+
+export const getUserTodos = async (config) => {
+  console.log("fetch::getUserTodos::", config);
+
+  const response = await axios.get(`/demo/rest/v1/api/todos`);
+  console.log("fetch::getUserTodos:: response:", response);
+  const { data: todos, meta } = response.data;
+  return { todos, pagination: meta };
 };

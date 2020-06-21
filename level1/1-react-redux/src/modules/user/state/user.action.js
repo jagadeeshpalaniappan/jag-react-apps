@@ -42,6 +42,10 @@ export const getUserAction = (user) => {
   return apiGetUserAction(user);
 };
 
+export const getUserPostsAction = (user) => {
+  return apiGetUserAction(user);
+};
+
 export const createUserAction = (user) => {
   return apiCreateUserAction(user);
 };
