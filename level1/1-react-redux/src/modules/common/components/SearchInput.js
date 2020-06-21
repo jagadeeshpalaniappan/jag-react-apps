@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Input } from "reactstrap";
-
-// value={searchKeyword}
-// placeholder="Search user"
-// onChange={handleSearch}
+import debounce from "lodash.debounce";
 
 const SearchInput = ({ value, placeholder, onChange }) => {
-  console.log("### SearchInput:");
+  console.log("### SearchInput:", value);
+  const [searchVal, setSearchVal] = useState(value);
+
+  const onChangeDebounced = useCallback(
+    debounce((newSearchVal) => {
+      console.log("onChangeDebounced:", newSearchVal);
+      onChange(newSearchVal);
+    }, 500),
+    [debounce]
+  );
+
   const handleChange = (e) => {
-    // TODO: handle debounce
-    onChange(e, e.target.value);
+    console.log("handleChange:", e.target.value);
+    setSearchVal(e.target.value);
+    onChangeDebounced(e.target.value);
   };
   return (
     <Input
       type="text"
       name="searchItem"
-      value={value}
+      value={searchVal}
       placeholder={placeholder}
       onChange={handleChange}
     />

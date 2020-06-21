@@ -37,6 +37,7 @@ const Users = (props) => {
   const initApi = useCallback(
     (pagination) => {
       console.log("Users:initApi:");
+
       getUsers({
         sortBy,
         filters,
@@ -60,7 +61,7 @@ const Users = (props) => {
   }, [initApi, pagination]);
 
   const handleSearch = useCallback(
-    (e, keyword) => {
+    (keyword) => {
       console.log("handleSearch: ", { keyword });
       searchUser(keyword);
     },
