@@ -82,7 +82,10 @@ export const deleteUser = async (user) => {
 export const getPostsByUserId = async (config) => {
   console.log("fetch::getPostsByUserId::", config);
 
-  const response = await axios.get(`/demo/rest/v1/api/posts`);
+  const params = {};
+  params.filters = JSON.stringify([{ key: "userId", value: config.userId }]);
+  const response = await axios.get(`/demo/rest/v1/api/posts`, { params });
+
   console.log("fetch::getPostsByUserId:: response:", response);
   const { data: posts, meta } = response.data;
   return { posts, pagination: meta };
@@ -91,7 +94,10 @@ export const getPostsByUserId = async (config) => {
 export const getTodosByUserId = async (config) => {
   console.log("fetch::getTodosByUserId::", config);
 
-  const response = await axios.get(`/demo/rest/v1/api/todos`);
+  const params = {};
+  params.filters = JSON.stringify([{ key: "userId", value: config.userId }]);
+  const response = await axios.get(`/demo/rest/v1/api/todos`, { params });
+
   console.log("fetch::getTodosByUserId:: response:", response);
   const { data: todos, meta } = response.data;
   return { todos, pagination: meta };
