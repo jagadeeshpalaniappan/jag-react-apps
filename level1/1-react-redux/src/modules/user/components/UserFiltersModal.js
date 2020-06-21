@@ -60,7 +60,6 @@ const UserFiltersModal = ({ filters, onOk, onCancel, ...rest }) => {
   });
   const onSubmit = (data) => {
     console.log("FORM-VALUES:", { data });
-    // onSave(data);
     const filtersArr = mapToArr(data, new Set(["all"]));
     onOk(filtersArr);
   };
