@@ -5,7 +5,7 @@ import { List } from "../../common/components";
 import UserListItem from "./UserListItem";
 import UserListPagination from "./UserListPagination";
 
-const UserList = ({ users, page, onPrevPage, onNextPage }) => {
+const UserList = ({ users, pagination, onPrevPage, onNextPage }) => {
   console.log("### UserList:");
   return (
     <div>
@@ -18,7 +18,7 @@ const UserList = ({ users, page, onPrevPage, onNextPage }) => {
           </List>
 
           <UserListPagination
-            page={page}
+            pagination={pagination}
             onPrevPage={onPrevPage}
             onNextPage={onNextPage}
           />

@@ -37,7 +37,7 @@ export const getUsers = async (config) => {
   const response = await axios.get(USER_REST_API, { params });
   console.log("fetch::getUsers:: response:", response);
   const { data, meta } = response.data;
-  return { data, page: meta };
+  return { data, pagination: meta };
 };
 
 export const getUser = async (user) => {

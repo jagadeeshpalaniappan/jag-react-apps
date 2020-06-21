@@ -2,15 +2,21 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Button, ButtonGroup } from "reactstrap";
 
-const UserListPagination = ({ page, onPrevPage, onNextPage }) => {
+const UserListPagination = ({ pagination, onPrevPage, onNextPage }) => {
   console.log("### UserListPagination:");
   return (
     <div className="d-flex justify-content-end my-3">
       <ButtonGroup>
-        <Button onClick={onPrevPage} disabled={!(page && page.before)}>
+        <Button
+          onClick={onPrevPage}
+          disabled={!(pagination && pagination.before)}
+        >
           Prev
         </Button>
-        <Button onClick={onNextPage} disabled={!(page && page.after)}>
+        <Button
+          onClick={onNextPage}
+          disabled={!(pagination && pagination.after)}
+        >
           Next
         </Button>
       </ButtonGroup>
@@ -19,7 +25,7 @@ const UserListPagination = ({ page, onPrevPage, onNextPage }) => {
 };
 
 UserListPagination.propTypes = {
-  page: PropTypes.object,
+  pagination: PropTypes.object,
   onPrevPage: PropTypes.func.isRequired,
   onNextPage: PropTypes.func.isRequired,
 };

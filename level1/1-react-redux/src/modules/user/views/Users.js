@@ -23,7 +23,7 @@ const Users = (props) => {
     users,
     loading,
     error,
-    page,
+    pagination,
     searchKeyword,
     filters,
     searchUser,
@@ -35,15 +35,15 @@ const Users = (props) => {
   const pageSize = query.get("pageSize");
 
   const initApi = useCallback(
-    (page) => {
+    (pagination) => {
       console.log("Users:initApi:");
       getUsers({
         sortBy,
         filters,
         searchBy: searchKeyword,
         pageSize,
-        pageBefore: page && page.before,
-        pageAfter: page && page.after,
+        pageBefore: pagination && pagination.before,
+        pageAfter: pagination && pagination.after,
       });
     },
     [getUsers, sortBy, pageSize, searchKeyword, filters]
@@ -56,8 +56,8 @@ const Users = (props) => {
 
   const handleRetry = useCallback(() => {
     console.log("handleRetry: ");
-    initApi(page);
-  }, [initApi, page]);
+    initApi(pagination);
+  }, [initApi, pagination]);
 
   const handleSearch = useCallback(
     (e, keyword) => {
@@ -70,13 +70,13 @@ const Users = (props) => {
   // PAGINATION:
   const getPrevPageUsers = useCallback(() => {
     console.log("getPrevPageUsers: ");
-    initApi({ before: page.before });
-  }, [initApi, page]);
+    initApi({ before: pagination.before });
+  }, [initApi, pagination]);
 
   const getNextPageUsers = useCallback(() => {
     console.log("getPrevPageUsers: ");
-    initApi({ after: page.after });
-  }, [initApi, page]);
+    initApi({ after: pagination.after });
+  }, [initApi, pagination]);
 
   const handleFilter = useCallback(
     (newFilters) => {
@@ -106,7 +106,7 @@ const Users = (props) => {
       />
       <UsersList
         users={users}
-        page={page}
+        pagination={pagination}
         onPrevPage={getPrevPageUsers}
         onNextPage={getNextPageUsers}
       />
@@ -131,13 +131,13 @@ const getFilteredUsers = (users, keyword) => {
 const mapStateToProps = (state) => {
   console.log(state);
   const { loading, error, data } = state.userState.users;
-  const { data: users, page } = data;
+  const { data: users, pagination } = data;
   return {
     loading,
     error,
     // users: getFilteredUsers(data, state.userState.searchKeyword), // LOCAL-SEARCH
     users, // SERVER-SEARCH
-    page,
+    pagination,
     searchKeyword: state.userState.searchKeyword,
     filters: state.userState.filters,
   };

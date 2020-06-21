@@ -63,7 +63,7 @@ export const getUsers = async (config) => {
 
   console.log("fetch::getUsers:: response:", response);
   const { data, meta } = response.users;
-  return { data, page: meta };
+  return { data, pagination: meta };
 };
 
 export const getUser = async (user) => {
