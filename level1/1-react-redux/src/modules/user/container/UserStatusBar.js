@@ -24,6 +24,7 @@ const statusText = {
 };
 
 function UserStatusBar({ mutationStatus, resetMutationStatus, timeout }) {
+  console.log("### UserStatusBar:");
   const {
     createUserStatus,
     updateUserStatus,

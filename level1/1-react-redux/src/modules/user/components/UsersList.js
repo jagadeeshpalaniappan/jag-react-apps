@@ -6,6 +6,7 @@ import UserListItem from "./UserListItem";
 import UserListPagination from "./UserListPagination";
 
 const UserList = ({ users, page, onPrevPage, onNextPage }) => {
+  console.log("### UserList:");
   return (
     <div>
       {users && users.length > 0 && (

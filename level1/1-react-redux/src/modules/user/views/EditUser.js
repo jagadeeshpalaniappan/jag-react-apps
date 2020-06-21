@@ -16,6 +16,7 @@ function EditUser({
   getUser,
   updateUser,
 }) {
+  console.log("### EditUser:");
   let { id } = useParams();
   useEffect(() => {
     // onInit:

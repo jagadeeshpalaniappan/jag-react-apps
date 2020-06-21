@@ -6,6 +6,7 @@ import UserForm from "../components/UserForm";
 import UserLayout from "../layout/UserLayout";
 
 function CreateUser({ mutationStatus, createUser }) {
+  console.log("### CreateUser:");
   const handleSave = (newUser) => {
     createUser(newUser);
   };

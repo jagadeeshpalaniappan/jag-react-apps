@@ -5,6 +5,7 @@ import { AppModal, AppCard } from "../../common/components";
 import { Button, Form } from "reactstrap";
 
 const UserDeleteModal = ({ item, onOk, onCancel, ...rest }) => {
+  console.log("### UserDeleteModal:");
   return (
     <AppModal toggle={onCancel} {...rest}>
       <AppCard>
@@ -43,4 +44,4 @@ UserDeleteModal.propTypes = {
   onCancel: PropTypes.func.isRequired,
 };
 
-export default UserDeleteModal;
+export default React.memo(UserDeleteModal);

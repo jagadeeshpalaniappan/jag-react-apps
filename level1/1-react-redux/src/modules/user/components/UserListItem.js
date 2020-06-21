@@ -8,6 +8,7 @@ import {
 } from "reactstrap";
 
 const UserListItem = ({ item, ...rest }) => {
+  console.log("### UserListItem:");
   let { path } = useRouteMatch();
   return (
     <ListGroupItem tag={NavLink} to={`${path}/${item.id}`} {...rest}>

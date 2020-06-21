@@ -5,6 +5,7 @@ import { Button } from "reactstrap";
 import UserDeleteModal from "./UserDeleteModal";
 
 const UserDetailsToolbar = ({ user, hidden, onDelete }) => {
+  console.log("### UserDetailsToolbar:");
   const [delModalOpen, setDelModalOpen] = useState(false);
   const openDeleteModal = () => setDelModalOpen(true);
   const closeDeleteModal = () => setDelModalOpen(false);
@@ -48,4 +49,4 @@ const UserDetailsToolbar = ({ user, hidden, onDelete }) => {
 
 UserDetailsToolbar.propTypes = {};
 
-export default UserDetailsToolbar;
+export default React.memo(UserDetailsToolbar);

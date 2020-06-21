@@ -13,8 +13,7 @@ export const getUsers = async (config) => {
   const params = {};
 
   // PAGINATION:
-  if (config.pageSize) params.pageSize = config.pageSize.slice(0, 1);
-  // TODO: remove slice :)
+  if (config.pageSize) params.pageSize = config.pageSize;
   else params.pageSize = "10"; // default
   if (config.pageBefore) params.pageBefore = config.pageBefore;
   if (config.pageAfter) params.pageAfter = config.pageAfter;
@@ -28,9 +27,9 @@ export const getUsers = async (config) => {
   if (config.filters) {
     const filters = config.filters.map((filter) => {
       if (filter.key === "isActive") {
-        filter.value = filter.value === "active";
+        return { ...filter, value: filter.value === "active" };
       }
-      return filter;
+      return { ...filter };
     });
     params.filters = JSON.stringify(filters);
   }

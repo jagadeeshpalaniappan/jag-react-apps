@@ -3,6 +3,7 @@ import React from "react";
 import { Button, ButtonGroup } from "reactstrap";
 
 const UserListPagination = ({ page, onPrevPage, onNextPage }) => {
+  console.log("### UserListPagination:");
   return (
     <div className="d-flex justify-content-end my-3">
       <ButtonGroup>

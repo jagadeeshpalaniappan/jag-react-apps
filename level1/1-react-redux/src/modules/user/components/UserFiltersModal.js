@@ -1,9 +1,8 @@
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Form, Input } from "reactstrap";
-
 import { AppCard, AppModal } from "../../common/components";
+import UserFiltersModalForm from "./UserFiltersModalForm";
 
 /* 
 const ToggleSwitch = ({ checked, onChange }) => {
@@ -52,18 +51,19 @@ const arrToMap = (arr, skipValues) => {
 };
 
 const UserFiltersModal = ({ filters, onOk, onCancel, ...rest }) => {
-  // const [switchOn, setSwitchOn] = useState(false);
-  console.log("UserFiltersModal:", { filters });
+  console.log("### UserFiltersModal:");
+  const { register, handleSubmit, reset } = useForm({ defaultValues: {} });
 
-  const { register, handleSubmit, reset } = useForm({
-    defaultValues: {},
-  });
-  const onSubmit = (data) => {
-    console.log("FORM-VALUES:", { data });
-    const filtersArr = mapToArr(data, new Set(["all"]));
-    onOk(filtersArr);
-  };
+  const onSubmit = useCallback(
+    (data) => {
+      console.log("FORM-VALUES:", { data });
+      const filtersArr = mapToArr(data, new Set(["all"]));
+      onOk(filtersArr);
+    },
+    [onOk]
+  );
 
+  const handleReset = useCallback(() => reset({}), [reset]);
   useEffect(() => {
     console.log("useEffect", { filters });
     const filtersMap = arrToMap(filters);
@@ -74,109 +74,12 @@ const UserFiltersModal = ({ filters, onOk, onCancel, ...rest }) => {
     <AppModal toggle={onCancel} {...rest}>
       <AppCard>
         <legend>User Filter</legend>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <div className="d-flex align-items-center my-3">
-              <div className="flex-grow-1">Role:</div>
-              <div className="">
-                <Input
-                  type="select"
-                  name="role"
-                  bsSize="sm"
-                  innerRef={register()}
-                  style={{ width: "10rem" }}
-                >
-                  <option value="all">All</option>
-                  <option value="admin">Admin</option>
-                  <option value="dev">Devloper</option>
-                  <option value="manager">Manager</option>
-                </Input>
-              </div>
-            </div>
-            <div className="d-flex align-items-center my-3">
-              <div className="flex-grow-1">Active Status:</div>
-              <div className="">
-                <Input
-                  type="select"
-                  name="isActive"
-                  bsSize="sm"
-                  innerRef={register()}
-                  style={{ width: "10rem" }}
-                >
-                  <option value="all" defaultChecked>
-                    All
-                  </option>
-                  <option value="active">Active Users</option>
-                  <option value="inactive">InActive Users</option>
-                </Input>
-              </div>
-            </div>
-            <div className="d-flex align-items-center my-3">
-              <div className="flex-grow-1">Gender:</div>
-              <div className="">
-                <Input
-                  type="select"
-                  name="sex"
-                  bsSize="sm"
-                  innerRef={register()}
-                  style={{ width: "10rem" }}
-                >
-                  <option value="all" defaultChecked>
-                    All
-                  </option>
-                  <option value="male">Male Users</option>
-                  <option value="female">Female Users</option>
-                </Input>
-              </div>
-            </div>
-            {/* 
-            <div className="d-flex align-items-center my-3">
-              <div className="flex-grow-1">Filter2</div>
-              <div className="">
-                <ToggleSwitch
-                  checked={switchOn}
-                  onChange={() => {
-                    setSwitchOn(!switchOn);
-                    console.log({ switchOn });
-                  }}
-                />
-              </div>
-            </div>
-             */}
-            {/* 
-            <div className="d-flex align-items-center my-3">
-              <div className="flex-grow-1">Filter3</div>
-              <div className="">
-                <ButtonGroup size="sm">
-                  <Button>Left</Button>
-                  <Button active>Right</Button>
-                </ButtonGroup>
-              </div>
-            </div>
-             */}
-          </div>
-          <div className="d-flex justify-content-end">
-            <Button
-              type="button"
-              color="secondary"
-              className="mr-2"
-              onClick={onCancel}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              color="secondary"
-              className="mr-2"
-              onClick={() => reset({})}
-            >
-              Reset All
-            </Button>
-            <Button type="submit" color="primary">
-              Apply Filter
-            </Button>
-          </div>
-        </Form>
+        <UserFiltersModalForm
+          register={register}
+          onSubmit={handleSubmit(onSubmit)}
+          onReset={handleReset}
+          onCancel={onCancel}
+        />
       </AppCard>
     </AppModal>
   );
@@ -187,4 +90,4 @@ UserFiltersModal.propTypes = {
   onCancel: PropTypes.func.isRequired,
 };
 
-export default UserFiltersModal;
+export default React.memo(UserFiltersModal);

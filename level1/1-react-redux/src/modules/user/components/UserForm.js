@@ -13,7 +13,7 @@ import {
 import { STATUS_TYPES } from "../../common/constants";
 
 function UserForm({ user, status, onSave }) {
-  console.log("UserFormContainer:", { user });
+  console.log("### UserForm:");
   const { register, handleSubmit, errors } = useForm({ defaultValues: user });
   const onSubmit = (data) => {
     console.log("FORM-VALUES:", { data, errors });

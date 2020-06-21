@@ -1,32 +1,35 @@
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import SearchInput from "../../common/components/SearchInput";
 import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import { useQueryParam } from "../../common/hooks";
+import { isEqual, isEqualReact } from "../../common/utils/all.utils";
 import UsersList from "../components/UsersList";
 import UsersToolbar from "../components/UsersToolbar";
 import UserLayout from "../layout/UserLayout";
 import {
   getUsersAction,
-  setUserSearchKeywordAction,
   setUserFiltersAction,
+  setUserSearchKeywordAction,
 } from "../state/user.action";
 
 // const users = [{ id: 101, name: "Jag1" }];
 
-const Users = ({
-  users,
-  loading,
-  error,
-  page,
-  searchKeyword,
-  filters,
-  searchUser,
-  setFilters,
-  getUsers,
-}) => {
+const Users = (props) => {
+  console.log("### Users:", props);
+  const {
+    users,
+    loading,
+    error,
+    page,
+    searchKeyword,
+    filters,
+    searchUser,
+    setFilters,
+    getUsers,
+  } = props;
   let query = useQueryParam();
   const sortBy = query.get("sortBy");
   const pageSize = query.get("pageSize");
@@ -73,10 +76,18 @@ const Users = ({
     });
   };
 
-  const handleFilter = (newFilters) => {
-    console.log("newFilters", newFilters);
-    setFilters(newFilters);
-  };
+  const handleFilter = useCallback(
+    (newFilters) => {
+      console.log("handleFilter:", { filters, newFilters });
+
+      if (!isEqual(filters, newFilters)) {
+        console.log("newFilters::found", { filters, newFilters });
+        // newFilters: added -- update the state
+        setFilters(newFilters);
+      }
+    },
+    [filters, setFilters]
+  );
 
   return (
     <UserLayout
@@ -142,4 +153,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+// only re-render ExpensiveComponent when the props have deeply changed
+const UsersMemoized = React.memo(Users, isEqualReact);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersMemoized);

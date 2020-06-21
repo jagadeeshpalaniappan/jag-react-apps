@@ -10,6 +10,7 @@ import UserLayout from "../layout/UserLayout";
 import { deleteUserAction, getUserAction } from "../state/user.action";
 
 function UserDetails({ user, loading, error, getUser, deleteUser }) {
+  console.log("### UserDetails:");
   let { id } = useParams();
 
   useEffect(() => {
