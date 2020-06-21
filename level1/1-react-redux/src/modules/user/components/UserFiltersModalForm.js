@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { Button, Form, Input } from "reactstrap";
+import { arrToMap, isEqual, mapToArr } from "../../common/utils/all.utils";
 
 /* 
 const ToggleSwitch = ({ checked, onChange }) => {
@@ -19,11 +21,35 @@ const ToggleSwitch = ({ checked, onChange }) => {
 };
  */
 
-const UserFiltersModalForm = ({ register, onSubmit, onReset, onCancel }) => {
-  console.log("### UserFiltersModalForm:");
+const UserFiltersModalForm = ({ filters, onOk, onCancel }) => {
+  console.log("### UserFiltersModalForm:", { filters });
+
+  const { register, handleSubmit, reset } = useForm({ defaultValues: {} });
+
+  const onSubmit = useCallback(
+    (data) => {
+      console.log("FORM-VALUES:", { data });
+      const newFilterArr = mapToArr(data, new Set(["all"]));
+
+      if (!isEqual(filters, newFilterArr)) {
+        console.log("newFilters::found", { filters, newFilterArr });
+        onOk(newFilterArr);
+      } else {
+        onCancel();
+      }
+    },
+    [filters, onOk, onCancel]
+  );
+
+  const handleReset = useCallback(() => reset({}), [reset]);
+  useEffect(() => {
+    console.log("reset, filters --changed", { filters });
+    const filtersMap = arrToMap(filters || []);
+    reset(filtersMap);
+  }, [reset, filters]);
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <div className="d-flex align-items-center my-3">
           <div className="flex-grow-1">Role:</div>
@@ -117,7 +143,7 @@ const UserFiltersModalForm = ({ register, onSubmit, onReset, onCancel }) => {
           type="button"
           color="secondary"
           className="mr-2"
-          onClick={onReset}
+          onClick={handleReset}
         >
           Reset All
         </Button>

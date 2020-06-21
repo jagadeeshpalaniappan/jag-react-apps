@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import React, { useEffect, useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import SearchInput from "../../common/components/SearchInput";
 import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import { useQueryParam } from "../../common/hooks";
-import { isEqual, isEqualReact } from "../../common/utils/all.utils";
+import { isEqualReact } from "../../common/utils/all.utils";
 import UsersList from "../components/UsersList";
 import UsersToolbar from "../components/UsersToolbar";
 import UserLayout from "../layout/UserLayout";
@@ -78,15 +78,10 @@ const Users = (props) => {
 
   const handleFilter = useCallback(
     (newFilters) => {
-      console.log("handleFilter:", { filters, newFilters });
-
-      if (!isEqual(filters, newFilters)) {
-        console.log("newFilters::found", { filters, newFilters });
-        // newFilters: added -- update the state
-        setFilters(newFilters);
-      }
+      console.log("handleFilter:", { newFilters });
+      setFilters(newFilters);
     },
-    [filters, setFilters]
+    [setFilters]
   );
 
   return (

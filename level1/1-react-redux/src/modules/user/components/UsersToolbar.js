@@ -4,8 +4,8 @@ import { FaFilter, FaUserPlus } from "react-icons/fa";
 import { NavLink, useRouteMatch } from "react-router-dom";
 import { Button } from "reactstrap";
 import PageSizeDropdown from "../../common/components/PageSizeDropdown";
-import UserSortDropdown from "./UserSortDropdown";
 import UserFiltersModal from "./UserFiltersModal";
+import UserSortDropdown from "./UserSortDropdown";
 
 const UsersToolbarActions = ({ filtersLength, openFilterModal }) => {
   console.log("### UsersToolbarActions:");

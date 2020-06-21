@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect } from "react";
 import { AppCard, AppModal } from "../../common/components";
 import UserFiltersModalForm from "./UserFiltersModalForm";
 
@@ -22,62 +21,28 @@ const ToggleSwitch = ({ checked, onChange }) => {
 };
  */
 
-const mapToArr = (map, skipValues) => {
-  let items = [];
-  if (map) {
-    const keys = Object.keys(map);
-    for (let i = 0, len = keys.length; i < len; i++) {
-      const key = keys[i];
-      const value = map[key];
-      if (!(skipValues && skipValues.has(value))) {
-        items.push({ key, value });
-      }
-    }
-  }
-  return items && items.length > 0 ? items : null;
-};
-
-const arrToMap = (arr, skipValues) => {
-  let itemsMap = [];
-  if (arr) {
-    for (let i = 0, len = arr.length; i < len; i++) {
-      const { key, value } = arr[i];
-      if (!(skipValues && skipValues.has(value))) {
-        itemsMap[key] = value;
-      }
-    }
-  }
-  return itemsMap && Object.keys(itemsMap).length > 0 ? itemsMap : null;
-};
-
-const UserFiltersModal = ({ filters, onOk, onCancel, ...rest }) => {
-  console.log("### UserFiltersModal:");
-  const { register, handleSubmit, reset } = useForm({ defaultValues: {} });
-
-  const onSubmit = useCallback(
-    (data) => {
-      console.log("FORM-VALUES:", { data });
-      const filtersArr = mapToArr(data, new Set(["all"]));
-      onOk(filtersArr);
-    },
-    [onOk]
-  );
-
-  const handleReset = useCallback(() => reset({}), [reset]);
+const UserFiltersModal = ({ filters, isOpen, onOk, onCancel }) => {
+  console.log("### UserFiltersModal:", { filters });
   useEffect(() => {
-    console.log("useEffect", { filters });
-    const filtersMap = arrToMap(filters);
-    reset(filtersMap);
-  }, [reset, filters]);
+    console.log("filters-changed", { filters });
+  }, [filters]);
+  useEffect(() => {
+    console.log("isOpen-changed", { isOpen });
+  }, [isOpen]);
+  useEffect(() => {
+    console.log("onOk-changed");
+  }, [onOk]);
+  useEffect(() => {
+    console.log("onCancel-changed", {});
+  }, [onCancel]);
 
   return (
-    <AppModal toggle={onCancel} {...rest}>
+    <AppModal toggle={onCancel} isOpen={isOpen}>
       <AppCard>
         <legend>User Filter</legend>
         <UserFiltersModalForm
-          register={register}
-          onSubmit={handleSubmit(onSubmit)}
-          onReset={handleReset}
+          filters={filters}
+          onOk={onOk}
           onCancel={onCancel}
         />
       </AppCard>

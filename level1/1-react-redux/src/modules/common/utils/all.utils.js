@@ -10,3 +10,18 @@ export const arrToMap = (items = []) =>
     res[item.key] = item.value;
     return res;
   }, {});
+
+export const mapToArr = (map, skipValues) => {
+  let items = [];
+  if (map) {
+    const keys = Object.keys(map);
+    for (let i = 0, len = keys.length; i < len; i++) {
+      const key = keys[i];
+      const value = map[key];
+      if (!(skipValues && skipValues.has(value))) {
+        items.push({ key, value });
+      }
+    }
+  }
+  return items && items.length > 0 ? items : null;
+};
