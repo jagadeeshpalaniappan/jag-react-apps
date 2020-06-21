@@ -23,4 +23,4 @@ StatusQueryLoading.propTypes = {
   text: PropTypes.string,
 };
 
-export default StatusQueryLoading;
+export default React.memo(StatusQueryLoading);

@@ -41,4 +41,4 @@ StatusQueryError.propTypes = {
   onRetry: PropTypes.func,
 };
 
-export default StatusQueryError;
+export default React.memo(StatusQueryError);

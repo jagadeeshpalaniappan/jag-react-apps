@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-const ModalExample = ({ isOpen }) => {
+const DeleteModal = ({ isOpen }) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -30,4 +30,4 @@ const ModalExample = ({ isOpen }) => {
   );
 };
 
-export default ModalExample;
+export default React.memo(DeleteModal);

@@ -34,47 +34,49 @@ const Users = (props) => {
   const sortBy = query.get("sortBy");
   const pageSize = query.get("pageSize");
 
-  useEffect(() => {
-    // onInit:
-    getUsers({
-      sortBy,
-      pageSize,
-      searchBy: searchKeyword,
-      filters,
-    });
-  }, [getUsers, sortBy, pageSize, searchKeyword, filters]);
+  const initApi = useCallback(
+    (page) => {
+      console.log("Users:initApi:");
+      getUsers({
+        sortBy,
+        filters,
+        searchBy: searchKeyword,
+        pageSize,
+        pageBefore: page && page.before,
+        pageAfter: page && page.after,
+      });
+    },
+    [getUsers, sortBy, pageSize, searchKeyword, filters]
+  );
 
-  const handleSearch = (e, keyword) => {
-    console.log("handleSearch: ", { keyword });
-    searchUser(keyword);
-  };
-  const handleRetry = () => {
-    getUsers({
-      sortBy,
-      pageSize,
-      pageBefore: page && page.before,
-      pageAfter: page && page.after,
-      searchBy: searchKeyword,
-    });
-  };
+  useEffect(() => {
+    console.log("Users:onInit:");
+    initApi();
+  }, [initApi]);
+
+  const handleRetry = useCallback(() => {
+    console.log("handleRetry: ");
+    initApi(page);
+  }, [initApi, page]);
+
+  const handleSearch = useCallback(
+    (e, keyword) => {
+      console.log("handleSearch: ", { keyword });
+      searchUser(keyword);
+    },
+    [searchUser]
+  );
 
   // PAGINATION:
-  const getPrevPageUsers = () => {
-    getUsers({
-      sortBy,
-      pageSize,
-      pageBefore: page.before,
-      searchBy: searchKeyword,
-    });
-  };
-  const getNextPageUsers = () => {
-    getUsers({
-      sortBy,
-      pageSize,
-      pageAfter: page.after,
-      searchBy: searchKeyword,
-    });
-  };
+  const getPrevPageUsers = useCallback(() => {
+    console.log("getPrevPageUsers: ");
+    initApi({ before: page.before });
+  }, [initApi, page]);
+
+  const getNextPageUsers = useCallback(() => {
+    console.log("getPrevPageUsers: ");
+    initApi({ after: page.after });
+  }, [initApi, page]);
 
   const handleFilter = useCallback(
     (newFilters) => {

@@ -69,4 +69,4 @@ StatusBar.defaultProps = {
   timeout: 6000,
 };
 
-export default StatusBar;
+export default React.memo(StatusBar);

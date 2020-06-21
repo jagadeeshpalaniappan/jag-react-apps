@@ -39,4 +39,4 @@ ErrorDetailsModal.propTypes = {
   item: PropTypes.any,
 };
 
-export default ErrorDetailsModal;
+export default React.memo(ErrorDetailsModal);
