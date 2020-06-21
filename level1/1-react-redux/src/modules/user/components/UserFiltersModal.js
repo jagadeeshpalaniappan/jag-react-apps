@@ -23,18 +23,6 @@ const ToggleSwitch = ({ checked, onChange }) => {
 
 const UserFiltersModal = ({ filters, isOpen, onOk, onCancel }) => {
   console.log("### UserFiltersModal:", { filters });
-  useEffect(() => {
-    console.log("filters-changed", { filters });
-  }, [filters]);
-  useEffect(() => {
-    console.log("isOpen-changed", { isOpen });
-  }, [isOpen]);
-  useEffect(() => {
-    console.log("onOk-changed");
-  }, [onOk]);
-  useEffect(() => {
-    console.log("onCancel-changed", {});
-  }, [onCancel]);
 
   return (
     <AppModal toggle={onCancel} isOpen={isOpen}>
