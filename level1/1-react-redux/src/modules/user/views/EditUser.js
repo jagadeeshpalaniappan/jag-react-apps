@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import StatusQueryError from "../../common/components/StatusQueryError";
@@ -23,12 +23,12 @@ function EditUser({
     getUser({ id });
   }, [id, getUser]);
 
-  const handleSave = (updatedUser) => {
-    updateUser({ id, ...updatedUser });
-  };
-  const handleRetry = () => {
-    getUser({ id });
-  };
+  const handleSave = useCallback(
+    (updatedUser) => updateUser({ id, ...updatedUser }),
+    [updateUser, id]
+  );
+
+  const handleRetry = useCallback(() => getUser({ id }), [getUser, id]);
 
   const { updateUserStatus } = mutationStatus;
 

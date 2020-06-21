@@ -10,7 +10,6 @@ import {
   Input,
   Label,
 } from "reactstrap";
-import { STATUS_TYPES } from "../../common/constants";
 
 function UserForm({ user, status, onSave }) {
   console.log("### UserForm:");
@@ -170,7 +169,7 @@ function UserForm({ user, status, onSave }) {
 
 UserForm.propTypes = {
   user: PropTypes.object,
-  status: PropTypes.object.isRequired,
+  status: PropTypes.object,
   onSave: PropTypes.func.isRequired,
 };
 
