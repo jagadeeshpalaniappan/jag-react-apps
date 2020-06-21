@@ -43,7 +43,7 @@ const AppNavbar = ({ title, secondaryTitle }) => {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/posts" tag={RRNavLink}>
+            <NavLink to="/posts" activeClassName="active" tag={RRNavLink}>
               Posts
             </NavLink>
           </NavItem>

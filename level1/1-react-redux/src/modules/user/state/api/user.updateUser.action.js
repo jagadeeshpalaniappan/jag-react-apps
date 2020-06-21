@@ -33,7 +33,7 @@ export const apiUpdateUserAction = (user) => async (dispatch) => {
     dispatch(apiUpdateUserStartAction());
     const data = await updateUser(user);
     dispatch(push(`/users/${data.id}`));
-    setTimeout(() => dispatch(apiUpdateUserSuccessAction(data)), 1000);
+    setTimeout(() => dispatch(apiUpdateUserSuccessAction(data)), 500);
   } catch (e) {
     dispatch(apiUpdateUserFailureAction(e.message));
   }
