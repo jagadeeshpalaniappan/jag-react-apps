@@ -5,7 +5,7 @@ import SearchInput from "../../common/components/SearchInput";
 import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import { useQueryParam } from "../../common/hooks";
-import { isEqualReact } from "../../common/utils/all.utils";
+import { deepEqualReact } from "../../common/utils/all.utils";
 import UsersList from "../components/UsersList";
 import UsersToolbar from "../components/UsersToolbar";
 import UserLayout from "../layout/UserLayout";
@@ -149,5 +149,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 // only re-render ExpensiveComponent when the props have deeply changed
-const UsersMemoized = React.memo(Users, isEqualReact);
+const UsersMemoized = React.memo(Users, deepEqualReact);
 export default connect(mapStateToProps, mapDispatchToProps)(UsersMemoized);

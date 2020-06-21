@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Form, Input } from "reactstrap";
-import { arrToMap, isEqual, mapToArr } from "../../common/utils/all.utils";
+import { arrToMap, deepEqual, mapToArr } from "../../common/utils/all.utils";
 
 /* 
 const ToggleSwitch = ({ checked, onChange }) => {
@@ -31,7 +31,7 @@ const UserFiltersModalForm = ({ filters, onOk, onCancel }) => {
       console.log("FORM-VALUES:", { data });
       const newFilterArr = mapToArr(data, new Set(["all"]));
 
-      if (!isEqual(filters, newFilterArr)) {
+      if (!deepEqual(filters, newFilterArr)) {
         console.log("newFilters::found", { filters, newFilterArr });
         onOk(newFilterArr);
       } else {
