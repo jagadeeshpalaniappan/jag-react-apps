@@ -6,15 +6,15 @@ import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import UsersList from "../components/UsersList";
 import { apiGetUserPostsAction } from "../state/api/user.getUserPosts.action";
 
-function UserPostList({ userId, userPosts, loading, error, getPostsByUserId }) {
+function UserPostList({ userId, userPosts, loading, error, getUserPosts }) {
   console.log("### UserPostList:");
 
   useEffect(() => {
     // onInit:
-    getPostsByUserId({ userId });
-  }, [userId, getPostsByUserId]);
+    getUserPosts({ userId });
+  }, [userId, getUserPosts]);
 
-  const handleRetry = () => getPostsByUserId({ userId });
+  const handleRetry = () => getUserPosts({ userId });
 
   return (
     <div className="mt-3">
@@ -33,7 +33,7 @@ function UserPostList({ userId, userPosts, loading, error, getPostsByUserId }) {
 
 UserPostList.propTypes = {
   userPosts: PropTypes.object.isRequired,
-  getPostsByUserId: PropTypes.func.isRequired,
+  getUserPosts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -47,7 +47,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostsByUserId: (userPosts) => dispatch(apiGetUserPostsAction(userPosts)),
+    getUserPosts: (userPosts) => dispatch(apiGetUserPostsAction(userPosts)),
   };
 };
 

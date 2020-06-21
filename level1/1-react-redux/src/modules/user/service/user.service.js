@@ -1,8 +1,8 @@
 export {
   getUsers,
   getUser,
-  getUserPosts,
-  getUserTodos,
+  getPostsByUserId,
+  getTodosByUserId,
   createUser,
   updateUser,
   deleteUser,

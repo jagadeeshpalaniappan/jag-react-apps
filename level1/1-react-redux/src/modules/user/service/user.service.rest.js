@@ -79,20 +79,20 @@ export const deleteUser = async (user) => {
   return response.data;
 };
 
-export const getUserPosts = async (config) => {
-  console.log("fetch::getUserPosts::", config);
+export const getPostsByUserId = async (config) => {
+  console.log("fetch::getPostsByUserId::", config);
 
   const response = await axios.get(`/demo/rest/v1/api/posts`);
-  console.log("fetch::getUserPosts:: response:", response);
+  console.log("fetch::getPostsByUserId:: response:", response);
   const { data: posts, meta } = response.data;
   return { posts, pagination: meta };
 };
 
-export const getUserTodos = async (config) => {
-  console.log("fetch::getUserTodos::", config);
+export const getTodosByUserId = async (config) => {
+  console.log("fetch::getTodosByUserId::", config);
 
   const response = await axios.get(`/demo/rest/v1/api/todos`);
-  console.log("fetch::getUserTodos:: response:", response);
+  console.log("fetch::getTodosByUserId:: response:", response);
   const { data: todos, meta } = response.data;
   return { todos, pagination: meta };
 };

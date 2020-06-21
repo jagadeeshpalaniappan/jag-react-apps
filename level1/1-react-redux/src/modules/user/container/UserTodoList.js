@@ -6,15 +6,15 @@ import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import UsersList from "../components/UsersList";
 import { apiGetUserTodosAction } from "../state/api/user.getUserTodos.action";
 
-function UserTodoList({ userId, userTodos, loading, error, getTodosByUserId }) {
+function UserTodoList({ userId, userTodos, loading, error, getUserTodos }) {
   console.log("### UserTodoList:");
 
   useEffect(() => {
     // onInit:
-    getTodosByUserId({ userId });
-  }, [userId, getTodosByUserId]);
+    getUserTodos({ userId });
+  }, [userId, getUserTodos]);
 
-  const handleRetry = () => getTodosByUserId({ userId });
+  const handleRetry = () => getUserTodos({ userId });
 
   return (
     <div className="mt-3">
@@ -33,7 +33,7 @@ function UserTodoList({ userId, userTodos, loading, error, getTodosByUserId }) {
 
 UserTodoList.propTypes = {
   userTodos: PropTypes.object.isRequired,
-  getTodosByUserId: PropTypes.func.isRequired,
+  getUserTodos: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -47,7 +47,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getTodosByUserId: (userTodos) => dispatch(apiGetUserTodosAction(userTodos)),
+    getUserTodos: (userTodos) => dispatch(apiGetUserTodosAction(userTodos)),
   };
 };
 

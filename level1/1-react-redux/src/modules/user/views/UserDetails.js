@@ -87,8 +87,8 @@ function UserDetails({
           </Card>
         </>
       )}
-      <UserPostList userId={id} posts={userPosts} />
-      <UserTodoList userId={id} todos={userTodos} />
+      <UserPostList userId={id} />
+      <UserTodoList userId={id} />
     </UserLayout>
   );
 }
@@ -101,14 +101,10 @@ UserDetails.propTypes = {
 const mapStateToProps = (state) => {
   console.log("UserDetails", state);
   const { loading, error, data } = state.userState.user;
-  const userPosts = state.userState.userPosts;
-  const userTodos = state.userState.userTodos;
   return {
     loading,
     error,
     user: data,
-    userPosts,
-    userTodos,
   };
 };
 const mapDispatchToProps = (dispatch) => {

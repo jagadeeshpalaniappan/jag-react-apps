@@ -1,4 +1,4 @@
-import { getUserTodos } from "../../service/user.service";
+import { getTodosByUserId } from "../../service/user.service";
 import {
   API_GET_USER_TODOS_FAILURE,
   API_GET_USER_TODOS_START,
@@ -30,7 +30,7 @@ export const apiGetUserTodosFailureAction = (error) => {
 export const apiGetUserTodosAction = (user) => async (dispatch) => {
   try {
     dispatch(apiGetUserTodosStartAction());
-    const data = await getUserTodos(user);
+    const data = await getTodosByUserId(user);
     dispatch(apiGetUserTodosSuccessAction(data));
   } catch (e) {
     console.log("apiGetUserTodosAction:: err", e);

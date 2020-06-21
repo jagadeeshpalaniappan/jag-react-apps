@@ -15,8 +15,6 @@ import {
   setUserSearchKeywordAction,
 } from "../state/user.action";
 
-// const users = [{ id: 101, name: "Jag1" }];
-
 const Users = (props) => {
   console.log("### Users:", props);
   const {
@@ -120,15 +118,6 @@ Users.propTypes = {
   getUsers: PropTypes.func.isRequired,
 };
 
-/*
-const getFilteredUsers = (users, keyword) => {
-  console.log("getFilteredUsers:", { users, keyword });
-  const filteredUsers = filterItemsByVal(users, keyword);
-  console.log("getFilteredUsers: after", { filteredUsers, keyword });
-  return filteredUsers;
-};
-*/
-
 const mapStateToProps = (state) => {
   console.log(state);
   const { loading, error, data } = state.userState.users;
@@ -136,7 +125,6 @@ const mapStateToProps = (state) => {
   return {
     loading,
     error,
-    // users: getFilteredUsers(data, state.userState.searchKeyword), // LOCAL-SEARCH
     users, // SERVER-SEARCH
     pagination,
     searchKeyword: state.userState.searchKeyword,
