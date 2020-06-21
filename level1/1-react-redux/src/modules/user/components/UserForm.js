@@ -148,7 +148,7 @@ function UserForm({ user, status, onSave }) {
             to={user && user.id ? `/users/${user.id}` : `/users`}
             exact
             className="ml-2"
-            disabled={status.type === STATUS_TYPES.LOADING}
+            disabled={status && status.loading}
           >
             Cancel
           </Button>
@@ -156,11 +156,13 @@ function UserForm({ user, status, onSave }) {
             type="submit"
             color="primary"
             className="ml-2"
-            disabled={status.type === STATUS_TYPES.LOADING}
+            disabled={status && status.loading}
           >
             Save
           </Button>
         </div>
+
+        {JSON.stringify(status, null, 2)}
       </Form>
     </div>
   );

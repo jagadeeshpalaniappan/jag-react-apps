@@ -30,6 +30,8 @@ function EditUser({
     getUser({ id });
   };
 
+  const { updateUserStatus } = mutationStatus;
+
   return (
     <UserLayout title="Edit User">
       <StatusQueryLoading loading={loading} text="Loading user details" />
@@ -40,7 +42,7 @@ function EditUser({
       />
       {user && Object.keys(user).length > 0 && (
         <>
-          <UserForm user={user} status={mutationStatus} onSave={handleSave} />
+          <UserForm user={user} status={updateUserStatus} onSave={handleSave} />
         </>
       )}
     </UserLayout>

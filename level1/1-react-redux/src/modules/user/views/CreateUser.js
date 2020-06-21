@@ -11,9 +11,11 @@ function CreateUser({ mutationStatus, createUser }) {
     createUser(newUser);
   };
 
+  const { createUserStatus } = mutationStatus;
+
   return (
     <UserLayout title="Create User">
-      <UserForm status={mutationStatus} onSave={handleSave} />
+      <UserForm status={createUserStatus} onSave={handleSave} />
     </UserLayout>
   );
 }
