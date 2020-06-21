@@ -8,6 +8,7 @@ const UserModule = lazy(() => import("../modules/user"));
 const PostModule = lazy(() => import("../modules/post"));
 
 const AppRoutes = () => {
+  console.log("### AppRoutes:");
   return (
     <Suspense fallback={<div>Loading Modules...</div>}>
       <Switch>
@@ -26,4 +27,5 @@ const AppRoutes = () => {
     </Suspense>
   );
 };
-export default AppRoutes;
+
+export default React.memo(AppRoutes);

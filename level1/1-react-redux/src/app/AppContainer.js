@@ -1,6 +1,7 @@
 import React from "react";
 
 const AppContainer = ({ nav, main }) => {
+  console.log("### AppContainer:");
   return (
     <div>
       <div>{nav}</div>
@@ -9,4 +10,4 @@ const AppContainer = ({ nav, main }) => {
   );
 };
 
-export default AppContainer;
+export default React.memo(AppContainer);

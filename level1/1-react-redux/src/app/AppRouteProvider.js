@@ -10,7 +10,8 @@ const AppRouteProvider = ({ children }) => {
 */
 
 const AppRouteProvider = ({ children }) => {
+  console.log("### AppRouteProvider:");
   return <ConnectedRouter history={history}>{children}</ConnectedRouter>;
 };
 
-export default AppRouteProvider;
+export default React.memo(AppRouteProvider);

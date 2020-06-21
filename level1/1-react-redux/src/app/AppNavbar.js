@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
@@ -11,16 +11,28 @@ import {
   NavLink,
 } from "reactstrap";
 
+const AppNavbarBrand = ({ title }) => {
+  console.log("### AppNavbarBrand:");
+  return (
+    <NavbarBrand to="/" tag={RRNavLink} exact>
+      {title}
+    </NavbarBrand>
+  );
+};
+
+const AppNavbarBrandMemoz = React.memo(AppNavbarBrand);
+
 const AppNavbar = ({ title, secondaryTitle }) => {
+  console.log("### AppNavbar:");
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
+  const toggle = useCallback(() => {
+    setIsOpen((prevState) => !prevState);
+  }, [setIsOpen]);
 
   return (
     <Navbar color="light" light expand="md">
-      <NavbarBrand to="/" tag={RRNavLink}>
-        {title}
-      </NavbarBrand>
+      <AppNavbarBrandMemoz title={title} />
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <NavbarText className="mr-auto">{secondaryTitle}</NavbarText>
@@ -41,4 +53,4 @@ const AppNavbar = ({ title, secondaryTitle }) => {
   );
 };
 
-export default AppNavbar;
+export default React.memo(AppNavbar);

@@ -62,8 +62,8 @@ export const createUser = async (user) => {
 export const updateUser = async (user) => {
   console.log("fetch::updateUser:: user:", user);
 
-  const { id, name, email, username, phone, sex, role } = user;
-  const body = { id, name, email, username, phone, sex, role };
+  const { name, email, username, phone, sex, role } = user;
+  const body = { name, email, username, phone, sex, role };
   const response = await axios.put(`${USER_REST_API}/${user.id}`, body);
 
   console.log("fetch::updateUser:: response:", response);
