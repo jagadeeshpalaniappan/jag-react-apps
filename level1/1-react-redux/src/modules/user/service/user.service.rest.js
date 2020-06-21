@@ -87,8 +87,8 @@ export const getPostsByUserId = async (config) => {
   const response = await axios.get(`/demo/rest/v1/api/posts`, { params });
 
   console.log("fetch::getPostsByUserId:: response:", response);
-  const { data: posts, meta } = response.data;
-  return { posts, pagination: meta };
+  const { data: posts, meta: pagination } = response.data;
+  return { posts, pagination };
 };
 
 export const getTodosByUserId = async (config) => {
@@ -99,6 +99,6 @@ export const getTodosByUserId = async (config) => {
   const response = await axios.get(`/demo/rest/v1/api/todos`, { params });
 
   console.log("fetch::getTodosByUserId:: response:", response);
-  const { data: todos, meta } = response.data;
-  return { todos, pagination: meta };
+  const { data: todos, meta: pagination } = response.data;
+  return { todos, pagination };
 };

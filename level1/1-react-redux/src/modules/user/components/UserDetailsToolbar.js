@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 // import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { Button } from "reactstrap";
 import UserDeleteModal from "./UserDeleteModal";
 
 const UserDetailsToolbar = ({ user, hidden, onDelete }) => {
   console.log("### UserDetailsToolbar:");
+  var history = useHistory();
   const [delModalOpen, setDelModalOpen] = useState(false);
   const openDeleteModal = () => setDelModalOpen(true);
   const closeDeleteModal = () => setDelModalOpen(false);
+  const goBack = () => {
+    console.log("history.length ", history.length);
+    if (history.length > 2) history.goBack();
+    else history.push("/users");
+  };
 
   return (
     <div className="d-flex align-items-center">
       {!hidden && (
         <>
-          <Button tag={NavLink} to={`/users`} className="ml-2" exact>
+          <Button className="ml-2" onClick={goBack}>
             Back
           </Button>
           {user && (

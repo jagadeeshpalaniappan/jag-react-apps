@@ -31,22 +31,28 @@ const Users = (props) => {
   let query = useQueryParam();
   const sortBy = query.get("sortBy");
   const pageSize = query.get("pageSize");
+  const pageAfter = query.get("pageAfter");
+  const pageBefore = query.get("pageBefore");
 
-  const initApi = useCallback(
-    (pagination) => {
-      console.log("Users:initApi:");
-
-      getUsers({
-        sortBy,
-        filters,
-        searchBy: searchKeyword,
-        pageSize,
-        pageBefore: pagination && pagination.before,
-        pageAfter: pagination && pagination.after,
-      });
-    },
-    [getUsers, sortBy, pageSize, searchKeyword, filters]
-  );
+  const initApi = useCallback(() => {
+    console.log("Users:initApi:");
+    getUsers({
+      sortBy,
+      filters,
+      searchBy: searchKeyword,
+      pageSize,
+      pageBefore,
+      pageAfter,
+    });
+  }, [
+    getUsers,
+    sortBy,
+    pageSize,
+    searchKeyword,
+    filters,
+    pageBefore,
+    pageAfter,
+  ]);
 
   useEffect(() => {
     console.log("Users:onInit:");
@@ -65,17 +71,6 @@ const Users = (props) => {
     },
     [searchUser]
   );
-
-  // PAGINATION:
-  const getPrevPageUsers = useCallback(() => {
-    console.log("getPrevPageUsers: ");
-    initApi({ before: pagination.before });
-  }, [initApi, pagination]);
-
-  const getNextPageUsers = useCallback(() => {
-    console.log("getPrevPageUsers: ");
-    initApi({ after: pagination.after });
-  }, [initApi, pagination]);
 
   const handleFilter = useCallback(
     (newFilters) => {
@@ -103,12 +98,7 @@ const Users = (props) => {
         text="Error while getting users"
         onRetry={handleRetry}
       />
-      <UsersList
-        users={users}
-        pagination={pagination}
-        onPrevPage={getPrevPageUsers}
-        onNextPage={getNextPageUsers}
-      />
+      <UsersList users={users} pagination={pagination} />
     </UserLayout>
   );
 };

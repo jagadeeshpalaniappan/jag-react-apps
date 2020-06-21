@@ -1,20 +1,37 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Button, ButtonGroup } from "reactstrap";
+import { useHistory } from "react-router-dom";
+import { useQueryParam } from "../../common/hooks";
 
-const UserListPagination = ({ pagination, onPrevPage, onNextPage }) => {
+const UserListPagination = ({ pagination }) => {
   console.log("### UserListPagination:");
+  var history = useHistory();
+  let query = useQueryParam();
+
+  const handleNextPage = () => {
+    query.delete("pageBefore");
+    query.set("pageAfter", pagination.after);
+    history.push({ search: query.toString() });
+  };
+
+  const handlePrevPage = () => {
+    query.delete("pageAfter");
+    query.set("pageBefore", pagination.before);
+    history.push({ search: query.toString() });
+  };
+
   return (
     <div className="d-flex justify-content-end my-3">
       <ButtonGroup>
         <Button
-          onClick={onPrevPage}
+          onClick={handlePrevPage}
           disabled={!(pagination && pagination.before)}
         >
           Prev
         </Button>
         <Button
-          onClick={onNextPage}
+          onClick={handleNextPage}
           disabled={!(pagination && pagination.after)}
         >
           Next
@@ -26,8 +43,6 @@ const UserListPagination = ({ pagination, onPrevPage, onNextPage }) => {
 
 UserListPagination.propTypes = {
   pagination: PropTypes.object,
-  onPrevPage: PropTypes.func.isRequired,
-  onNextPage: PropTypes.func.isRequired,
 };
 
 export default React.memo(UserListPagination);
