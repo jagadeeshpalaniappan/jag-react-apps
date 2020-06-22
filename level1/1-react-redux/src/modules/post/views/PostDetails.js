@@ -61,24 +61,16 @@ function PostDetails({
               <legend>{post.id}</legend>
             </div>
             <div>
-              <label>Name:</label>
-              <legend>{post.name}</legend>
+              <label>Title:</label>
+              <legend>{post.title}</legend>
             </div>
             <div>
-              <label>Email:</label>
-              <legend>{post.email}</legend>
+              <label>Body:</label>
+              <legend>{post.body}</legend>
             </div>
             <div>
-              <label>Postname:</label>
-              <legend>{post.postname}</legend>
-            </div>
-            <div>
-              <label>Sex:</label>
-              <legend>{post.sex}</legend>
-            </div>
-            <div>
-              <label>Role:</label>
-              <legend>{post.role}</legend>
+              <label>UserId:</label>
+              <legend>{post.userId}</legend>
             </div>
             <div>
               <label>Active:</label>

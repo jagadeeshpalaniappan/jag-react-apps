@@ -51,9 +51,9 @@ export const getPost = async (post) => {
 export const createPost = async (post) => {
   console.log("fetch::createPost:: post:", post);
 
-  const { name, email, postname, phone, sex, role } = post;
-  const body = { name, email, postname, phone, sex, role };
-  const response = await axios.post(POST_REST_API, body);
+  const { title, body, userId } = post;
+  const reqBody = { title, body, userId };
+  const response = await axios.post(POST_REST_API, reqBody);
 
   console.log("fetch::createPost:: response:", response);
   return response.data.post;
@@ -62,9 +62,9 @@ export const createPost = async (post) => {
 export const updatePost = async (post) => {
   console.log("fetch::updatePost:: post:", post);
 
-  const { name, email, postname, phone, sex, role } = post;
-  const body = { name, email, postname, phone, sex, role };
-  const response = await axios.put(`${POST_REST_API}/${post.id}`, body);
+  const { title, body, userId, isActive } = post;
+  const reqBody = { title, body, userId, isActive };
+  const response = await axios.put(`${POST_REST_API}/${post.id}`, reqBody);
 
   console.log("fetch::updatePost:: response:", response);
   return response.data.post;

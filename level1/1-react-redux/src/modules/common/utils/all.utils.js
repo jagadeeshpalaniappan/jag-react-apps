@@ -11,7 +11,8 @@ export const arrToMap = (items = []) =>
     return res;
   }, {});
 
-export const mapToArr = (map, skipValues) => {
+export const mapToArr = (map, skipValuesArr) => {
+  const skipValues = new Set(skipValuesArr);
   let items = [];
   if (map) {
     const keys = Object.keys(map);

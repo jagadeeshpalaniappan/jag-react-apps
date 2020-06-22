@@ -29,7 +29,7 @@ const PostFiltersModalForm = ({ filters, onOk, onCancel }) => {
   const onSubmit = useCallback(
     (data) => {
       console.log("FORM-VALUES:", { data });
-      const newFilterArr = mapToArr(data, new Set(["all"]));
+      const newFilterArr = mapToArr(data, ["all", ""]);
 
       if (!deepEqual(filters, newFilterArr)) {
         console.log("newFilters::found", { filters, newFilterArr });
@@ -52,20 +52,15 @@ const PostFiltersModalForm = ({ filters, onOk, onCancel }) => {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <div className="d-flex align-items-center my-3">
-          <div className="flex-grow-1">Role:</div>
+          <div className="flex-grow-1">UserId:</div>
           <div className="">
             <Input
-              type="select"
-              name="role"
+              type="text"
+              name="userId"
               bsSize="sm"
               innerRef={register()}
               style={{ width: "10rem" }}
-            >
-              <option value="all">All</option>
-              <option value="admin">Admin</option>
-              <option value="dev">Devloper</option>
-              <option value="manager">Manager</option>
-            </Input>
+            ></Input>
           </div>
         </div>
         <div className="d-flex align-items-center my-3">
@@ -83,24 +78,6 @@ const PostFiltersModalForm = ({ filters, onOk, onCancel }) => {
               </option>
               <option value="active">Active Posts</option>
               <option value="inactive">InActive Posts</option>
-            </Input>
-          </div>
-        </div>
-        <div className="d-flex align-items-center my-3">
-          <div className="flex-grow-1">Gender:</div>
-          <div className="">
-            <Input
-              type="select"
-              name="sex"
-              bsSize="sm"
-              innerRef={register()}
-              style={{ width: "10rem" }}
-            >
-              <option value="all" defaultChecked>
-                All
-              </option>
-              <option value="male">Male Posts</option>
-              <option value="female">Female Posts</option>
             </Input>
           </div>
         </div>

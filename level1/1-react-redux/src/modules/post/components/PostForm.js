@@ -34,106 +34,57 @@ function PostForm({ post, status, onSave }) {
         {/* <pre> {JSON.stringify(errors)} </pre> */}
 
         <FormGroup>
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="title">Title:</label>
           <Input
             type="text"
-            id="name"
-            name="name"
-            placeholder="Name"
-            invalid={!!errors.name}
+            id="title"
+            name="title"
+            placeholder="Title"
+            invalid={!!errors.title}
             innerRef={register({
               required: {
                 value: true,
-                message: "Name is required",
+                message: "Title is required",
               },
               maxLength: {
                 value: 30,
-                message: "Name cannot exceed 30 chars",
+                message: "Title cannot exceed 30 chars",
               },
             })}
           />
-          {errors.name && <FormFeedback>{errors.name.message}</FormFeedback>}
+          {errors.title && <FormFeedback>{errors.title.message}</FormFeedback>}
         </FormGroup>
         <FormGroup>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="body">Body:</label>
+          <Input
+            type="textarea"
+            id="body"
+            name="body"
+            placeholder="Body"
+            invalid={!!errors.body}
+            innerRef={register()}
+          />
+          {errors.body && <FormFeedback>{errors.body.message}</FormFeedback>}
+        </FormGroup>
+
+        <FormGroup>
+          <label htmlFor="userId">UserId: (TODO)</label>
           <Input
             type="text"
-            id="email"
-            name="email"
-            placeholder="Email"
-            invalid={!!errors.email}
+            id="userId"
+            name="userId"
+            placeholder="UserId"
+            invalid={!!errors.userId}
             innerRef={register({
               required: {
                 value: true,
-                message: "Email is required",
-              },
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: "Invalid email address",
+                message: "UserId is required",
               },
             })}
           />
-          {errors.email && <FormFeedback>{errors.email.message}</FormFeedback>}
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="postname">Postname:</label>
-          <Input
-            type="text"
-            id="postname"
-            name="postname"
-            placeholder="Postname"
-            invalid={!!errors.postname}
-            innerRef={register({
-              required: { value: true, message: "Postname is required" },
-            })}
-          />
-          {errors.postname && (
-            <FormFeedback>{errors.postname.message}</FormFeedback>
+          {errors.userId && (
+            <FormFeedback>{errors.userId.message}</FormFeedback>
           )}
-        </FormGroup>
-
-        <FormGroup>
-          <label htmlFor="sexGroup">Sex:</label>
-          <FormGroup check>
-            <Label check className="pr-5">
-              <Input
-                type="radio"
-                name="sex"
-                value="male"
-                defaultChecked
-                innerRef={register()}
-              />{" "}
-              Male
-            </Label>
-
-            <Label check>
-              <Input
-                type="radio"
-                name="sex"
-                value="female"
-                innerRef={register()}
-              />{" "}
-              Female
-            </Label>
-          </FormGroup>
-        </FormGroup>
-
-        <FormGroup>
-          <Label for="exampleSelect">Role</Label>
-          <Input
-            type="select"
-            name="role"
-            id="exampleSelect"
-            invalid={!!errors.role}
-            innerRef={register({
-              required: { value: true, message: "Role is required" },
-            })}
-          >
-            <option value="admin">Admin</option>
-            <option value="dev">Devloper</option>
-            <option value="manager">Manager</option>
-          </Input>
-          {errors.role && <FormFeedback>{errors.role.message}</FormFeedback>}
         </FormGroup>
 
         <FormGroup check>
@@ -165,8 +116,6 @@ function PostForm({ post, status, onSave }) {
             Save
           </Button>
         </div>
-
-        {JSON.stringify(status, null, 2)}
       </Form>
     </div>
   );
