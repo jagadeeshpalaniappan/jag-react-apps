@@ -25,7 +25,7 @@ function PostListByAuthor({
   return (
     <div className="mt-3">
       <legend>Author's Posts</legend>
-      <StatusQueryLoading loading={loading} text="Loading Post's Posts" />
+      <StatusQueryLoading loading={loading} text="Loading Author's Posts" />
       <StatusQueryError
         error={error}
         text="Error while getting Post's Posts"

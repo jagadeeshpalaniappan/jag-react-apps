@@ -17,9 +17,9 @@ import {
   API_GET_POSTS_BY_USER_START,
   API_GET_POSTS_BY_USER_SUCCESS,
   API_GET_POSTS_BY_USER_FAILURE,
-  API_GET_POST_TODOS_START,
-  API_GET_POST_TODOS_SUCCESS,
-  API_GET_POST_TODOS_FAILURE,
+  API_GET_POST_AUTHOR_INFO_START,
+  API_GET_POST_AUTHOR_INFO_SUCCESS,
+  API_GET_POST_AUTHOR_INFO_FAILURE,
   RESET_POST_MUTATION_STATUS,
   SET_POST_SEARCH_KEYWORD,
   SET_POST_FILTERS,
@@ -47,7 +47,7 @@ const initialPostState = {
     loading: false,
     error: null,
   },
-  postTodos: {
+  authorInfo: {
     data: {},
     loading: false,
     error: null,
@@ -128,8 +128,8 @@ export const postReducer = (postState = initialPostState, action) => {
         //   loading: false,
         //   error: null,
         // },
-        // postTodos: {
-        //   ...postState.postTodos,
+        // authorInfo: {
+        //   ...postState.authorInfo,
         //   data: action.payload.todos,
         //   loading: false,
         //   error: null,
@@ -290,31 +290,31 @@ export const postReducer = (postState = initialPostState, action) => {
           error: action.payload.error,
         },
       };
-    case API_GET_POST_TODOS_START:
+    case API_GET_POST_AUTHOR_INFO_START:
       return {
         ...postState,
-        postTodos: {
-          ...postState.postTodos,
-          data: [],
+        authorInfo: {
+          ...postState.authorInfo,
+          data: {},
           loading: true,
           error: null,
         },
       };
-    case API_GET_POST_TODOS_SUCCESS:
+    case API_GET_POST_AUTHOR_INFO_SUCCESS:
       return {
         ...postState,
-        postTodos: {
-          ...postState.postTodos,
-          data: action.payload.todos,
+        authorInfo: {
+          ...postState.authorInfo,
+          data: action.payload.user,
           loading: false,
           error: null,
         },
       };
-    case API_GET_POST_TODOS_FAILURE:
+    case API_GET_POST_AUTHOR_INFO_FAILURE:
       return {
         ...postState,
-        postTodos: {
-          ...postState.postTodos,
+        authorInfo: {
+          ...postState.authorInfo,
           loading: false,
           error: action.payload.error,
         },

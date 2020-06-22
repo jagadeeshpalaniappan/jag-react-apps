@@ -18,7 +18,7 @@ function PostDetails({
   getPost,
   deletePost,
   postPosts,
-  postTodos,
+  authorInfo,
 }) {
   console.log("### PostDetails:");
   let { id } = useParams();
