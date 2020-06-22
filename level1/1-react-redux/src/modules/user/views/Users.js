@@ -11,7 +11,6 @@ import UsersToolbar from "../components/UsersToolbar";
 import UserLayout from "../layout/UserLayout";
 import {
   getUsersAction,
-  setUserFiltersAction,
   setUserSearchKeywordAction,
 } from "../state/user.action";
 
@@ -25,7 +24,6 @@ const Users = (props) => {
     searchKeyword,
     filters,
     searchUser,
-    setFilters,
     getUsers,
   } = props;
   let query = useQueryParam();
@@ -72,19 +70,8 @@ const Users = (props) => {
     [searchUser]
   );
 
-  const handleFilter = useCallback(
-    (newFilters) => {
-      console.log("handleFilter:", { newFilters });
-      setFilters(newFilters);
-    },
-    [setFilters]
-  );
-
   return (
-    <UserLayout
-      title="Users"
-      actions={<UsersToolbar filters={filters} onFilter={handleFilter} />}
-    >
+    <UserLayout title="Users" actions={<UsersToolbar />}>
       <div className="my-3">
         <SearchInput
           value={searchKeyword}
@@ -118,14 +105,12 @@ const mapStateToProps = (state) => {
     users, // SERVER-SEARCH
     pagination,
     searchKeyword: state.userState.searchKeyword,
-    filters: state.userState.filters,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     getUsers: (config) => dispatch(getUsersAction(config)),
     searchUser: (keyword) => dispatch(setUserSearchKeywordAction(keyword)),
-    setFilters: (filters) => dispatch(setUserFiltersAction(filters)),
   };
 };
 
