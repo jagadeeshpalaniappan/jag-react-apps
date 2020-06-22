@@ -7,8 +7,9 @@ import PostList from "../components/PostList";
 import { apiGetPostsByUserIdAction } from "../state/api/post.getPostsByUserId.action";
 
 function PostListByAuthor({
+  exUserId,
   userId,
-  postPosts,
+  authorPosts,
   loading,
   error,
   getPostsByUserId,
@@ -17,8 +18,13 @@ function PostListByAuthor({
 
   useEffect(() => {
     // onInit:
-    if (userId) getPostsByUserId({ userId });
-  }, [userId, getPostsByUserId]);
+    console.log("PostListByAuthor: useEffect", { userId, exUserId });
+
+    const canStart = exUserId ? exUserId !== userId : !!userId;
+    if (canStart) {
+      getPostsByUserId({ userId });
+    }
+  }, [userId, exUserId, getPostsByUserId]);
 
   const handleRetry = () => getPostsByUserId({ userId });
 
@@ -32,29 +38,33 @@ function PostListByAuthor({
         onRetry={handleRetry}
       />
       {/* TODO: change it to PostList */}
-      {postPosts && postPosts.length > 0 && <PostList posts={postPosts} />}
+      {authorPosts && authorPosts.length > 0 && (
+        <PostList posts={authorPosts} />
+      )}
     </div>
   );
 }
 
 PostListByAuthor.propTypes = {
-  postPosts: PropTypes.object.isRequired,
+  authorPosts: PropTypes.object.isRequired,
   getPostsByUserId: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   console.log("PostListByAuthor", state);
-  const { loading, error, data } = state.postState.postPosts;
+  const { loading, error, data } = state.postState.authorPosts;
+  const authorInfo = state.postState.authorInfo;
   return {
     loading,
     error,
-    postPosts: data,
+    authorPosts: data,
+    exUserId: authorInfo.data.id,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostsByUserId: (postPosts) =>
-      dispatch(apiGetPostsByUserIdAction(postPosts)),
+    getPostsByUserId: (authorPosts) =>
+      dispatch(apiGetPostsByUserIdAction(authorPosts)),
   };
 };
 

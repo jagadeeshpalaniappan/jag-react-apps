@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Card } from "reactstrap";
@@ -11,22 +11,23 @@ import PostListByAuthor from "../container/PostListByAuthor";
 import PostLayout from "../layout/PostLayout";
 import { deletePostAction, getPostAction } from "../state/post.action";
 
-function PostDetails({
-  post,
-  loading,
-  error,
-  getPost,
-  deletePost,
-  postPosts,
-  authorInfo,
-}) {
+function PostDetails({ exPostId, post, loading, error, getPost, deletePost }) {
   console.log("### PostDetails:");
   let { id } = useParams();
+  const [reqstdId, setReqstdId] = useState(null);
 
   useEffect(() => {
     // onInit:
-    getPost({ id });
-  }, [id, getPost]);
+    console.log("PostDetails: useEffect", { id, exPostId });
+    const isNewPost = exPostId ? exPostId !== id : !!id;
+    const isAleadyReqstd = reqstdId === id;
+    const canStart = isNewPost && !isAleadyReqstd;
+    if (canStart) {
+      console.log("PostDetails: start", { id, exPostId });
+      getPost({ id });
+      setReqstdId(id);
+    }
+  }, [id, exPostId, reqstdId, getPost]);
 
   const handleDelete = () => {
     deletePost(post);
@@ -79,12 +80,8 @@ function PostDetails({
           </Card>
         </>
       )}
-
       <PostAuthorDetails userId={post.userId} />
       <PostListByAuthor userId={post.userId} />
-
-      {/* <PostPostList postId={id} />
-      <PostTodoList postId={id} /> */}
     </PostLayout>
   );
 }
@@ -94,13 +91,14 @@ PostDetails.propTypes = {
   getPost: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   console.log("PostDetails", state);
   const { loading, error, data } = state.postState.post;
   return {
     loading,
     error,
     post: data,
+    exPostId: data.id,
   };
 };
 const mapDispatchToProps = (dispatch) => {

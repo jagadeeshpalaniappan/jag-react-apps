@@ -8,9 +8,10 @@ import {
   API_GET_POSTS_FAILURE,
   API_GET_POSTS_START,
   API_GET_POSTS_SUCCESS,
-  API_GET_POST_FAILURE,
   API_GET_POST_START,
   API_GET_POST_SUCCESS,
+  API_GET_POST_FAILURE,
+  API_GET_POST_RESET,
   API_UPDATE_POST_FAILURE,
   API_UPDATE_POST_START,
   API_UPDATE_POST_SUCCESS,
@@ -20,6 +21,7 @@ import {
   API_GET_POST_AUTHOR_INFO_START,
   API_GET_POST_AUTHOR_INFO_SUCCESS,
   API_GET_POST_AUTHOR_INFO_FAILURE,
+  API_GET_POST_AUTHOR_INFO_RESET,
   RESET_POST_MUTATION_STATUS,
   SET_POST_SEARCH_KEYWORD,
   SET_POST_FILTERS,
@@ -42,7 +44,7 @@ const initialPostState = {
     loading: false,
     error: null,
   },
-  postPosts: {
+  authorPosts: {
     data: {},
     loading: false,
     error: null,
@@ -122,18 +124,6 @@ export const postReducer = (postState = initialPostState, action) => {
           loading: false,
           error: null,
         },
-        // postPosts: {
-        //   ...postState.postPosts,
-        //   data: action.payload.posts,
-        //   loading: false,
-        //   error: null,
-        // },
-        // authorInfo: {
-        //   ...postState.authorInfo,
-        //   data: action.payload.todos,
-        //   loading: false,
-        //   error: null,
-        // },
       };
     case API_GET_POST_FAILURE:
       return {
@@ -142,6 +132,13 @@ export const postReducer = (postState = initialPostState, action) => {
           ...postState.post,
           loading: false,
           error: action.payload,
+        },
+      };
+    case API_GET_POST_RESET:
+      return {
+        ...postState,
+        post: {
+          ...initialPostState.post,
         },
       };
     case API_CREATE_POST_START:
@@ -261,35 +258,6 @@ export const postReducer = (postState = initialPostState, action) => {
           },
         },
       };
-    case API_GET_POSTS_BY_USER_START:
-      return {
-        ...postState,
-        postPosts: {
-          ...postState.postPosts,
-          data: [],
-          loading: true,
-          error: null,
-        },
-      };
-    case API_GET_POSTS_BY_USER_SUCCESS:
-      return {
-        ...postState,
-        postPosts: {
-          ...postState.postPosts,
-          data: action.payload.posts,
-          loading: false,
-          error: null,
-        },
-      };
-    case API_GET_POSTS_BY_USER_FAILURE:
-      return {
-        ...postState,
-        postPosts: {
-          ...postState.postPosts,
-          loading: false,
-          error: action.payload.error,
-        },
-      };
     case API_GET_POST_AUTHOR_INFO_START:
       return {
         ...postState,
@@ -319,6 +287,46 @@ export const postReducer = (postState = initialPostState, action) => {
           error: action.payload.error,
         },
       };
+    case API_GET_POST_AUTHOR_INFO_RESET:
+      return {
+        ...postState,
+        authorInfo: {
+          ...postState.authorInfo,
+          data: {},
+          loading: true,
+          error: null,
+        },
+      };
+    case API_GET_POSTS_BY_USER_START:
+      return {
+        ...postState,
+        authorPosts: {
+          ...postState.authorPosts,
+          data: [],
+          loading: true,
+          error: null,
+        },
+      };
+    case API_GET_POSTS_BY_USER_SUCCESS:
+      return {
+        ...postState,
+        authorPosts: {
+          ...postState.authorPosts,
+          data: action.payload.posts,
+          loading: false,
+          error: null,
+        },
+      };
+    case API_GET_POSTS_BY_USER_FAILURE:
+      return {
+        ...postState,
+        authorPosts: {
+          ...postState.authorPosts,
+          loading: false,
+          error: action.payload.error,
+        },
+      };
+
     default:
       return postState;
   }

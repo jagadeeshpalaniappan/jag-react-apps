@@ -7,6 +7,7 @@ import {
   API_DELETE_POST_SUCCESS,
 } from "../post.actionTypes";
 import { basePath } from "../../../../app/AppRoutes";
+import { apiGetPostResetAction } from "./post.getPost.action";
 
 // ACTION-CREATORS:
 export const apiDeletePostStartAction = () => {
@@ -36,6 +37,7 @@ export const apiDeletePostAction = (post) => async (dispatch) => {
     if (data) {
       // SUCCESS
       dispatch(apiDeletePostSuccessAction(data));
+      dispatch(apiGetPostResetAction());
       dispatch(push(basePath.post));
     } else {
       // FAILURE

@@ -1,9 +1,10 @@
 import { getUser } from "../../../user/service/user.service";
 
 import {
-  API_GET_POST_AUTHOR_INFO_FAILURE,
   API_GET_POST_AUTHOR_INFO_START,
   API_GET_POST_AUTHOR_INFO_SUCCESS,
+  API_GET_POST_AUTHOR_INFO_FAILURE,
+  API_GET_POST_AUTHOR_INFO_RESET,
 } from "../post.actionTypes";
 
 // ACTION-CREATORS:
@@ -23,6 +24,13 @@ export const apiGetAuthorInfoSuccessAction = (post) => {
 export const apiGetAuthorInfoFailureAction = (error) => {
   return {
     type: API_GET_POST_AUTHOR_INFO_FAILURE,
+    payload: error,
+  };
+};
+
+export const apiGetAuthorInfoResetAction = (error) => {
+  return {
+    type: API_GET_POST_AUTHOR_INFO_RESET,
     payload: error,
   };
 };

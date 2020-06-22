@@ -6,6 +6,7 @@ import {
 } from "../post.actionTypes";
 import { updatePost } from "../../service/post.service";
 import { basePath } from "../../../../app/AppRoutes";
+import { apiGetPostResetAction } from "./post.getPost.action";
 
 // ACTION-CREATORS:
 export const apiUpdatePostStartAction = () => {
@@ -33,6 +34,7 @@ export const apiUpdatePostAction = (post) => async (dispatch) => {
   try {
     dispatch(apiUpdatePostStartAction());
     const data = await updatePost(post);
+    dispatch(apiGetPostResetAction());
     dispatch(push(`${basePath.post}/${data.id}`));
     setTimeout(() => dispatch(apiUpdatePostSuccessAction(data)), 500);
   } catch (e) {

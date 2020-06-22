@@ -9,6 +9,7 @@ import PostLayout from "../layout/PostLayout";
 import { getPostAction, updatePostAction } from "../state/post.action";
 
 function EditPost({
+  exPostId,
   post,
   loading,
   error,
@@ -20,8 +21,10 @@ function EditPost({
   let { id } = useParams();
   useEffect(() => {
     // onInit:
-    getPost({ id });
-  }, [id, getPost]);
+    if (exPostId !== id) {
+      getPost({ id });
+    }
+  }, [id, exPostId, getPost]);
 
   const handleSave = useCallback(
     (updatedPost) => updatePost({ id, ...updatedPost }),
@@ -62,6 +65,7 @@ const mapStateToProps = (state) => {
     loading,
     error,
     post: data,
+    exPostId: data.id,
     mutationStatus: state.postState.mutationStatus,
   };
 };

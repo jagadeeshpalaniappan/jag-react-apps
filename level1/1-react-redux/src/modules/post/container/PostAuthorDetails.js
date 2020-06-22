@@ -4,15 +4,24 @@ import { connect } from "react-redux";
 import UserCard from "../../user/components/UserCard";
 import { apiGetAuthorInfoAction } from "../state/api/post.getAuthorInfo.action";
 
-function PostAuthorDetails({ userId, user, loading, error, getAuthorInfo }) {
+function PostAuthorDetails({
+  exUserId,
+  userId,
+  user,
+  loading,
+  error,
+  getAuthorInfo,
+}) {
   console.log("### PostAuthorDetails:", userId);
 
   useEffect(() => {
+    console.log("### PostAuthorDetails:useEffect", { userId, exUserId });
     // onInit:
-    if (userId) {
+    const canStart = exUserId ? exUserId !== userId : !!userId;
+    if (canStart) {
       getAuthorInfo({ id: userId });
     }
-  }, [userId, getAuthorInfo]);
+  }, [userId, exUserId, getAuthorInfo]);
 
   const handleRetry = () => getAuthorInfo({ id: userId });
   return (
@@ -29,7 +38,7 @@ function PostAuthorDetails({ userId, user, loading, error, getAuthorInfo }) {
 }
 
 PostAuthorDetails.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   getAuthorInfo: PropTypes.func.isRequired,
 };
 
@@ -40,6 +49,7 @@ const mapStateToProps = (state) => {
     loading,
     error,
     user: data,
+    exUserId: data.id,
   };
 };
 const mapDispatchToProps = (dispatch) => {
