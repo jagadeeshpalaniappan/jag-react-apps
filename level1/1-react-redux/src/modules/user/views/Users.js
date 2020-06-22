@@ -105,6 +105,7 @@ const mapStateToProps = (state) => {
     users, // SERVER-SEARCH
     pagination,
     searchKeyword: state.userState.searchKeyword,
+    filters: state.userState.filters,
   };
 };
 const mapDispatchToProps = (dispatch) => {

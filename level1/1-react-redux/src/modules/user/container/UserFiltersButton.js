@@ -41,8 +41,7 @@ const UserFiltersButton = ({ filters, setFilters }) => {
 };
 
 UserFiltersButton.propTypes = {
-  onOk: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
+  filters: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {
