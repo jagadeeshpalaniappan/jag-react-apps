@@ -5,6 +5,7 @@ import {
   API_CREATE_USER_START,
   API_CREATE_USER_SUCCESS,
 } from "../user.actionTypes";
+import { basePath } from "../../../../app/AppRoutes";
 
 // ACTION-CREATORS:
 export const apiCreateUserStartAction = () => {
@@ -33,7 +34,7 @@ export const apiCreateUserAction = (user) => async (dispatch) => {
     dispatch(apiCreateUserStartAction());
     const data = await createUser(user);
     dispatch(apiCreateUserSuccessAction(data));
-    dispatch(push(`/users/${data.id}`));
+    dispatch(push(`${basePath.user}/${data.id}`));
   } catch (e) {
     dispatch(apiCreateUserFailureAction(e.message));
   }

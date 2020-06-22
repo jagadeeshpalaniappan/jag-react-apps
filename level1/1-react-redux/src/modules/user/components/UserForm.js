@@ -10,7 +10,7 @@ import {
   Input,
   Label,
 } from "reactstrap";
-import { basePath } from "../routes";
+import { basePath } from "../../../app/AppRoutes";
 
 function UserForm({ user, status, onSave }) {
   console.log("### UserForm:");
@@ -25,7 +25,7 @@ function UserForm({ user, status, onSave }) {
   const goBack = () => {
     console.log("history.length ", history.length);
     if (history.length > 2) history.goBack();
-    else history.push(basePath);
+    else history.push(basePath.user);
   };
 
   return (

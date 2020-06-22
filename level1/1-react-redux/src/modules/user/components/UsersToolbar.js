@@ -6,7 +6,7 @@ import { Button } from "reactstrap";
 import PageSizeDropdown from "../../common/components/PageSizeDropdown";
 import UserFiltersButton from "../container/UserFiltersButton";
 import UserSortDropdown from "./UserSortDropdown";
-import { basePath } from "../routes";
+import { basePath } from "../../../app/AppRoutes";
 
 const UsersToolbar = () => {
   console.log("### UsersToolbar:");
@@ -19,7 +19,7 @@ const UsersToolbar = () => {
        */}
       <Button
         tag={NavLink}
-        to={`${basePath}/create`}
+        to={`${basePath.user}/create`}
         color="primary"
         className="ml-2"
         exact

@@ -6,6 +6,7 @@ import {
   API_DELETE_USER_START,
   API_DELETE_USER_SUCCESS,
 } from "../user.actionTypes";
+import { basePath } from "../../../../app/AppRoutes";
 
 // ACTION-CREATORS:
 export const apiDeleteUserStartAction = () => {
@@ -35,7 +36,7 @@ export const apiDeleteUserAction = (user) => async (dispatch) => {
     if (data) {
       // SUCCESS
       dispatch(apiDeleteUserSuccessAction(data));
-      dispatch(push("/users"));
+      dispatch(push(basePath.user));
     } else {
       // FAILURE
       throw new AppError("Failed to Delete");

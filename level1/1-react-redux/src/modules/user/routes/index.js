@@ -1,27 +1,24 @@
 import React from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
-
-import UsersView from "../views/Users";
+import { Route, Switch } from "react-router-dom";
+import { basePath } from "../../../app/AppRoutes";
 import CreateUserView from "../views/CreateUser";
 import EditUserView from "../views/EditUser";
 import UserDetailsView from "../views/UserDetails";
-
-export const basePath = "/users";
+import UsersView from "../views/Users";
 
 const UserRoutes = () => {
-  let { path } = useRouteMatch();
   return (
     <Switch>
-      <Route exact path={path}>
+      <Route exact path={basePath.user}>
         <UsersView />
       </Route>
-      <Route path={`${path}/create`}>
+      <Route path={`${basePath.user}/create`}>
         <CreateUserView />
       </Route>
-      <Route path={`${path}/edit/:id`}>
+      <Route path={`${basePath.user}/edit/:id`}>
         <EditUserView />
       </Route>
-      <Route path={`${path}/:id`}>
+      <Route path={`${basePath.user}/:id`}>
         <UserDetailsView />
       </Route>
     </Switch>

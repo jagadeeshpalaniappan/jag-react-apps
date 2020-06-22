@@ -10,6 +10,7 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import { basePath } from "./AppRoutes";
 
 const AppNavbarBrand = ({ title }) => {
   console.log("### AppNavbarBrand:");
@@ -38,7 +39,11 @@ const AppNavbar = ({ title, secondaryTitle }) => {
         <NavbarText className="mr-auto">{secondaryTitle}</NavbarText>
         <Nav navbar>
           <NavItem>
-            <NavLink to="/users" activeClassName="active" tag={RRNavLink}>
+            <NavLink
+              to={basePath.user}
+              activeClassName="active"
+              tag={RRNavLink}
+            >
               Users
             </NavLink>
           </NavItem>

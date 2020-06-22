@@ -5,6 +5,7 @@ import {
   API_UPDATE_USER_FAILURE,
 } from "../user.actionTypes";
 import { updateUser } from "../../service/user.service";
+import { basePath } from "../../../../app/AppRoutes";
 
 // ACTION-CREATORS:
 export const apiUpdateUserStartAction = () => {
@@ -32,7 +33,7 @@ export const apiUpdateUserAction = (user) => async (dispatch) => {
   try {
     dispatch(apiUpdateUserStartAction());
     const data = await updateUser(user);
-    dispatch(push(`/users/${data.id}`));
+    dispatch(push(`${basePath.user}/${data.id}`));
     setTimeout(() => dispatch(apiUpdateUserSuccessAction(data)), 500);
   } catch (e) {
     dispatch(apiUpdateUserFailureAction(e.message));
