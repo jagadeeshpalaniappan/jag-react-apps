@@ -42,7 +42,7 @@ export const getPostAction = (post) => {
   return apiGetPostAction(post);
 };
 
-export const getPostPostsAction = (post) => {
+export const getPostsByUserIdAction = (post) => {
   return apiGetPostAction(post);
 };
 

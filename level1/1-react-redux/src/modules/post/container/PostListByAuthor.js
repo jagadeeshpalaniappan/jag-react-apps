@@ -4,21 +4,27 @@ import { connect } from "react-redux";
 import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import PostList from "../components/PostList";
-import { apiGetPostPostsAction } from "../state/api/post.getPostPosts.action";
+import { apiGetPostsByUserIdAction } from "../state/api/post.getPostsByUserId.action";
 
-function PostPostList({ postId, postPosts, loading, error, getPostPosts }) {
-  console.log("### PostPostList:");
+function PostListByAuthor({
+  userId,
+  postPosts,
+  loading,
+  error,
+  getPostsByUserId,
+}) {
+  console.log("### PostListByAuthor:");
 
   useEffect(() => {
     // onInit:
-    getPostPosts({ postId });
-  }, [postId, getPostPosts]);
+    if (userId) getPostsByUserId({ userId });
+  }, [userId, getPostsByUserId]);
 
-  const handleRetry = () => getPostPosts({ postId });
+  const handleRetry = () => getPostsByUserId({ userId });
 
   return (
     <div className="mt-3">
-      <legend>Posts</legend>
+      <legend>Author's Posts</legend>
       <StatusQueryLoading loading={loading} text="Loading Post's Posts" />
       <StatusQueryError
         error={error}
@@ -31,13 +37,13 @@ function PostPostList({ postId, postPosts, loading, error, getPostPosts }) {
   );
 }
 
-PostPostList.propTypes = {
+PostListByAuthor.propTypes = {
   postPosts: PropTypes.object.isRequired,
-  getPostPosts: PropTypes.func.isRequired,
+  getPostsByUserId: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  console.log("PostPostList", state);
+  console.log("PostListByAuthor", state);
   const { loading, error, data } = state.postState.postPosts;
   return {
     loading,
@@ -47,11 +53,12 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostPosts: (postPosts) => dispatch(apiGetPostPostsAction(postPosts)),
+    getPostsByUserId: (postPosts) =>
+      dispatch(apiGetPostsByUserIdAction(postPosts)),
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(React.memo(PostPostList));
+)(React.memo(PostListByAuthor));

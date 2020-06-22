@@ -14,9 +14,9 @@ import {
   API_UPDATE_POST_FAILURE,
   API_UPDATE_POST_START,
   API_UPDATE_POST_SUCCESS,
-  API_GET_POST_POSTS_START,
-  API_GET_POST_POSTS_SUCCESS,
-  API_GET_POST_POSTS_FAILURE,
+  API_GET_POSTS_BY_USER_START,
+  API_GET_POSTS_BY_USER_SUCCESS,
+  API_GET_POSTS_BY_USER_FAILURE,
   API_GET_POST_TODOS_START,
   API_GET_POST_TODOS_SUCCESS,
   API_GET_POST_TODOS_FAILURE,
@@ -261,7 +261,7 @@ export const postReducer = (postState = initialPostState, action) => {
           },
         },
       };
-    case API_GET_POST_POSTS_START:
+    case API_GET_POSTS_BY_USER_START:
       return {
         ...postState,
         postPosts: {
@@ -271,7 +271,7 @@ export const postReducer = (postState = initialPostState, action) => {
           error: null,
         },
       };
-    case API_GET_POST_POSTS_SUCCESS:
+    case API_GET_POSTS_BY_USER_SUCCESS:
       return {
         ...postState,
         postPosts: {
@@ -281,7 +281,7 @@ export const postReducer = (postState = initialPostState, action) => {
           error: null,
         },
       };
-    case API_GET_POST_POSTS_FAILURE:
+    case API_GET_POSTS_BY_USER_FAILURE:
       return {
         ...postState,
         postPosts: {

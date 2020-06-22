@@ -79,14 +79,14 @@ export const deletePost = async (post) => {
   return response.data;
 };
 
-export const getPostsByPostId = async (config) => {
-  console.log("fetch::getPostsByPostId::", config);
+export const getPostsByUserId = async (config) => {
+  console.log("fetch::getPostsByUserId::", config);
 
   const params = {};
-  params.filters = JSON.stringify([{ key: "postId", value: config.postId }]);
+  params.filters = JSON.stringify([{ key: "userId", value: config.userId }]);
   const response = await axios.get(`/demo/rest/v1/api/posts`, { params });
 
-  console.log("fetch::getPostsByPostId:: response:", response);
+  console.log("fetch::getPostsByUserId:: response:", response);
   const { data: posts, meta: pagination } = response.data;
   return { posts, pagination };
 };

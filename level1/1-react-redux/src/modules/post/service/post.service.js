@@ -1,7 +1,7 @@
 export {
   getPosts,
   getPost,
-  getPostsByPostId,
+  getPostsByUserId,
   getTodosByPostId,
   createPost,
   updatePost,

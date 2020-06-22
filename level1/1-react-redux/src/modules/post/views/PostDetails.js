@@ -7,6 +7,7 @@ import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import PostDetailsToolbar from "../components/PostDetailsToolbar";
 import PostAuthorDetails from "../container/PostAuthorDetails";
+import PostListByAuthor from "../container/PostListByAuthor";
 import PostLayout from "../layout/PostLayout";
 import { deletePostAction, getPostAction } from "../state/post.action";
 
@@ -80,6 +81,8 @@ function PostDetails({
       )}
 
       <PostAuthorDetails userId={post.userId} />
+      <PostListByAuthor userId={post.userId} />
+
       {/* <PostPostList postId={id} />
       <PostTodoList postId={id} /> */}
     </PostLayout>
