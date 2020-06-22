@@ -7,7 +7,7 @@ import { connectRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
 
 import { userReducer } from "../modules/user/state/user.reducer";
-// import { postReducer } from "./post/post.reducer";
+import { postReducer } from "../modules/post/state/post.reducer";
 
 //--------------------------------- Redux: Reducer -----------------------------------
 
@@ -15,7 +15,7 @@ const createRootReducer = (history) => {
   return combineReducers({
     router: connectRouter(history),
     userState: userReducer,
-    //   postState: postReducer,
+    postState: postReducer,
   });
 };
 

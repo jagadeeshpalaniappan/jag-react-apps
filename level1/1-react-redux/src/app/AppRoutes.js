@@ -5,7 +5,7 @@ import NotFoundView from "../modules/common/views/NotFound";
 // import UserModule from "./modules/user";
 const UserModule = lazy(() => import("../modules/user"));
 // import PostModule from "./modules/post";
-const PostModule = lazy(() => import("../modules/post1"));
+const PostModule = lazy(() => import("../modules/post"));
 
 export const basePath = {
   user: "/users",
@@ -25,9 +25,7 @@ const AppRoutes = () => {
         <Route path={basePath.post}>
           <PostModule />
         </Route>
-        <Route path={basePath.todo}>
-          <PostModule />
-        </Route>
+        <Route path={basePath.todo}>...</Route>
         <Route path="/404">
           <NotFoundView />
         </Route>
