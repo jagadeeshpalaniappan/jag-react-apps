@@ -6,8 +6,9 @@ import CreateUserView from "../views/CreateUser";
 import EditUserView from "../views/EditUser";
 import UserDetailsView from "../views/UserDetails";
 
-const AppRoutes = () => {
-  // The `path` lets us build <Route> paths that are relative to the parent route, while the `url` lets us build relative links.
+export const basePath = "/users";
+
+const UserRoutes = () => {
   let { path } = useRouteMatch();
   return (
     <Switch>
@@ -27,4 +28,4 @@ const AppRoutes = () => {
   );
 };
 
-export default AppRoutes;
+export default UserRoutes;

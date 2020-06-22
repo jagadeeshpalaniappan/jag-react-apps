@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Button,
   Form,
@@ -10,16 +10,23 @@ import {
   Input,
   Label,
 } from "reactstrap";
+import { basePath } from "../routes";
 
 function UserForm({ user, status, onSave }) {
   console.log("### UserForm:");
+  var history = useHistory();
   const { register, handleSubmit, errors } = useForm({ defaultValues: user });
   const onSubmit = (data) => {
     console.log("FORM-VALUES:", { data, errors });
     onSave(data);
   };
-
   // console.log({ errors });
+
+  const goBack = () => {
+    console.log("history.length ", history.length);
+    if (history.length > 2) history.goBack();
+    else history.push(basePath);
+  };
 
   return (
     <div>
@@ -143,9 +150,7 @@ function UserForm({ user, status, onSave }) {
 
         <div className="d-flex justify-content-end align-items-center my-3">
           <Button
-            tag={NavLink}
-            to={user && user.id ? `/users/${user.id}` : `/users`}
-            exact
+            onClick={goBack}
             className="ml-2"
             disabled={status && status.loading}
           >

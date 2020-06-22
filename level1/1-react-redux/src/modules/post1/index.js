@@ -2,7 +2,7 @@ import React from "react";
 // import PropTypes from "prop-types";
 
 function Posts(props) {
-  return <div>Post Module (placeholder)</div>;
+  return <div>Post Module11 (placeholder)</div>;
 }
 
 Posts.propTypes = {};

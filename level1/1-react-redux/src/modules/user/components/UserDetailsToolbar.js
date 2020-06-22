@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import PropTypes from "prop-types";
 import { NavLink, useHistory } from "react-router-dom";
 import { Button } from "reactstrap";
+import { basePath } from "../routes";
 import UserDeleteModal from "./UserDeleteModal";
 
 const UserDetailsToolbar = ({ user, hidden, onDelete }) => {
@@ -13,7 +14,7 @@ const UserDetailsToolbar = ({ user, hidden, onDelete }) => {
   const goBack = () => {
     console.log("history.length ", history.length);
     if (history.length > 2) history.goBack();
-    else history.push("/users");
+    else history.push(basePath);
   };
 
   return (
@@ -30,7 +31,7 @@ const UserDetailsToolbar = ({ user, hidden, onDelete }) => {
               </Button>
               <Button
                 tag={NavLink}
-                to={`/users/edit/${user.id}`}
+                to={`${basePath}/edit/${user.id}`}
                 color="primary"
                 className="ml-2"
               >
