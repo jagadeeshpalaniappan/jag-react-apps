@@ -1,7 +1,7 @@
 import {
-  API_GET_USERS_START,
-  API_GET_USERS_SUCCESS,
-  API_GET_USERS_FAILURE,
+  API_GET_POSTS_START,
+  API_GET_POSTS_SUCCESS,
+  API_GET_POSTS_FAILURE,
 } from "../post.actionTypes";
 
 import { getPosts } from "../../service/post.service";
@@ -10,21 +10,21 @@ import { getPosts } from "../../service/post.service";
 // ACTION-CREATORS:
 export const apiGetPostsStartAction = (config) => {
   return {
-    type: API_GET_USERS_START,
+    type: API_GET_POSTS_START,
     payload: { config },
   };
 };
 
 export const apiGetPostsSuccessAction = (config, posts) => {
   return {
-    type: API_GET_USERS_SUCCESS,
+    type: API_GET_POSTS_SUCCESS,
     payload: { config, posts },
   };
 };
 
 export const apiGetPostsFailureAction = (config, error) => {
   return {
-    type: API_GET_USERS_FAILURE,
+    type: API_GET_POSTS_FAILURE,
     payload: { config, error },
   };
 };

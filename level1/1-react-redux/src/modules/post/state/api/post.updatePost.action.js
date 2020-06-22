@@ -1,8 +1,8 @@
 import { push } from "connected-react-router";
 import {
-  API_UPDATE_USER_START,
-  API_UPDATE_USER_SUCCESS,
-  API_UPDATE_USER_FAILURE,
+  API_UPDATE_POST_START,
+  API_UPDATE_POST_SUCCESS,
+  API_UPDATE_POST_FAILURE,
 } from "../post.actionTypes";
 import { updatePost } from "../../service/post.service";
 import { basePath } from "../../../../app/AppRoutes";
@@ -10,20 +10,20 @@ import { basePath } from "../../../../app/AppRoutes";
 // ACTION-CREATORS:
 export const apiUpdatePostStartAction = () => {
   return {
-    type: API_UPDATE_USER_START,
+    type: API_UPDATE_POST_START,
   };
 };
 
 export const apiUpdatePostSuccessAction = (posts) => {
   return {
-    type: API_UPDATE_USER_SUCCESS,
+    type: API_UPDATE_POST_SUCCESS,
     payload: posts,
   };
 };
 
 export const apiUpdatePostFailureAction = (error) => {
   return {
-    type: API_UPDATE_USER_FAILURE,
+    type: API_UPDATE_POST_FAILURE,
     payload: error,
   };
 };

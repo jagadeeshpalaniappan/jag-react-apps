@@ -1,27 +1,27 @@
 import { getPostsByPostId } from "../../service/post.service";
 import {
-  API_GET_USER_POSTS_FAILURE,
-  API_GET_USER_POSTS_START,
-  API_GET_USER_POSTS_SUCCESS,
+  API_GET_POST_POSTS_FAILURE,
+  API_GET_POST_POSTS_START,
+  API_GET_POST_POSTS_SUCCESS,
 } from "../post.actionTypes";
 
 // ACTION-CREATORS:
 export const apiGetPostPostsStartAction = () => {
   return {
-    type: API_GET_USER_POSTS_START,
+    type: API_GET_POST_POSTS_START,
   };
 };
 
 export const apiGetPostPostsSuccessAction = (post) => {
   return {
-    type: API_GET_USER_POSTS_SUCCESS,
+    type: API_GET_POST_POSTS_SUCCESS,
     payload: post,
   };
 };
 
 export const apiGetPostPostsFailureAction = (error) => {
   return {
-    type: API_GET_USER_POSTS_FAILURE,
+    type: API_GET_POST_POSTS_FAILURE,
     payload: error,
   };
 };

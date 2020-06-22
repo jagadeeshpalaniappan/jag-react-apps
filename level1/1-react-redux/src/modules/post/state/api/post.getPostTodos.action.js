@@ -1,27 +1,27 @@
 import { getTodosByPostId } from "../../service/post.service";
 import {
-  API_GET_USER_TODOS_FAILURE,
-  API_GET_USER_TODOS_START,
-  API_GET_USER_TODOS_SUCCESS,
+  API_GET_POST_TODOS_FAILURE,
+  API_GET_POST_TODOS_START,
+  API_GET_POST_TODOS_SUCCESS,
 } from "../post.actionTypes";
 
 // ACTION-CREATORS:
 export const apiGetPostTodosStartAction = () => {
   return {
-    type: API_GET_USER_TODOS_START,
+    type: API_GET_POST_TODOS_START,
   };
 };
 
 export const apiGetPostTodosSuccessAction = (post) => {
   return {
-    type: API_GET_USER_TODOS_SUCCESS,
+    type: API_GET_POST_TODOS_SUCCESS,
     payload: post,
   };
 };
 
 export const apiGetPostTodosFailureAction = (error) => {
   return {
-    type: API_GET_USER_TODOS_FAILURE,
+    type: API_GET_POST_TODOS_FAILURE,
     payload: error,
   };
 };

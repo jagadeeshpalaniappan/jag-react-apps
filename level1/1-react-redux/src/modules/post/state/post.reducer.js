@@ -1,28 +1,28 @@
 import {
-  API_CREATE_USER_FAILURE,
-  API_CREATE_USER_START,
-  API_CREATE_USER_SUCCESS,
-  API_DELETE_USER_FAILURE,
-  API_DELETE_USER_START,
-  API_DELETE_USER_SUCCESS,
-  API_GET_USERS_FAILURE,
-  API_GET_USERS_START,
-  API_GET_USERS_SUCCESS,
-  API_GET_USER_FAILURE,
-  API_GET_USER_START,
-  API_GET_USER_SUCCESS,
-  API_UPDATE_USER_FAILURE,
-  API_UPDATE_USER_START,
-  API_UPDATE_USER_SUCCESS,
-  API_GET_USER_POSTS_START,
-  API_GET_USER_POSTS_SUCCESS,
-  API_GET_USER_POSTS_FAILURE,
-  API_GET_USER_TODOS_START,
-  API_GET_USER_TODOS_SUCCESS,
-  API_GET_USER_TODOS_FAILURE,
-  RESET_USER_MUTATION_STATUS,
-  SET_USER_SEARCH_KEYWORD,
-  SET_USER_FILTERS,
+  API_CREATE_POST_FAILURE,
+  API_CREATE_POST_START,
+  API_CREATE_POST_SUCCESS,
+  API_DELETE_POST_FAILURE,
+  API_DELETE_POST_START,
+  API_DELETE_POST_SUCCESS,
+  API_GET_POSTS_FAILURE,
+  API_GET_POSTS_START,
+  API_GET_POSTS_SUCCESS,
+  API_GET_POST_FAILURE,
+  API_GET_POST_START,
+  API_GET_POST_SUCCESS,
+  API_UPDATE_POST_FAILURE,
+  API_UPDATE_POST_START,
+  API_UPDATE_POST_SUCCESS,
+  API_GET_POST_POSTS_START,
+  API_GET_POST_POSTS_SUCCESS,
+  API_GET_POST_POSTS_FAILURE,
+  API_GET_POST_TODOS_START,
+  API_GET_POST_TODOS_SUCCESS,
+  API_GET_POST_TODOS_FAILURE,
+  RESET_POST_MUTATION_STATUS,
+  SET_POST_SEARCH_KEYWORD,
+  SET_POST_FILTERS,
 } from "./post.actionTypes";
 
 // REDUCER:
@@ -33,7 +33,7 @@ const initialPostState = {
     deletePostStatus: null,
   },
   posts: {
-    data: [],
+    data: {},
     loading: false,
     error: null,
   },
@@ -43,12 +43,12 @@ const initialPostState = {
     error: null,
   },
   postPosts: {
-    data: [],
+    data: {},
     loading: false,
     error: null,
   },
   postTodos: {
-    data: [],
+    data: {},
     loading: false,
     error: null,
   },
@@ -59,32 +59,32 @@ const initialPostState = {
 
 export const postReducer = (postState = initialPostState, action) => {
   switch (action.type) {
-    case RESET_USER_MUTATION_STATUS:
+    case RESET_POST_MUTATION_STATUS:
       return {
         ...postState,
         mutationStatus: initialPostState.mutationStatus,
       };
-    case SET_USER_SEARCH_KEYWORD:
+    case SET_POST_SEARCH_KEYWORD:
       return {
         ...postState,
         searchKeyword: action.payload,
       };
-    case SET_USER_FILTERS:
+    case SET_POST_FILTERS:
       return {
         ...postState,
         filters: action.payload,
       };
-    case API_GET_USERS_START:
+    case API_GET_POSTS_START:
       return {
         ...postState,
         posts: {
           ...postState.posts,
-          data: [],
+          data: {},
           loading: true,
           error: null,
         },
       };
-    case API_GET_USERS_SUCCESS:
+    case API_GET_POSTS_SUCCESS:
       return {
         ...postState,
         posts: {
@@ -94,7 +94,7 @@ export const postReducer = (postState = initialPostState, action) => {
           error: null,
         },
       };
-    case API_GET_USERS_FAILURE:
+    case API_GET_POSTS_FAILURE:
       return {
         ...postState,
         posts: {
@@ -103,7 +103,7 @@ export const postReducer = (postState = initialPostState, action) => {
           error: action.payload.error,
         },
       };
-    case API_GET_USER_START:
+    case API_GET_POST_START:
       return {
         ...postState,
         post: {
@@ -113,7 +113,7 @@ export const postReducer = (postState = initialPostState, action) => {
           error: null,
         },
       };
-    case API_GET_USER_SUCCESS:
+    case API_GET_POST_SUCCESS:
       return {
         ...postState,
         post: {
@@ -135,7 +135,7 @@ export const postReducer = (postState = initialPostState, action) => {
         //   error: null,
         // },
       };
-    case API_GET_USER_FAILURE:
+    case API_GET_POST_FAILURE:
       return {
         ...postState,
         post: {
@@ -144,7 +144,7 @@ export const postReducer = (postState = initialPostState, action) => {
           error: action.payload,
         },
       };
-    case API_CREATE_USER_START:
+    case API_CREATE_POST_START:
       return {
         ...postState,
         mutationStatus: {
@@ -157,7 +157,7 @@ export const postReducer = (postState = initialPostState, action) => {
           },
         },
       };
-    case API_CREATE_USER_SUCCESS:
+    case API_CREATE_POST_SUCCESS:
       return {
         ...postState,
         mutationStatus: {
@@ -170,7 +170,7 @@ export const postReducer = (postState = initialPostState, action) => {
           },
         },
       };
-    case API_CREATE_USER_FAILURE:
+    case API_CREATE_POST_FAILURE:
       return {
         ...postState,
         mutationStatus: {
@@ -183,7 +183,7 @@ export const postReducer = (postState = initialPostState, action) => {
           },
         },
       };
-    case API_UPDATE_USER_START:
+    case API_UPDATE_POST_START:
       return {
         ...postState,
         mutationStatus: {
@@ -196,7 +196,7 @@ export const postReducer = (postState = initialPostState, action) => {
           },
         },
       };
-    case API_UPDATE_USER_SUCCESS:
+    case API_UPDATE_POST_SUCCESS:
       return {
         ...postState,
         mutationStatus: {
@@ -209,7 +209,7 @@ export const postReducer = (postState = initialPostState, action) => {
           },
         },
       };
-    case API_UPDATE_USER_FAILURE:
+    case API_UPDATE_POST_FAILURE:
       return {
         ...postState,
         mutationStatus: {
@@ -222,7 +222,7 @@ export const postReducer = (postState = initialPostState, action) => {
           },
         },
       };
-    case API_DELETE_USER_START:
+    case API_DELETE_POST_START:
       return {
         ...postState,
         mutationStatus: {
@@ -235,7 +235,7 @@ export const postReducer = (postState = initialPostState, action) => {
           },
         },
       };
-    case API_DELETE_USER_SUCCESS:
+    case API_DELETE_POST_SUCCESS:
       return {
         ...postState,
         mutationStatus: {
@@ -248,7 +248,7 @@ export const postReducer = (postState = initialPostState, action) => {
           },
         },
       };
-    case API_DELETE_USER_FAILURE:
+    case API_DELETE_POST_FAILURE:
       return {
         ...postState,
         mutationStatus: {
@@ -261,7 +261,7 @@ export const postReducer = (postState = initialPostState, action) => {
           },
         },
       };
-    case API_GET_USER_POSTS_START:
+    case API_GET_POST_POSTS_START:
       return {
         ...postState,
         postPosts: {
@@ -271,7 +271,7 @@ export const postReducer = (postState = initialPostState, action) => {
           error: null,
         },
       };
-    case API_GET_USER_POSTS_SUCCESS:
+    case API_GET_POST_POSTS_SUCCESS:
       return {
         ...postState,
         postPosts: {
@@ -281,7 +281,7 @@ export const postReducer = (postState = initialPostState, action) => {
           error: null,
         },
       };
-    case API_GET_USER_POSTS_FAILURE:
+    case API_GET_POST_POSTS_FAILURE:
       return {
         ...postState,
         postPosts: {
@@ -290,7 +290,7 @@ export const postReducer = (postState = initialPostState, action) => {
           error: action.payload.error,
         },
       };
-    case API_GET_USER_TODOS_START:
+    case API_GET_POST_TODOS_START:
       return {
         ...postState,
         postTodos: {
@@ -300,7 +300,7 @@ export const postReducer = (postState = initialPostState, action) => {
           error: null,
         },
       };
-    case API_GET_USER_TODOS_SUCCESS:
+    case API_GET_POST_TODOS_SUCCESS:
       return {
         ...postState,
         postTodos: {
@@ -310,7 +310,7 @@ export const postReducer = (postState = initialPostState, action) => {
           error: null,
         },
       };
-    case API_GET_USER_TODOS_FAILURE:
+    case API_GET_POST_TODOS_FAILURE:
       return {
         ...postState,
         postTodos: {

@@ -9,27 +9,27 @@ import { apiUpdatePostAction } from "./api/post.updatePost.action";
 import { apiDeletePostAction } from "./api/post.deletePost.action";
 
 import {
-  RESET_USER_MUTATION_STATUS,
-  SET_USER_SEARCH_KEYWORD,
-  SET_USER_FILTERS,
+  RESET_POST_MUTATION_STATUS,
+  SET_POST_SEARCH_KEYWORD,
+  SET_POST_FILTERS,
 } from "./post.actionTypes";
 
 // LOCAL-ACTIONS:
 
 // export const setModalPostAction = (post) => {
-//   return { type: SET_MODAL_USER, payload: post };
+//   return { type: SET_MODAL_POST, payload: post };
 // };
 
 export const resetMutationStatusAction = () => {
-  return { type: RESET_USER_MUTATION_STATUS };
+  return { type: RESET_POST_MUTATION_STATUS };
 };
 
 export const setPostSearchKeywordAction = (keyword) => {
-  return { type: SET_USER_SEARCH_KEYWORD, payload: keyword };
+  return { type: SET_POST_SEARCH_KEYWORD, payload: keyword };
 };
 
 export const setPostFiltersAction = (payload) => {
-  return { type: SET_USER_FILTERS, payload };
+  return { type: SET_POST_FILTERS, payload };
 };
 
 // API-ACTIONS:

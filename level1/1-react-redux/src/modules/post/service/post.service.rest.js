@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const USER_REST_API = "https://jag-rest-api.vercel.app/demo/rest/v1/api/posts";
-const USER_REST_API = "/demo/rest/v1/api/posts"; // LOCAL
+// const POST_REST_API = "https://jag-rest-api.vercel.app/demo/rest/v1/api/posts";
+const POST_REST_API = "/demo/rest/v1/api/posts"; // LOCAL
 
 // const covertKeyToId = (item) => ({ ...item, id: item.key });
 // const covertKeyToIdArr = (items) => {
@@ -34,7 +34,7 @@ export const getPosts = async (config) => {
     params.filters = JSON.stringify(filters);
   }
 
-  const response = await axios.get(USER_REST_API, { params });
+  const response = await axios.get(POST_REST_API, { params });
   console.log("fetch::getPosts:: response:", response);
   const { data, meta } = response.data;
   return { data, pagination: meta };
@@ -43,7 +43,7 @@ export const getPosts = async (config) => {
 export const getPost = async (post) => {
   console.log("fetch::getPost::");
 
-  const response = await axios.get(`${USER_REST_API}/${post.id}`);
+  const response = await axios.get(`${POST_REST_API}/${post.id}`);
   console.log("fetch::getPosts:: response:", response);
   return { post: response.data.post };
 };
@@ -53,7 +53,7 @@ export const createPost = async (post) => {
 
   const { name, email, postname, phone, sex, role } = post;
   const body = { name, email, postname, phone, sex, role };
-  const response = await axios.post(USER_REST_API, body);
+  const response = await axios.post(POST_REST_API, body);
 
   console.log("fetch::createPost:: response:", response);
   return response.data.post;
@@ -64,7 +64,7 @@ export const updatePost = async (post) => {
 
   const { name, email, postname, phone, sex, role } = post;
   const body = { name, email, postname, phone, sex, role };
-  const response = await axios.put(`${USER_REST_API}/${post.id}`, body);
+  const response = await axios.put(`${POST_REST_API}/${post.id}`, body);
 
   console.log("fetch::updatePost:: response:", response);
   return response.data.post;
@@ -73,7 +73,7 @@ export const updatePost = async (post) => {
 export const deletePost = async (post) => {
   console.log("fetch::deletePost:: post:", post);
 
-  const response = await axios.delete(`${USER_REST_API}/${post.id}`);
+  const response = await axios.delete(`${POST_REST_API}/${post.id}`);
 
   console.log("fetch::deletePost:: response:", response);
   return response.data;

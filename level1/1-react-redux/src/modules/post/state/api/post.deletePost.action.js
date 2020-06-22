@@ -2,28 +2,28 @@ import { push } from "connected-react-router";
 import { AppError } from "../../../common/utils/error.utils";
 import { deletePost } from "../../service/post.service";
 import {
-  API_DELETE_USER_FAILURE,
-  API_DELETE_USER_START,
-  API_DELETE_USER_SUCCESS,
+  API_DELETE_POST_FAILURE,
+  API_DELETE_POST_START,
+  API_DELETE_POST_SUCCESS,
 } from "../post.actionTypes";
 import { basePath } from "../../../../app/AppRoutes";
 
 // ACTION-CREATORS:
 export const apiDeletePostStartAction = () => {
   return {
-    type: API_DELETE_USER_START,
+    type: API_DELETE_POST_START,
   };
 };
 
 export const apiDeletePostSuccessAction = (post) => {
   return {
-    type: API_DELETE_USER_SUCCESS,
+    type: API_DELETE_POST_SUCCESS,
   };
 };
 
 export const apiDeletePostFailureAction = (error) => {
   return {
-    type: API_DELETE_USER_FAILURE,
+    type: API_DELETE_POST_FAILURE,
     payload: error,
   };
 };

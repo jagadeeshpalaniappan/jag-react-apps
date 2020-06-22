@@ -35,16 +35,16 @@ const PostSortDropdown = () => {
           Default
         </DropdownItem>
         <DropdownItem
-          active={sortBy === "name"}
-          onClick={() => handleChange("name")}
+          active={sortBy === "title"}
+          onClick={() => handleChange("title")}
         >
-          Name
+          Title
         </DropdownItem>
         <DropdownItem
-          active={sortBy === "postname"}
-          onClick={() => handleChange("postname")}
+          active={sortBy === "viewCount"}
+          onClick={() => handleChange("viewCount")}
         >
-          Postname
+          View Count
         </DropdownItem>
         <DropdownItem
           active={sortBy === "updatedTs"}

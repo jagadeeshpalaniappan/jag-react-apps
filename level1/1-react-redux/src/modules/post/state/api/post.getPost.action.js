@@ -1,7 +1,7 @@
 import {
-  API_GET_USER_START,
-  API_GET_USER_SUCCESS,
-  API_GET_USER_FAILURE,
+  API_GET_POST_START,
+  API_GET_POST_SUCCESS,
+  API_GET_POST_FAILURE,
 } from "../post.actionTypes";
 
 import { getPost } from "../../service/post.service";
@@ -9,20 +9,20 @@ import { getPost } from "../../service/post.service";
 // ACTION-CREATORS:
 export const apiGetPostStartAction = () => {
   return {
-    type: API_GET_USER_START,
+    type: API_GET_POST_START,
   };
 };
 
 export const apiGetPostSuccessAction = (post) => {
   return {
-    type: API_GET_USER_SUCCESS,
+    type: API_GET_POST_SUCCESS,
     payload: post,
   };
 };
 
 export const apiGetPostFailureAction = (error) => {
   return {
-    type: API_GET_USER_FAILURE,
+    type: API_GET_POST_FAILURE,
     payload: error,
   };
 };
