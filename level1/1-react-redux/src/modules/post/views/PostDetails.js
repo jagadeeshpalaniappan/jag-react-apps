@@ -6,8 +6,7 @@ import { Card } from "reactstrap";
 import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import PostDetailsToolbar from "../components/PostDetailsToolbar";
-import PostPostList from "../container/PostPostList";
-import PostTodoList from "../container/PostTodoList";
+import PostAuthorDetails from "../container/PostAuthorDetails";
 import PostLayout from "../layout/PostLayout";
 import { deletePostAction, getPostAction } from "../state/post.action";
 
@@ -79,8 +78,10 @@ function PostDetails({
           </Card>
         </>
       )}
-      <PostPostList postId={id} />
-      <PostTodoList postId={id} />
+
+      <PostAuthorDetails userId={post.userId} />
+      {/* <PostPostList postId={id} />
+      <PostTodoList postId={id} /> */}
     </PostLayout>
   );
 }
