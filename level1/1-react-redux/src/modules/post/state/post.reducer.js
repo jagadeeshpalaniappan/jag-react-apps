@@ -25,6 +25,9 @@ import {
   RESET_POST_MUTATION_STATUS,
   SET_POST_SEARCH_KEYWORD,
   SET_POST_FILTERS,
+  API_GET_POST_FILTER_USERS_FAILURE,
+  API_GET_POST_FILTER_USERS_START,
+  API_GET_POST_FILTER_USERS_SUCCESS,
 } from "./post.actionTypes";
 
 // REDUCER:
@@ -50,13 +53,18 @@ const initialPostState = {
     error: null,
   },
   authorInfo: {
-    data: {},
+    data: null,
     loading: false,
     error: null,
   },
   searchKeyword: "",
   sortBy: "default",
   filters: null,
+  filterUsers: {
+    data: {},
+    loading: false,
+    error: null,
+  },
 };
 
 export const postReducer = (postState = initialPostState, action) => {
@@ -263,7 +271,7 @@ export const postReducer = (postState = initialPostState, action) => {
         ...postState,
         authorInfo: {
           ...postState.authorInfo,
-          data: {},
+          data: null,
           loading: true,
           error: null,
         },
@@ -284,7 +292,7 @@ export const postReducer = (postState = initialPostState, action) => {
         authorInfo: {
           ...postState.authorInfo,
           loading: false,
-          error: action.payload.error,
+          error: action.payload.error || true,
         },
       };
     case API_GET_POST_AUTHOR_INFO_RESET:
@@ -322,6 +330,35 @@ export const postReducer = (postState = initialPostState, action) => {
         ...postState,
         authorPosts: {
           ...postState.authorPosts,
+          loading: false,
+          error: action.payload.error,
+        },
+      };
+    case API_GET_POST_FILTER_USERS_START:
+      return {
+        ...postState,
+        filterUsers: {
+          ...postState.filterUsers,
+          data: {},
+          loading: true,
+          error: null,
+        },
+      };
+    case API_GET_POST_FILTER_USERS_SUCCESS:
+      return {
+        ...postState,
+        filterUsers: {
+          ...postState.filterUsers,
+          data: action.payload.users,
+          loading: false,
+          error: null,
+        },
+      };
+    case API_GET_POST_FILTER_USERS_FAILURE:
+      return {
+        ...postState,
+        filterUsers: {
+          ...postState.filterUsers,
           loading: false,
           error: action.payload.error,
         },

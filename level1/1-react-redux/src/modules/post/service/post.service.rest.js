@@ -29,6 +29,9 @@ export const getPosts = async (config) => {
       if (filter.key === "isActive") {
         return { ...filter, value: filter.value === "active" };
       }
+      if (filter.key === "users") {
+        return { ...filter, key: "userId", value: filter.value[0].value };
+      }
       return { ...filter };
     });
     params.filters = JSON.stringify(filters);

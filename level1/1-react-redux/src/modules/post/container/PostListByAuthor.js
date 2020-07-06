@@ -58,7 +58,7 @@ const mapStateToProps = (state) => {
     loading,
     error,
     authorPosts: data,
-    exUserId: authorInfo.data.id,
+    exUserId: authorInfo.data && authorInfo.data.id,
   };
 };
 const mapDispatchToProps = (dispatch) => {

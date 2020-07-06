@@ -7,6 +7,7 @@ import { apiGetPostAction } from "./api/post.getPost.action";
 import { apiCreatePostAction } from "./api/post.createPost.action";
 import { apiUpdatePostAction } from "./api/post.updatePost.action";
 import { apiDeletePostAction } from "./api/post.deletePost.action";
+import { apiGetPostFilterUsersAction } from "./api/post.getPostFilterUsers.action.js";
 
 import {
   RESET_POST_MUTATION_STATUS,
@@ -56,4 +57,8 @@ export const updatePostAction = (post) => {
 
 export const deletePostAction = (post) => {
   return apiDeletePostAction(post);
+};
+
+export const getPostFilterUsersAction = (config) => {
+  return apiGetPostFilterUsersAction(config);
 };

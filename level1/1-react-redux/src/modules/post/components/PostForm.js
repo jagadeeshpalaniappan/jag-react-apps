@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import {
@@ -11,14 +11,27 @@ import {
   Label,
 } from "reactstrap";
 import { basePath } from "../../../app/AppRoutes";
+import UsersDropdown from "./UsersDropdown";
 
-function PostForm({ post, status, onSave }) {
+function PostForm({ post = {}, status, onSave, authorInfo = {} }) {
   console.log("### PostForm:");
+
+  const [selectedUser, setSelectedUser] = useState();
+
+  useEffect(() => {
+    if (authorInfo.data) {
+      setSelectedUser({
+        label: authorInfo.data.name,
+        value: authorInfo.data.id,
+      });
+    }
+  }, [authorInfo.data, setSelectedUser]);
+
   var history = useHistory();
   const { register, handleSubmit, errors } = useForm({ defaultValues: post });
   const onSubmit = (data) => {
     console.log("FORM-VALUES:", { data, errors });
-    onSave(data);
+    onSave({ ...data, userId: selectedUser.value });
   };
   // console.log({ errors });
 
@@ -27,6 +40,11 @@ function PostForm({ post, status, onSave }) {
     if (history.length > 2) history.goBack();
     else history.push(basePath.post);
   };
+
+  const handleUserSelection = useCallback((newSelectedUser) => {
+    console.log("handleUsersSelection:", { newSelectedUser });
+    setSelectedUser(newSelectedUser);
+  }, []);
 
   return (
     <div>
@@ -66,7 +84,7 @@ function PostForm({ post, status, onSave }) {
           />
           {errors.body && <FormFeedback>{errors.body.message}</FormFeedback>}
         </FormGroup>
-
+        {/* 
         <FormGroup>
           <label htmlFor="userId">UserId: (TODO)</label>
           <Input
@@ -84,6 +102,21 @@ function PostForm({ post, status, onSave }) {
           />
           {errors.userId && (
             <FormFeedback>{errors.userId.message}</FormFeedback>
+          )}
+        </FormGroup> */}
+
+        <FormGroup>
+          <label htmlFor="user">User:</label>
+          {authorInfo && authorInfo.loading && "Loading User..."}
+          {authorInfo && authorInfo.error && (
+            <div class="text-danger">Error getting User!</div>
+          )}
+          {((authorInfo && authorInfo.data) || !post.id) && (
+            <UsersDropdown
+              id="user"
+              selectedUsers={selectedUser}
+              onChange={handleUserSelection}
+            />
           )}
         </FormGroup>
 

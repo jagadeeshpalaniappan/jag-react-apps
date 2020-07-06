@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Form, Input } from "reactstrap";
 import { arrToMap, deepEqual, mapToArr } from "../../common/utils/all.utils";
+import UsersDropdown from "./UsersDropdown";
 
 /* 
 const ToggleSwitch = ({ checked, onChange }) => {
@@ -21,15 +22,21 @@ const ToggleSwitch = ({ checked, onChange }) => {
 };
  */
 
-const PostFiltersModalForm = ({ filters, onOk, onCancel }) => {
+const PostFiltersModalForm = ({ filters, filterUsers, onOk, onCancel }) => {
   console.log("### PostFiltersModalForm:", { filters });
 
   const { register, handleSubmit, reset } = useForm({ defaultValues: {} });
 
+  const [selectedUsers, setSelectedUsers] = useState(null);
+
   const onSubmit = useCallback(
     (data) => {
       console.log("FORM-VALUES:", { data });
-      const newFilterArr = mapToArr(data, ["all", ""]);
+      const newFilterArr = mapToArr(data, ["all", ""]) || [];
+
+      debugger;
+      if (selectedUsers)
+        newFilterArr.push({ key: "users", value: selectedUsers });
 
       if (!deepEqual(filters, newFilterArr)) {
         console.log("newFilters::found", { filters, newFilterArr });
@@ -38,18 +45,34 @@ const PostFiltersModalForm = ({ filters, onOk, onCancel }) => {
         onCancel();
       }
     },
-    [filters, onOk, onCancel]
+    [filters, selectedUsers, onOk, onCancel]
   );
 
-  const handleReset = useCallback(() => reset({}), [reset]);
+  const handleReset = useCallback(() => {
+    reset({});
+    setSelectedUsers(null);
+  }, [reset]);
+
+  // onFiltersChange:
   useEffect(() => {
     console.log("reset, filters --changed", { filters });
     const filtersMap = arrToMap(filters || []);
-    reset(filtersMap);
+    const { users, ...restFilters } = filtersMap;
+    setSelectedUsers(users);
+    reset(restFilters);
   }, [reset, filters]);
+
+  const handleUsersSelection = useCallback(
+    (newSelectedUsers) => {
+      console.log("handleUsersSelection:", { newSelectedUsers });
+      setSelectedUsers(newSelectedUsers);
+    },
+    [setSelectedUsers]
+  );
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
+      <p>{JSON.stringify(filterUsers)}</p>
       <div>
         <div className="d-flex align-items-center my-3">
           <div className="flex-grow-1">UserId:</div>
@@ -79,6 +102,16 @@ const PostFiltersModalForm = ({ filters, onOk, onCancel }) => {
               <option value="active">Active Posts</option>
               <option value="inactive">InActive Posts</option>
             </Input>
+          </div>
+        </div>
+        <div className="my-3">
+          <div className="mb-1">User:</div>
+          <div>
+            <UsersDropdown
+              isMulti
+              selectedUsers={selectedUsers}
+              onChange={handleUsersSelection}
+            />
           </div>
         </div>
         {/* 

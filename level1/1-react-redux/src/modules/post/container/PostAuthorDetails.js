@@ -49,7 +49,7 @@ const mapStateToProps = (state) => {
     loading,
     error,
     user: data,
-    exUserId: data.id,
+    exUserId: data && data.id,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -7,6 +7,7 @@ import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import PostForm from "../components/PostForm";
 import PostLayout from "../layout/PostLayout";
 import { getPostAction, updatePostAction } from "../state/post.action";
+import { apiGetAuthorInfoAction } from "../state/api/post.getAuthorInfo.action";
 
 function EditPost({
   exPostId,
@@ -16,15 +17,25 @@ function EditPost({
   mutationStatus,
   getPost,
   updatePost,
+  authorInfo,
+  getAuthorInfo,
 }) {
   console.log("### EditPost:");
   let { id } = useParams();
   useEffect(() => {
+    console.log("### EditPost:useEffect:getPost", { id });
     // onInit:
     if (exPostId !== id) {
       getPost({ id });
     }
   }, [id, exPostId, getPost]);
+
+  useEffect(() => {
+    console.log("### EditPost:useEffect:getAuthorInfo", post.userId);
+    if (post.userId) {
+      getAuthorInfo({ id: post.userId });
+    }
+  }, [post.userId]);
 
   const handleSave = useCallback(
     (updatedPost) => updatePost({ id, ...updatedPost }),
@@ -45,7 +56,12 @@ function EditPost({
       />
       {post && Object.keys(post).length > 0 && (
         <>
-          <PostForm post={post} status={updatePostStatus} onSave={handleSave} />
+          <PostForm
+            post={post}
+            authorInfo={authorInfo}
+            status={updatePostStatus}
+            onSave={handleSave}
+          />
         </>
       )}
     </PostLayout>
@@ -67,12 +83,14 @@ const mapStateToProps = (state) => {
     post: data,
     exPostId: data.id,
     mutationStatus: state.postState.mutationStatus,
+    authorInfo: state.postState.authorInfo,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     getPost: (post) => dispatch(getPostAction(post)),
     updatePost: (post) => dispatch(updatePostAction(post)),
+    getAuthorInfo: (user) => dispatch(apiGetAuthorInfoAction(user)),
   };
 };
 
