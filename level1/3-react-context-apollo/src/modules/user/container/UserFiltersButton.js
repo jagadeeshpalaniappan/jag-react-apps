@@ -60,6 +60,5 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connectAppContext(
   mapStateToProps,
-  mapDispatchToProps,
-  UserFiltersModalMemoz
-);
+  mapDispatchToProps
+)(UserFiltersModalMemoz);

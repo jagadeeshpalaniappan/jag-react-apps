@@ -73,6 +73,7 @@ const PostFiltersModalForm = ({ filters, filterUsers, onOk, onCancel }) => {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <p>{JSON.stringify(filterUsers)}</p>
       <div>
+        {/* 
         <div className="d-flex align-items-center my-3">
           <div className="flex-grow-1">UserId:</div>
           <div className="">
@@ -85,6 +86,7 @@ const PostFiltersModalForm = ({ filters, filterUsers, onOk, onCancel }) => {
             ></Input>
           </div>
         </div>
+         */}
         <div className="d-flex align-items-center my-3">
           <div className="flex-grow-1">Active Status:</div>
           <div className="">

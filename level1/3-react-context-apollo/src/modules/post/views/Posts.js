@@ -139,6 +139,5 @@ const PostsMemoized = React.memo(Posts, deepEqualReact);
 
 export default connectAppContext(
   mapStateToProps,
-  mapDispatchToProps,
-  PostsMemoized
-);
+  mapDispatchToProps
+)(PostsMemoized);

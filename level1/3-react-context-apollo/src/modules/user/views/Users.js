@@ -140,6 +140,5 @@ const UsersMemoized = React.memo(Users, deepEqualReact);
 
 export default connectAppContext(
   mapStateToProps,
-  mapDispatchToProps,
-  UsersMemoized
-);
+  mapDispatchToProps
+)(UsersMemoized);

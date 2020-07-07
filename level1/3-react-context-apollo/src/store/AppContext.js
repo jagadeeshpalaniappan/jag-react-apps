@@ -155,13 +155,9 @@ export function AppStateProvider({ children }) {
   );
 }
 
-export function connectAppContext(
-  mapStateToProps,
-  mapDispatchToProps,
-  Component
-) {
-  return (props) => {
-    return (
+export function connectAppContext(mapStateToProps, mapDispatchToProps) {
+  return (Component) => {
+    return (props) => (
       <AppContext.Consumer>
         {(value) => {
           console.log("connectAppContext:", value);

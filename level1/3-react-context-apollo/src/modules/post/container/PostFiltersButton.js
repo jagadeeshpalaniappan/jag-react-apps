@@ -59,6 +59,5 @@ const mapDispatchToProps = (dispatch) => {
 const PostFiltersModalMemoz = React.memo(PostFiltersButton);
 export default connectAppContext(
   mapStateToProps,
-  mapDispatchToProps,
-  PostFiltersModalMemoz
-);
+  mapDispatchToProps
+)(PostFiltersModalMemoz);
