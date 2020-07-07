@@ -5,7 +5,6 @@ import { Button } from "reactstrap";
 import { connectAppContext } from "../../../store/AppContext";
 import PostFiltersModal from "../components/PostFiltersModal";
 import { setPostFiltersAction } from "../state/post.action";
-import { connect } from "react-redux";
 
 const PostFiltersButton = ({ filters, setFilters }) => {
   console.log("### PostFiltersButton:", { filters });
