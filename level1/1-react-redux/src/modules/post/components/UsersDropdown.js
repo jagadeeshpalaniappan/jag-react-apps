@@ -19,7 +19,7 @@ const getUserDropDownOptions = (users = []) => {
 const getUserDropDownOptionsAsync = async (inputValue) => {
   const users = await getUsers({
     searchBy: inputValue,
-    pageSize: 10,
+    pageSize: DEFAULT_USERS_PAGESIZE,
     pageBefore: null,
     pageAfter: null,
   });
@@ -27,28 +27,14 @@ const getUserDropDownOptionsAsync = async (inputValue) => {
   return getUserDropDownOptions(users.data);
 };
 
-const UsersDropdown = memo(function ({
-  isMulti,
-  selectedUsers,
-  defaultFilterUsers,
-  getFilterUsers,
-  onChange,
-}) {
-  useEffect(() => {
-    getFilterUsers({
-      searchBy: null,
-      pageSize: DEFAULT_USERS_PAGESIZE,
-      pageBefore: null,
-      pageAfter: null,
-    });
-  }, [getFilterUsers]);
-
+const UsersDropdown = memo(function ({ isMulti, selectedUsers, onChange }) {
   return (
     <AsyncSelect
       isMulti={isMulti}
       value={selectedUsers}
       onChange={onChange}
-      defaultOptions={defaultFilterUsers}
+      cacheOptions
+      defaultOptions
       loadOptions={getUserDropDownOptionsAsync}
     />
   );
@@ -56,18 +42,4 @@ const UsersDropdown = memo(function ({
 
 UsersDropdown.propTypes = {};
 
-const mapStateToProps = (state) => {
-  console.log("UsersDropdown:", state);
-  return {
-    defaultFilterUsers: getUserDropDownOptions(
-      state.postState.filterUsers.data.data
-    ),
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getFilterUsers: (config) => dispatch(getPostFilterUsersAction(config)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersDropdown);
+export default UsersDropdown;

@@ -60,12 +60,7 @@ const getUserDropDownOptionsAsync = async (inputValue) => {
   return getUserDropDownOptions(users.data);
 };
 
-const UsersDropdown = memo(function ({
-  isMulti,
-  selectedUsers,
-  defaultFilterUsers,
-  onChange,
-}) {
+const UsersDropdown = memo(function ({ isMulti, selectedUsers, onChange }) {
   //   const [users, setUsers] = useState(null);
   //   useEffect(async () => {
   //     const userList = await getUserDropDownOptionsAsync();
