@@ -77,6 +77,8 @@ const UsersDropdown = memo(function ({
       isMulti={isMulti}
       value={selectedUsers}
       onChange={onChange}
+      cacheOptions
+      defaultOptions
       loadOptions={getUserDropDownOptionsAsync}
     />
   );
