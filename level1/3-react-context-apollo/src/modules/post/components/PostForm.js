@@ -16,7 +16,9 @@ import UsersDropdown from "./UsersDropdown";
 function PostForm({ post = {}, status, onSave, authorInfo = {} }) {
   console.log("### PostForm:");
 
-  const [selectedUser, setSelectedUser] = useState();
+  const postUser =
+    post && post.user ? { label: post.user.name, value: post.user.id } : null;
+  const [selectedUser, setSelectedUser] = useState(postUser);
 
   useEffect(() => {
     if (authorInfo.data) {
@@ -107,30 +109,26 @@ function PostForm({ post = {}, status, onSave, authorInfo = {} }) {
 
         <FormGroup>
           <label htmlFor="user">User:</label>
-          {authorInfo && authorInfo.loading && "Loading User..."}
-          {authorInfo && authorInfo.error && (
-            <div class="text-danger">Error getting User!</div>
-          )}
-          {((authorInfo && authorInfo.data) || !post.id) && (
-            <UsersDropdown
-              id="user"
-              selectedUsers={selectedUser}
-              onChange={handleUserSelection}
-            />
-          )}
+          <UsersDropdown
+            id="user"
+            selectedUsers={selectedUser}
+            onChange={handleUserSelection}
+          />
         </FormGroup>
 
-        <FormGroup check>
-          <Label check>
-            <Input
-              type="checkbox"
-              name="isActive"
-              innerRef={register()}
-              defaultChecked
-            />
-            Active
-          </Label>
-        </FormGroup>
+        {post && post.id && (
+          <FormGroup check>
+            <Label check>
+              <Input
+                type="checkbox"
+                name="isActive"
+                innerRef={register()}
+                defaultChecked
+              />
+              Active
+            </Label>
+          </FormGroup>
+        )}
 
         <div className="d-flex justify-content-end align-items-center my-3">
           <Button

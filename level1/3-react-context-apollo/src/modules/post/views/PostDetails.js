@@ -1,39 +1,84 @@
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Card } from "reactstrap";
-import StatusQueryError from "../../common/components/StatusQueryError";
-import StatusQueryLoading from "../../common/components/StatusQueryLoading";
+import { useLazyQuery, useMutation } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+import React, { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useHistory, useParams } from "react-router-dom";
+import { basePath } from "../../../app/AppRoutes";
+import PostCard from "../components/PostCard";
 import PostDetailsToolbar from "../components/PostDetailsToolbar";
-import PostAuthorDetails from "../container/PostAuthorDetails";
-import PostListByAuthor from "../container/PostListByAuthor";
+// import PostPostList from "../container/PostList";
+// import PostTodoList from "../container/PostTodoList";
 import PostLayout from "../layout/PostLayout";
-import { deletePostAction, getPostAction } from "../state/post.action";
 
-function PostDetails({ exPostId, post, loading, error, getPost, deletePost }) {
-  console.log("### PostDetails:");
+const statusText = {
+  loading: "Deleting post...",
+  error: "Error while deleting post",
+  success: "Post deleted successfuly",
+};
+
+const GET_POST = gql`
+  query($id: ID!) {
+    post(id: $id) {
+      id
+      title
+      body
+      isActive
+      user {
+        id
+        name
+        email
+        username
+      }
+    }
+  }
+`;
+
+const DELETE_POST = gql`
+  mutation($id: ID!) {
+    deletePost(id: $id)
+  }
+`;
+
+function PostDetails() {
+  var history = useHistory();
   let { id } = useParams();
-  const [reqstdId, setReqstdId] = useState(null);
+
+  const onDeleteSuccess = (data) => {
+    console.log("onDeleteSuccess", data);
+    toast(statusText.success, { type: "success" });
+    history.push(basePath.post);
+  };
+
+  const onDeleteError = (err) => {
+    console.error("onDeleteError:", err);
+    toast(statusText.error, { type: "error", autoClose: false });
+  };
+
+  const [
+    deletePost,
+    // { loading: delLoading, error: delError, data: delData },
+  ] = useMutation(DELETE_POST, {
+    variables: { id },
+    onCompleted: onDeleteSuccess,
+    onError: onDeleteError,
+  });
+
+  const [loadPost, { loading, error, data }] = useLazyQuery(GET_POST, {
+    variables: { id },
+  });
+  const post = data ? data.post : {};
+  console.log("### PostDetails:", { loading, error, data });
 
   useEffect(() => {
     // onInit:
-    console.log("PostDetails: useEffect", { id, exPostId });
-    const isNewPost = exPostId ? exPostId !== id : !!id;
-    const isAleadyReqstd = reqstdId === id;
-    const canStart = isNewPost && !isAleadyReqstd;
-    if (canStart) {
-      console.log("PostDetails: start", { id, exPostId });
-      getPost({ id });
-      setReqstdId(id);
-    }
-  }, [id, exPostId, reqstdId, getPost]);
+    loadPost();
+  }, [id, loadPost]);
 
   const handleDelete = () => {
-    deletePost(post);
+    deletePost();
   };
 
-  const handleRetry = () => getPost({ id });
+  const handleRetry = () => loadPost();
 
   return (
     <PostLayout
@@ -46,69 +91,18 @@ function PostDetails({ exPostId, post, loading, error, getPost, deletePost }) {
         />
       }
     >
-      <StatusQueryLoading loading={loading} text="Loading post details" />
-      <StatusQueryError
+      <PostCard
+        post={post}
+        loading={loading}
         error={error}
-        text="Error while getting post details"
-        onRetry={handleRetry}
+        handleRetry={handleRetry}
       />
-      {post && Object.keys(post).length > 0 && (
-        <>
-          {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
-
-          <Card body>
-            <div>
-              <label>ID:</label>
-              <legend>{post.id}</legend>
-            </div>
-            <div>
-              <label>Title:</label>
-              <legend>{post.title}</legend>
-            </div>
-            <div>
-              <label>Body:</label>
-              <legend>{post.body}</legend>
-            </div>
-            <div>
-              <label>UserId:</label>
-              <legend>{post.userId}</legend>
-            </div>
-            <div>
-              <label>Active:</label>
-              <legend>{post.isActive ? "Yes" : "No"}</legend>
-            </div>
-          </Card>
-        </>
-      )}
-      <PostAuthorDetails userId={post.userId} />
-      <PostListByAuthor userId={post.userId} />
+      {/*       <PostAuthorDetails userId={post.userId} />
+      <PostListByAuthor userId={post.userId} /> 
+      */}
     </PostLayout>
   );
 }
 
-PostDetails.propTypes = {
-  post: PropTypes.object.isRequired,
-  getPost: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state, ownProps) => {
-  console.log("PostDetails", state);
-  const { loading, error, data } = state.postState.post;
-  return {
-    loading,
-    error,
-    post: data,
-    exPostId: data.id,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getPost: (post) => dispatch(getPostAction(post)),
-    deletePost: (post) => dispatch(deletePostAction(post)),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(React.memo(PostDetails));
+PostDetails.propTypes = {};
+export default React.memo(PostDetails);

@@ -34,7 +34,6 @@ const PostFiltersModalForm = ({ filters, filterUsers, onOk, onCancel }) => {
       console.log("FORM-VALUES:", { data });
       const newFilterArr = mapToArr(data, ["all", ""]) || [];
 
-      debugger;
       if (selectedUsers)
         newFilterArr.push({ key: "users", value: selectedUsers });
 

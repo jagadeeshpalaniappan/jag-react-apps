@@ -77,6 +77,7 @@ const Users = (props) => {
     console.log("Users:initApi:");
     loadUsers();
   }, [
+    loadUsers,
     getUsers,
     sortBy,
     pageSize,

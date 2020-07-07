@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import React, { useCallback } from "react";
-import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import { basePath } from "../../../app/AppRoutes";
 import UserForm from "../components/UserForm";
 import UserLayout from "../layout/UserLayout";
@@ -38,7 +38,7 @@ function CreateUser() {
     toast(statusText.error, { type: "error", autoClose: false });
   };
 
-  const [createUser, { loading, error, data }] = useMutation(CREATE_USER, {
+  const [createUser, { loading, error }] = useMutation(CREATE_USER, {
     onCompleted: onCreateSuccess,
     onError: onCreateError,
   });

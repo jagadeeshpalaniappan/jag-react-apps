@@ -65,7 +65,7 @@ function UserDetails() {
 
   const [
     deleteUser,
-    { loading: delLoading, error: delError, data: delData },
+    // { loading: delLoading, error: delError, data: delData },
   ] = useMutation(DELETE_USER, {
     variables: { id },
     onCompleted: onDeleteSuccess,

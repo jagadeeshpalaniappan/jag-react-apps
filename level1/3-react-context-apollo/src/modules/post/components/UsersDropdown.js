@@ -1,73 +1,87 @@
-// import React, { memo, useEffect } from "react";
-// import { connect } from "react-redux";
-// import AsyncSelect from "react-select/async";
-// import { getPostFilterUsersAction } from "../state/post.action";
-// import { getUsers } from "../../user/service/user.service";
+import { gql } from "apollo-boost";
+import React, { memo } from "react";
+import AsyncSelect from "react-select/async";
+import { client } from "../../../store/apollo";
 
-// const DEFAULT_USERS_PAGESIZE = 10;
+const DEFAULT_PAGINATION = 10;
 
-// const getUserDropDownOptions = (users = []) => {
-//   const options = users.map(({ id, name }) => ({ value: id, label: name }));
-//   options.push({
-//     value: null,
-//     label: "...search for more users ...",
-//     isDisabled: true,
-//   });
-//   return options;
-// };
+export const getUsers = async (config) => {
+  console.log("fetch::getUsers::", config);
 
-// const getUserDropDownOptionsAsync = async (inputValue) => {
-//   const users = await getUsers({
-//     searchBy: inputValue,
-//     pageSize: 10,
-//     pageBefore: null,
-//     pageAfter: null,
-//   });
+  const query = gql`
+    query($options: UsersQueryOptions) {
+      users(options: $options) {
+        data {
+          id
+          name
+        }
+        meta {
+          before
+          after
+        }
+      }
+    }
+  `;
 
-//   return getUserDropDownOptions(users.data);
-// };
+  const options = {
+    search: config.searchBy,
+    //   sort: sortBy,
+    pagination: {
+      size: DEFAULT_PAGINATION,
+      // before: pageBefore,
+      // after: pageAfter,
+    },
+  };
+  const response = await client.query({ query, variables: { options } });
 
-// const UsersDropdown = memo(function ({
-//   isMulti,
-//   selectedUsers,
-//   defaultFilterUsers,
-//   getFilterUsers,
-//   onChange,
-// }) {
-//   useEffect(() => {
-//     getFilterUsers({
-//       searchBy: null,
-//       pageSize: DEFAULT_USERS_PAGESIZE,
-//       pageBefore: null,
-//       pageAfter: null,
-//     });
-//   }, [getFilterUsers]);
+  console.log("fetch::getUsers:: response:", response);
+  const { data, meta } = response.data.users;
+  return { data, pagination: meta };
+};
 
-//   return (
-//     <AsyncSelect
-//       isMulti={isMulti}
-//       value={selectedUsers}
-//       onChange={onChange}
-//       defaultOptions={defaultFilterUsers}
-//       loadOptions={getUserDropDownOptionsAsync}
-//     />
-//   );
-// });
+const getUserDropDownOptions = (users = []) => {
+  const options = users.map(({ id, name }) => ({ value: id, label: name }));
+  options.push({
+    value: null,
+    label: "...search for more users ...",
+    isDisabled: true,
+  });
+  return options;
+};
 
-// UsersDropdown.propTypes = {};
+const getUserDropDownOptionsAsync = async (inputValue) => {
+  const users = await getUsers({
+    searchBy: inputValue,
+    pageSize: 10,
+    pageBefore: null,
+    pageAfter: null,
+  });
 
-// const mapStateToProps = (state) => {
-//   console.log("UsersDropdown:", state);
-//   return {
-//     defaultFilterUsers: getUserDropDownOptions(
-//       state.postState.filterUsers.data.data
-//     ),
-//   };
-// };
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     getFilterUsers: (config) => dispatch(getPostFilterUsersAction(config)),
-//   };
-// };
+  return getUserDropDownOptions(users.data);
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(UsersDropdown);
+const UsersDropdown = memo(function ({
+  isMulti,
+  selectedUsers,
+  defaultFilterUsers,
+  onChange,
+}) {
+  //   const [users, setUsers] = useState(null);
+  //   useEffect(async () => {
+  //     const userList = await getUserDropDownOptionsAsync();
+  //     getUserDropDownOptions(users.data);
+  //   }, [getUsers]);
+
+  return (
+    <AsyncSelect
+      isMulti={isMulti}
+      value={selectedUsers}
+      onChange={onChange}
+      loadOptions={getUserDropDownOptionsAsync}
+    />
+  );
+});
+
+UsersDropdown.propTypes = {};
+
+export default UsersDropdown;

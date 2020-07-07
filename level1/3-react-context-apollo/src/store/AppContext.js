@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useReducer } from "react";
-import logger from "redux-logger";
 import { combineReducers } from "../modules/common/utils/store.utils";
 import {
-  userReducer,
+  initialPostState,
+  postReducer,
+} from "../modules/post/state/post.reducer";
+import {
   initialUserState,
+  userReducer,
 } from "../modules/user/state/user.reducer";
 
 export const AppContext = createContext();
@@ -136,7 +139,7 @@ export const useAppState = () => useContext(AppContext);
 const [rootReducerCombined, initialStateCombined] = combineReducers({
   // appState: [appReducer, initialAppStat],
   userState: [userReducer, initialUserState],
-  // postState: [userReducer, initialPostState],
+  postState: [postReducer, initialPostState],
 });
 
 export function AppStateProvider({ children }) {

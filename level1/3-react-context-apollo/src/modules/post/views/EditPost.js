@@ -1,50 +1,87 @@
-import PropTypes from "prop-types";
+import { useLazyQuery, useMutation } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 import React, { useCallback, useEffect } from "react";
-import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import PostForm from "../components/PostForm";
 import PostLayout from "../layout/PostLayout";
-import { getPostAction, updatePostAction } from "../state/post.action";
-// import { apiGetAuthorInfoAction } from "../state/api/post.getAuthorInfo.action";
 
-function EditPost({
-  exPostId,
-  post,
-  loading,
-  error,
-  mutationStatus,
-  getPost,
-  updatePost,
-  authorInfo,
-  getAuthorInfo,
-}) {
-  console.log("### EditPost:");
+const GET_POST = gql`
+  query($id: ID!) {
+    post(id: $id) {
+      id
+      title
+      body
+      isActive
+      user {
+        id
+        name
+        email
+        username
+      }
+    }
+  }
+`;
+
+const UPDATE_POST = gql`
+  mutation($id: ID!, $input: UpdatePostInput!) {
+    updatePost(id: $id, input: $input) {
+      id
+      title
+    }
+  }
+`;
+
+const statusText = {
+  loading: "Updating post...",
+  error: "Error while updating post",
+  success: "Post updated successfuly",
+};
+
+function EditPost() {
   let { id } = useParams();
-  useEffect(() => {
-    console.log("### EditPost:useEffect:getPost", { id });
-    // onInit:
-    if (exPostId !== id) {
-      getPost({ id });
-    }
-  }, [id, exPostId, getPost]);
+
+  // GET_POST:
+  // --------------------------------
+  const [loadPost, { loading, error, data }] = useLazyQuery(GET_POST, {
+    variables: { id },
+  });
+  const post = data ? data.post : {};
+  console.log("### EditPost:", { id, loading, error, data });
 
   useEffect(() => {
-    console.log("### EditPost:useEffect:getAuthorInfo", post.userId);
-    if (post.userId) {
-      getAuthorInfo({ id: post.userId });
-    }
-  }, [post.userId, getAuthorInfo]);
+    // onInit:
+    loadPost();
+  }, [id, loadPost]);
+
+  const handleRetry = useCallback(() => loadPost(), [loadPost]);
+
+  // UPDATE_POST:
+  // --------------------------------
+  const onUpdateSuccess = (data) => {
+    console.log("onUpdateSuccess", data);
+    toast(statusText.success, { type: "success" });
+  };
+  const onUpdateError = (err) => {
+    console.error("onUpdateError:", err);
+    toast(statusText.error, { type: "error", autoClose: false });
+  };
+
+  const [
+    updatePost,
+    { loading: updateLoading, error: updateError },
+  ] = useMutation(UPDATE_POST, {
+    onCompleted: onUpdateSuccess,
+    onError: onUpdateError,
+  });
+  const updatePostStatus = { loading: updateLoading, error: updateError };
 
   const handleSave = useCallback(
-    (updatedPost) => updatePost({ id, ...updatedPost }),
+    (updatedPost) => updatePost({ variables: { id, input: updatedPost } }),
     [updatePost, id]
   );
-
-  const handleRetry = useCallback(() => getPost({ id }), [getPost, id]);
-
-  const { updatePostStatus } = mutationStatus;
 
   return (
     <PostLayout title="Edit Post">
@@ -56,45 +93,13 @@ function EditPost({
       />
       {post && Object.keys(post).length > 0 && (
         <>
-          <PostForm
-            post={post}
-            authorInfo={authorInfo}
-            status={updatePostStatus}
-            onSave={handleSave}
-          />
+          <PostForm post={post} status={updatePostStatus} onSave={handleSave} />
         </>
       )}
     </PostLayout>
   );
 }
 
-EditPost.propTypes = {
-  post: PropTypes.object.isRequired,
-  getPost: PropTypes.func.isRequired,
-  updatePost: PropTypes.func.isRequired,
-};
+EditPost.propTypes = {};
 
-const mapStateToProps = (state) => {
-  console.log("EditPost", state);
-  const { loading, error, data } = state.postState.post;
-  return {
-    loading,
-    error,
-    post: data,
-    exPostId: data.id,
-    mutationStatus: state.postState.mutationStatus,
-    authorInfo: state.postState.authorInfo,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getPost: (post) => dispatch(getPostAction(post)),
-    updatePost: (post) => dispatch(updatePostAction(post)),
-    // getAuthorInfo: (user) => dispatch(apiGetAuthorInfoAction(user)),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(React.memo(EditPost));
+export default React.memo(EditPost);

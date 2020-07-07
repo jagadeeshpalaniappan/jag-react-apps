@@ -1,17 +1,55 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { createPostAction } from "../state/post.action";
+import { useMutation } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+import React, { useCallback } from "react";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import { basePath } from "../../../app/AppRoutes";
 import PostForm from "../components/PostForm";
 import PostLayout from "../layout/PostLayout";
 
-function CreatePost({ mutationStatus, createPost }) {
+const CREATE_POST = gql`
+  mutation($input: CreatePostInput!) {
+    createPost(input: $input) {
+      id
+      title
+    }
+  }
+`;
+
+const statusText = {
+  loading: "Creating post...",
+  error: "Error while creating post",
+  success: "Post created successfuly",
+};
+
+function CreatePost() {
   console.log("### CreatePost:");
-  const handleSave = (newPost) => {
-    createPost(newPost);
+  var history = useHistory();
+
+  // UPDATE_POST:
+  // --------------------------------
+  const onCreateSuccess = (data) => {
+    console.log("onCreateSuccess", data);
+    toast(statusText.success, { type: "success" });
+    history.push(`${basePath.post}/${data.createPost.id}`);
+  };
+  const onCreateError = (err) => {
+    console.error("onCreateError:", err);
+    toast(statusText.error, { type: "error", autoClose: false });
   };
 
-  const { createPostStatus } = mutationStatus;
+  const [createPost, { loading, error }] = useMutation(CREATE_POST, {
+    onCompleted: onCreateSuccess,
+    onError: onCreateError,
+  });
+  const createPostStatus = { loading, error };
+
+  const handleSave = useCallback(
+    (newPost) => {
+      createPost({ variables: { input: newPost } });
+    },
+    [createPost]
+  );
 
   return (
     <PostLayout title="Create Post">
@@ -20,24 +58,5 @@ function CreatePost({ mutationStatus, createPost }) {
   );
 }
 
-CreatePost.propTypes = {
-  mutationStatus: PropTypes.object.isRequired,
-  createPost: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => {
-  console.log("CreatePost", state);
-  return {
-    mutationStatus: state.postState.mutationStatus,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createPost: (post) => dispatch(createPostAction(post)),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(React.memo(CreatePost));
+CreatePost.propTypes = {};
+export default React.memo(CreatePost);

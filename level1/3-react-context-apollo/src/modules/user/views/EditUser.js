@@ -7,8 +7,6 @@ import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import UserForm from "../components/UserForm";
 import UserLayout from "../layout/UserLayout";
-import StatusBar from "../../common/components/StatusBar";
-import { useState } from "react";
 
 const GET_USER = gql`
   query($id: ID!) {
@@ -70,7 +68,7 @@ function EditUser() {
 
   const [
     updateUser,
-    { loading: updateLoading, error: updateError, data: updateData },
+    { loading: updateLoading, error: updateError },
   ] = useMutation(UPDATE_USER, {
     onCompleted: onUpdateSuccess,
     onError: onUpdateError,

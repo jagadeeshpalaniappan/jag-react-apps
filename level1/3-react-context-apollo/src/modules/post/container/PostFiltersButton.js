@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import React, { useCallback, useState } from "react";
 import { FaFilter } from "react-icons/fa";
-import { connect } from "react-redux";
 import { Button } from "reactstrap";
+import { connectAppContext } from "../../../store/AppContext";
 import PostFiltersModal from "../components/PostFiltersModal";
 import { setPostFiltersAction } from "../state/post.action";
+import { connect } from "react-redux";
 
 const PostFiltersButton = ({ filters, setFilters }) => {
   console.log("### PostFiltersButton:", { filters });
@@ -57,7 +58,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const PostFiltersModalMemoz = React.memo(PostFiltersButton);
-export default connect(
+export default connectAppContext(
   mapStateToProps,
-  mapDispatchToProps
-)(PostFiltersModalMemoz);
+  mapDispatchToProps,
+  PostFiltersModalMemoz
+);

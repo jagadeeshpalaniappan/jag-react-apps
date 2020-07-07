@@ -31,7 +31,7 @@ import {
 } from "./post.actionTypes";
 
 // REDUCER:
-const initialPostState = {
+export const initialPostState = {
   mutationStatus: {
     createPostStatus: null,
     updatePostStatus: null,
