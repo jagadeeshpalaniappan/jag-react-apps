@@ -35,7 +35,7 @@ function EditPost({
     if (post.userId) {
       getAuthorInfo({ id: post.userId });
     }
-  }, [post.userId]);
+  }, [post.userId, getAuthorInfo]);
 
   const handleSave = useCallback(
     (updatedPost) => updatePost({ id, ...updatedPost }),

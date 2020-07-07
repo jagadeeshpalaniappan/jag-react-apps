@@ -41,7 +41,7 @@ const UsersDropdown = memo(function ({
       pageBefore: null,
       pageAfter: null,
     });
-  }, []);
+  }, [getFilterUsers]);
 
   return (
     <AsyncSelect
