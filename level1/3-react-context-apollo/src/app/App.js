@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
 import AppContainer from "./AppContainer";
 import AppNav from "./AppNavbar";
 import AppRouteProvider from "./AppRouteProvider";
@@ -20,6 +21,7 @@ const App = () => {
               }
               main={<AppRoutes />}
             />
+            <ToastContainer />
           </AppRouteProvider>
         </AppApolloProvider>
       </AppStateProviderRx>

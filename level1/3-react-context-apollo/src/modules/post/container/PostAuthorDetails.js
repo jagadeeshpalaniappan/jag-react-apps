@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import UserCard from "../../user/components/UserCard";
-import { apiGetAuthorInfoAction } from "../state/api/post.getAuthorInfo.action";
+// import { apiGetAuthorInfoAction } from "../state/api/post.getAuthorInfo.action";
 
 function PostAuthorDetails({
   exUserId,
@@ -54,7 +54,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAuthorInfo: (user) => dispatch(apiGetAuthorInfoAction(user)),
+    // getAuthorInfo: (user) => dispatch(apiGetAuthorInfoAction(user)),
   };
 };
 

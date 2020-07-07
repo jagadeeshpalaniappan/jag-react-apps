@@ -14,7 +14,15 @@ const getColor = (status) => {
   return "primary";
 };
 
-function StatusBar({ status, text, onClose, timeout }) {
+function StatusBar({
+  loading,
+  error,
+  success,
+  status,
+  text,
+  onClose,
+  timeout,
+}) {
   const [visible, setVisible] = useState(true);
   const onDismiss = useCallback(() => {
     setVisible(false);
@@ -37,23 +45,23 @@ function StatusBar({ status, text, onClose, timeout }) {
 
   return (
     <>
-      {status && (
+      {(loading || error || success) && (
         <Alert
           color={getColor(status)}
           isOpen={visible}
-          toggle={status.loading ? null : onDismiss}
+          toggle={loading ? null : onDismiss}
         >
-          {status.loading && text.loading}
-          {status.error && (
+          {loading && text.loading}
+          {error && (
             <>
               <span>{text.error}</span>
               <StatusErrorDetailsBtnAndModal
                 triggerText="...more details"
-                item={status.error}
+                item={error}
               />
             </>
           )}
-          {status.success && text.success}
+          {success && text.success}
         </Alert>
       )}
     </>

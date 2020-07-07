@@ -1,36 +1,86 @@
-import PropTypes from "prop-types";
+import { useLazyQuery, useMutation } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 import React, { useCallback, useEffect } from "react";
-import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import UserForm from "../components/UserForm";
 import UserLayout from "../layout/UserLayout";
-import { getUserAction, updateUserAction } from "../state/user.action";
+import StatusBar from "../../common/components/StatusBar";
+import { useState } from "react";
 
-function EditUser({
-  user,
-  loading,
-  error,
-  mutationStatus,
-  getUser,
-  updateUser,
-}) {
-  console.log("### EditUser:");
+const GET_USER = gql`
+  query($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      email
+      username
+      phone
+      sex
+      role
+    }
+  }
+`;
+
+const UPDATE_USER = gql`
+  mutation($id: ID!, $input: UpdateUserInput!) {
+    updateUser(id: $id, input: $input) {
+      id
+      name
+    }
+  }
+`;
+
+const statusText = {
+  loading: "Updating user...",
+  error: "Error while updating user",
+  success: "User updated successfuly",
+};
+
+function EditUser() {
   let { id } = useParams();
+
+  // GET_USER:
+  // --------------------------------
+  const [loadUser, { loading, error, data }] = useLazyQuery(GET_USER, {
+    variables: { id },
+  });
+  const user = data ? data.user : {};
+  console.log("### EditUser:", { id, loading, error, data });
+
   useEffect(() => {
     // onInit:
-    getUser({ id });
-  }, [id, getUser]);
+    loadUser();
+  }, [id, loadUser]);
+
+  const handleRetry = useCallback(() => loadUser(), [loadUser]);
+
+  // UPDATE_USER:
+  // --------------------------------
+  const onUpdateSuccess = (data) => {
+    console.log("onUpdateSuccess", data);
+    toast(statusText.success, { type: "success" });
+  };
+  const onUpdateError = (err) => {
+    console.error("onUpdateError:", err);
+    toast(statusText.error, { type: "error", autoClose: false });
+  };
+
+  const [
+    updateUser,
+    { loading: updateLoading, error: updateError, data: updateData },
+  ] = useMutation(UPDATE_USER, {
+    onCompleted: onUpdateSuccess,
+    onError: onUpdateError,
+  });
+  const updateUserStatus = { loading: updateLoading, error: updateError };
 
   const handleSave = useCallback(
-    (updatedUser) => updateUser({ id, ...updatedUser }),
+    (updatedUser) => updateUser({ variables: { id, input: updatedUser } }),
     [updateUser, id]
   );
-
-  const handleRetry = useCallback(() => getUser({ id }), [getUser, id]);
-
-  const { updateUserStatus } = mutationStatus;
 
   return (
     <UserLayout title="Edit User">
@@ -49,30 +99,6 @@ function EditUser({
   );
 }
 
-EditUser.propTypes = {
-  user: PropTypes.object.isRequired,
-  getUser: PropTypes.func.isRequired,
-  updateUser: PropTypes.func.isRequired,
-};
+EditUser.propTypes = {};
 
-const mapStateToProps = (state) => {
-  console.log("EditUser", state);
-  const { loading, error, data } = state.userState.user;
-  return {
-    loading,
-    error,
-    user: data,
-    mutationStatus: state.userState.mutationStatus,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getUser: (user) => dispatch(getUserAction(user)),
-    updateUser: (user) => dispatch(updateUserAction(user)),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(React.memo(EditUser));
+export default React.memo(EditUser);

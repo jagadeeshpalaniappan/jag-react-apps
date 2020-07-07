@@ -1,4 +1,4 @@
-import { getUser } from "../../../user/service/user.service";
+// import { getUser } from "../../../user/service/user.service";
 
 import {
   API_GET_POST_AUTHOR_INFO_START,
@@ -36,13 +36,13 @@ export const apiGetAuthorInfoResetAction = (error) => {
 };
 
 // ASYCN-ACTION-CREATORS:
-export const apiGetAuthorInfoAction = (config) => async (dispatch) => {
-  try {
-    dispatch(apiGetAuthorInfoStartAction());
-    const data = await getUser(config);
-    dispatch(apiGetAuthorInfoSuccessAction(data));
-  } catch (e) {
-    console.log("apiGetAuthorInfoAction:: err", e);
-    dispatch(apiGetAuthorInfoFailureAction(e.message));
-  }
-};
+// export const apiGetAuthorInfoAction = (config) => async (dispatch) => {
+//   try {
+//     dispatch(apiGetAuthorInfoStartAction());
+//     const data = await getUser(config);
+//     dispatch(apiGetAuthorInfoSuccessAction(data));
+//   } catch (e) {
+//     console.log("apiGetAuthorInfoAction:: err", e);
+//     dispatch(apiGetAuthorInfoFailureAction(e.message));
+//   }
+// };

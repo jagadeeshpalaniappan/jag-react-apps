@@ -7,7 +7,7 @@ import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import PostForm from "../components/PostForm";
 import PostLayout from "../layout/PostLayout";
 import { getPostAction, updatePostAction } from "../state/post.action";
-import { apiGetAuthorInfoAction } from "../state/api/post.getAuthorInfo.action";
+// import { apiGetAuthorInfoAction } from "../state/api/post.getAuthorInfo.action";
 
 function EditPost({
   exPostId,
@@ -90,7 +90,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getPost: (post) => dispatch(getPostAction(post)),
     updatePost: (post) => dispatch(updatePostAction(post)),
-    getAuthorInfo: (user) => dispatch(apiGetAuthorInfoAction(user)),
+    // getAuthorInfo: (user) => dispatch(apiGetAuthorInfoAction(user)),
   };
 };
 

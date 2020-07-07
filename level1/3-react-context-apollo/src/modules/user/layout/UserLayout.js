@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
-import UserStatusBar from "../container/UserStatusBar";
+// import UserStatusBar from "../container/UserStatusBar";
 
 const UserLayout = ({ children, title, actions }) => {
   console.log("### UserLayout:");
   return (
     <div className="container-fluid">
-      <UserStatusBar />
+      {/* <UserStatusBar /> */}
       <div>
         <div className="d-flex align-items-center my-3">
           <h3 className="flex-grow-1 m-0">{title}</h3>

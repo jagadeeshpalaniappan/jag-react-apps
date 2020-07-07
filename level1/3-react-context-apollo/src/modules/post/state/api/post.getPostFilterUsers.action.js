@@ -29,12 +29,12 @@ export const apiGetPostFilterUsersFailureAction = (config, error) => {
 };
 
 // ASYCN-ACTION-CREATORS:
-export const apiGetPostFilterUsersAction = (config) => async (dispatch) => {
-  try {
-    dispatch(apiGetPostFilterUsersStartAction(config));
-    const response = await getUsers(config);
-    dispatch(apiGetPostFilterUsersSuccessAction(config, response));
-  } catch (e) {
-    dispatch(apiGetPostFilterUsersFailureAction(config, e.message));
-  }
-};
+// export const apiGetPostFilterUsersAction = (config) => async (dispatch) => {
+//   try {
+//     dispatch(apiGetPostFilterUsersStartAction(config));
+//     const response = await getUsers(config);
+//     dispatch(apiGetPostFilterUsersSuccessAction(config, response));
+//   } catch (e) {
+//     dispatch(apiGetPostFilterUsersFailureAction(config, e.message));
+//   }
+// };

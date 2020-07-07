@@ -1,29 +1,16 @@
-import PropTypes from "prop-types";
-import React, { useCallback, useEffect } from "react";
-import { connect } from "react-redux";
-
+import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import { useQuery, useLazyQuery } from "@apollo/react-hooks";
-
+import React, { useCallback, useEffect } from "react";
+import { connectAppContext } from "../../../store/AppContext";
 import SearchInput from "../../common/components/SearchInput";
 import StatusQueryError from "../../common/components/StatusQueryError";
 import StatusQueryLoading from "../../common/components/StatusQueryLoading";
 import { useQueryParam } from "../../common/hooks";
-import { deepEqualReact, arrToMap } from "../../common/utils/all.utils";
+import { arrToMap, deepEqualReact } from "../../common/utils/all.utils";
 import UsersList from "../components/UsersList";
 import UsersToolbar from "../components/UsersToolbar";
 import UserLayout from "../layout/UserLayout";
-
-import {
-  useAppState,
-  UserActions,
-  connectAppContext,
-} from "../../../store/AppContext";
-
-import {
-  getUsersAction,
-  setUserSearchKeywordAction,
-} from "../state/user.action";
+import { setUserSearchKeywordAction } from "../state/user.action";
 
 const DEFAULT_PAGINATION = 10;
 
@@ -132,27 +119,17 @@ const Users = (props) => {
   );
 };
 
-Users.propTypes = {
-  users: PropTypes.array,
-  getUsers: PropTypes.func.isRequired,
-};
+Users.propTypes = {};
 
 const mapStateToProps = (state) => {
   console.log(state);
-  const { loading, error, data } = state.userState.users;
-  const { data: users, pagination } = data;
   return {
-    loading,
-    error,
-    users, // SERVER-SEARCH
-    pagination,
     searchKeyword: state.userState.searchKeyword,
     filters: state.userState.filters,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUsers: (config) => dispatch(getUsersAction(config)),
     searchUser: (keyword) => dispatch(setUserSearchKeywordAction(keyword)),
   };
 };

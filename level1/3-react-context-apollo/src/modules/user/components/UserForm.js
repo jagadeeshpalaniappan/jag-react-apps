@@ -32,7 +32,6 @@ function UserForm({ user, status, onSave }) {
     <div>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {/* <pre> {JSON.stringify(errors)} </pre> */}
-
         <FormGroup>
           <label htmlFor="name">Name:</label>
           <Input
@@ -91,7 +90,6 @@ function UserForm({ user, status, onSave }) {
             <FormFeedback>{errors.username.message}</FormFeedback>
           )}
         </FormGroup>
-
         <FormGroup>
           <label htmlFor="sexGroup">Sex:</label>
           <FormGroup check>
@@ -117,7 +115,6 @@ function UserForm({ user, status, onSave }) {
             </Label>
           </FormGroup>
         </FormGroup>
-
         <FormGroup>
           <Label for="exampleSelect">Role</Label>
           <Input
@@ -135,19 +132,19 @@ function UserForm({ user, status, onSave }) {
           </Input>
           {errors.role && <FormFeedback>{errors.role.message}</FormFeedback>}
         </FormGroup>
-
-        <FormGroup check>
-          <Label check>
-            <Input
-              type="checkbox"
-              name="isActive"
-              innerRef={register()}
-              defaultChecked
-            />
-            Active
-          </Label>
-        </FormGroup>
-
+        {user && user.id && (
+          <FormGroup check>
+            <Label check>
+              <Input
+                type="checkbox"
+                name="isActive"
+                innerRef={register()}
+                defaultChecked
+              />
+              Active
+            </Label>
+          </FormGroup>
+        )}
         <div className="d-flex justify-content-end align-items-center my-3">
           <Button
             onClick={goBack}
@@ -165,7 +162,7 @@ function UserForm({ user, status, onSave }) {
             Save
           </Button>
         </div>
-
+        TODO: loadingButton
         {JSON.stringify(status, null, 2)}
       </Form>
     </div>
