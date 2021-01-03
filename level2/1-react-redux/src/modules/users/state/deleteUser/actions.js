@@ -1,5 +1,6 @@
 import { createActions } from "redux-actions";
 import { deleteUser } from "./api";
+import { apiGetUsersAction } from "../getUsers/actions";
 
 // ACTION-CREATORS:
 export const {
@@ -21,6 +22,8 @@ export const apiDeleteUserAction = (user) => async (dispatch) => {
     dispatch(apiDeleteUserStartAction(user));
     const response = await deleteUser(user);
     dispatch(apiDeleteUserSuccessAction(response));
+    // refresh:
+    dispatch(apiGetUsersAction());
   } catch (e) {
     console.log("apiGetUsersAction:err", e);
     dispatch(apiDeleteUserFailureAction({ error: e.message }));

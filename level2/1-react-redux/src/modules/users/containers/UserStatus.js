@@ -13,15 +13,17 @@ const StatusMsg = ({ children, success, error, onClose }) => {
   return (
     <div className={`alert alert-dismissible fade show ${status}`} role="alert">
       {children}
-      <button
-        type="button"
-        className="close"
-        data-dismiss="alert"
-        aria-label="Close"
-        onClick={onClose}
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
+      {(success || error) && (
+        <button
+          type="button"
+          className="close"
+          data-dismiss="alert"
+          aria-label="Close"
+          onClick={onClose}
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      )}
     </div>
   );
 };
