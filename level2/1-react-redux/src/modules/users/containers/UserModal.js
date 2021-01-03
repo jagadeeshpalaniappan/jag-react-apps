@@ -8,7 +8,7 @@ import UserForm from "../components/UserForm";
 import { UserMutaionStatus } from "./UserStatus";
 import { apiCreateUserAction } from "../state/createUser/actions";
 import { apiUpdateUserAction } from "../state/updateUser/actions";
-import { closeUserModalAction } from "../state/userModal/actions";
+import { closeUserModalAndResetStatusAction } from "../state/userModal/actions";
 
 const UserModal = ({ isOpen, user, createUser, updateUser, onClose }) => {
   const handleSave = (formUser) => {
@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createUser: (payload) => dispatch(apiCreateUserAction(payload)),
     updateUser: (payload) => dispatch(apiUpdateUserAction(payload)),
-    onClose: (payload) => dispatch(closeUserModalAction(payload)),
+    onClose: (payload) => dispatch(closeUserModalAndResetStatusAction(payload)),
   };
 };
 

@@ -1,5 +1,6 @@
 import { createActions } from "redux-actions";
 import { createUser } from "./api";
+import { apiGetUsersAction } from "../getUsers/actions";
 
 // ACTION-CREATORS:
 export const {
@@ -21,6 +22,8 @@ export const apiCreateUserAction = (user) => async (dispatch) => {
     dispatch(apiCreateUserStartAction(user));
     const response = await createUser(user);
     dispatch(apiCreateUserSuccessAction(response));
+    // refresh:
+    dispatch(apiGetUsersAction());
   } catch (e) {
     console.log("apiGetUsersAction:err", e);
     dispatch(apiCreateUserFailureAction({ error: e.message }));
