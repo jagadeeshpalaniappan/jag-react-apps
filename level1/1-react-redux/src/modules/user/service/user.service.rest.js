@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const USER_REST_API = "https://jag-rest-api.vercel.app/demo/rest/v1/api/users";
-const USER_REST_API = "/demo/rest/v1/api/users"; // LOCAL
+const USER_REST_API = "https://jag-rest-api.vercel.app/demo/rest/v1/api/users";
+// const USER_REST_API = "/demo/rest/v1/api/users"; // LOCAL
 
 // const covertKeyToId = (item) => ({ ...item, id: item.key });
 // const covertKeyToIdArr = (items) => {
