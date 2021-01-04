@@ -30,9 +30,19 @@ const getVisibleUsers = createSelector(
   [getUsers, getVisibilityFilter],
   (users, visibilityFilter) =>
     users.filter((user) => {
-      if (visibilityFilter.active === "Active") return user.isActive;
-      if (visibilityFilter.active === "InActive") return !user.isActive;
-      if (visibilityFilter.active === "All") return true;
+      let searchMatched = true;
+      let activeMatched = true;
+      if (visibilityFilter.search)
+        searchMatched = user.name
+          .toLowerCase()
+          .startsWith(visibilityFilter.search.toLowerCase());
+
+      if (visibilityFilter.active === "Active") activeMatched = user.isActive;
+      if (visibilityFilter.active === "InActive")
+        activeMatched = !user.isActive;
+      if (visibilityFilter.active === "All") activeMatched = true;
+
+      return searchMatched && activeMatched;
     })
 );
 

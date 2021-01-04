@@ -5,6 +5,7 @@ export const setVisibilityFilterReducer = (state, action) => {
   let visibilityFilter = state.visibilityFilter;
   const { active, search } = action.payload;
   if (active) visibilityFilter = { ...visibilityFilter, active };
-  if (search) visibilityFilter = { ...visibilityFilter, search };
+  if (search || search === "")
+    visibilityFilter = { ...visibilityFilter, search };
   return { ...state, visibilityFilter };
 };
