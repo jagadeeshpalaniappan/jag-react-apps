@@ -7,14 +7,7 @@ export async function updateUser(user) {
   console.log("fetch::updateUser::", user);
 
   const { name, email, username, phone, sex, role } = user;
-  const body = {
-    name,
-    email: "tmp@jag.sh",
-    username: "jagtmp",
-    phone: "1111",
-    sex: "M",
-    role: "Dev",
-  };
+  const body = { name, email, username, phone, sex, role };
   const response = await axios.put(`${API_URL}/${user.id}`, body);
 
   console.log("fetch::updateUser:: response:", response);
