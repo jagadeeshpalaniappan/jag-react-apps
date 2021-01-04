@@ -61,8 +61,8 @@ import {
   closeUserModalReducer,
 } from "./userModal/reducer";
 
-import { setVisibilityFilterAction } from "./visibilityFilter/actions";
-import { setVisibilityFilterReducer } from "./visibilityFilter/reducer";
+import { setFilterAction } from "./filter/actions";
+import { setFilterReducer } from "./filter/reducer";
 
 //------------------ Reducers -------------
 
@@ -101,7 +101,7 @@ const defaultState = {
     isOpen: false,
     user: null,
   },
-  visibilityFilter: {
+  filter: {
     active: "All",
     search: "",
   },
@@ -136,8 +136,8 @@ export const userReducer = handleActions(
     [openUserModalAction]: openUserModalReducer,
     [closeUserModalAction]: closeUserModalReducer,
 
-    // VISIBILITY_FILTER:
-    [setVisibilityFilterAction]: setVisibilityFilterReducer,
+    // FILTER:
+    [setFilterAction]: setFilterReducer,
   },
   defaultState
 );

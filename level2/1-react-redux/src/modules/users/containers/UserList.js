@@ -22,28 +22,25 @@ export const UserList = ({ users, apiGetUsersAction }) => {
 };
 
 const getUsers = (state) => state.userState.users.data;
-const getVisibilityFilter = (state) => state.userState.visibilityFilter;
+const getFilter = (state) => state.userState.filter;
 
 // PERFORMANCE-ISSUE-FIXED: // created: MemoizedSelector
-// 'users.filter' will be called only if 'state.userState.users.data' changes or 'state.userState.visibilityFilter' changes
-const getVisibleUsers = createSelector(
-  [getUsers, getVisibilityFilter],
-  (users, visibilityFilter) =>
-    users.filter((user) => {
-      let searchMatched = true;
-      let activeMatched = true;
-      if (visibilityFilter.search)
-        searchMatched = user.name
-          .toLowerCase()
-          .startsWith(visibilityFilter.search.toLowerCase());
+// 'users.filter' will be called only if 'state.userState.users.data' changes or 'state.userState.filter' changes
+const getVisibleUsers = createSelector([getUsers, getFilter], (users, filter) =>
+  users.filter((user) => {
+    let searchMatched = true;
+    let activeMatched = true;
+    if (filter.search)
+      searchMatched = user.name
+        .toLowerCase()
+        .startsWith(filter.search.toLowerCase());
 
-      if (visibilityFilter.active === "Active") activeMatched = user.isActive;
-      if (visibilityFilter.active === "InActive")
-        activeMatched = !user.isActive;
-      if (visibilityFilter.active === "All") activeMatched = true;
+    if (filter.active === "Active") activeMatched = user.isActive;
+    if (filter.active === "InActive") activeMatched = !user.isActive;
+    if (filter.active === "All") activeMatched = true;
 
-      return searchMatched && activeMatched;
-    })
+    return searchMatched && activeMatched;
+  })
 );
 
 const mapStateToProps = (state) => ({ users: getVisibleUsers(state) });

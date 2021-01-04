@@ -1,7 +1,7 @@
 import React from "react";
 import Search from "./Search";
 import AddUser from "./AddUser";
-import VisibilityDropDown from "./VisibilityFilterDropDown";
+import VisibilityDropDown from "./FilterDropDown";
 export default function UserToolbar() {
   return (
     <>

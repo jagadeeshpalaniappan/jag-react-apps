@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { debounce } from "lodash-es";
-import { setVisibilityFilterAction } from "../../state/visibilityFilter/actions";
+import { setFilterAction } from "../../state/filter/actions";
 
 export const Search = ({ search, searchUser }) => {
   const [searchState, setSearchState] = useState(search || "");
@@ -23,12 +23,12 @@ export const Search = ({ search, searchUser }) => {
 };
 
 const mapStateToProps = (state) => ({
-  search: state.userState.visibilityFilter.search,
+  search: state.userState.filter.search,
 });
 
 const mapDispatchToProps = (dispatch) => {
   const searchUserDebounced = debounce((...args) => {
-    dispatch(setVisibilityFilterAction(...args));
+    dispatch(setFilterAction(...args));
   }, 500);
   return {
     searchUser: searchUserDebounced,
