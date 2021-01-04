@@ -8,7 +8,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 
-import { setVisibilityFilterAction } from "../state/visibilityFilter/actions";
+import { setVisibilityFilterAction } from "../../state/visibilityFilter/actions";
 
 export const VisibilityDropDown = ({
   visibilityFilter,

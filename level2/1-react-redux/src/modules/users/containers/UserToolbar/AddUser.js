@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { openUserModalAction } from "../state/userModal/actions";
+import { openUserModalAction } from "../../state/userModal/actions";
 
 const AddUser = ({ openUserModalAction }) => {
   return (
