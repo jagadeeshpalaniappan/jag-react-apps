@@ -8,6 +8,7 @@ import NotFoundView from "../views/NotFound";
 // const PostModule = lazy(() => import("../modules/post"));
 
 import UsersIndexView from "../../../modules/users/views/UsersIndexView";
+import { ROUTE as USER_ROUTE } from "src/modules/users/constants";
 
 export const basePath = {
   user: "/users",
@@ -20,8 +21,8 @@ const AppRoutes = () => {
   return (
     <Suspense fallback={<div>Loading Modules...</div>}>
       <Switch>
-        <Redirect exact from="/" to={basePath.user} />
-        <Route path={basePath.user}>
+        <Redirect exact from="/" to={USER_ROUTE} />
+        <Route path={USER_ROUTE}>
           <UsersIndexView />
         </Route>
         {/* <Route path={basePath.post}>
