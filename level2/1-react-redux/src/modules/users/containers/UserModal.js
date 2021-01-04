@@ -24,7 +24,9 @@ const UserModal = ({ isOpen, user, createUser, updateUser, onClose }) => {
   return (
     <div>
       <Modal isOpen={isOpen} toggle={toggle} backdrop keyboard>
-        <ModalHeader>Modal title</ModalHeader>
+        <ModalHeader>
+          {user && user.id ? "Update User" : "Create User"}
+        </ModalHeader>
         <ModalBody>
           <UserMutaionStatus />
           <UserForm user={user} onSave={handleSave} onCancel={onClose} />
