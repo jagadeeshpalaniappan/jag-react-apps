@@ -1,13 +1,13 @@
 import React from "react";
 import Search from "./Search";
-import AddUser from "./AddUser";
-import VisibilityDropDown from "./FilterDropDown";
+import AddButton from "./AddButton";
+import ActiveFilterDropDown from "./ActiveFilterDropDown";
 export default function UserToolbar() {
   return (
     <>
       <div className="d-flex justify-content-end my-2">
-        <AddUser />
-        <VisibilityDropDown />
+        <AddButton />
+        <ActiveFilterDropDown />
       </div>
       <Search />
     </>

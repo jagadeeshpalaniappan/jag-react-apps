@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { apiDeleteUserAction } from "../state/deleteUser/actions";
-import { openUserModalAction } from "../state/userModal/actions";
+import { apiDeleteUserAction } from "../../state/deleteUser/actions";
+import { openUserModalAction } from "../../state/userModal/actions";
 
-const UserListItem = ({ user, apiDeleteUserAction, openUserModalAction }) => {
-  console.log("UserItem");
+const ListItem = ({ user, apiDeleteUserAction, openUserModalAction }) => {
+  console.log("ListItem");
   return (
     <>
       <li className="list-group-item d-flex justify-content-between align-items-center">
@@ -36,4 +36,4 @@ const UserListItem = ({ user, apiDeleteUserAction, openUserModalAction }) => {
 };
 
 const mapDispatchToProps = { apiDeleteUserAction, openUserModalAction };
-export default connect(null, mapDispatchToProps)(React.memo(UserListItem));
+export default connect(null, mapDispatchToProps)(React.memo(ListItem));

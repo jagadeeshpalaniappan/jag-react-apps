@@ -12,7 +12,7 @@ const AppNavbar = ({ title, secondaryTitle }) => {
         MyReduxApp1
       </NavLink>
 
-      <div class="navbar-nav">
+      <div className="navbar-nav">
         <NavLink
           to="/users"
           activeClassName="active"

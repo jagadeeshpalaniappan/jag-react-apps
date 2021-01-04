@@ -10,7 +10,7 @@ import {
 
 import { setFilterAction } from "../../state/filter/actions";
 
-export const FilterDropDown = ({ filterActive, setFilterAction }) => {
+export const ActiveFilterDropDown = ({ filterActive, setFilterAction }) => {
   const [ddOpen, setDdOpen] = useState(false);
   return (
     <Dropdown isOpen={ddOpen} toggle={() => setDdOpen(!ddOpen)}>
@@ -44,4 +44,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = { setFilterAction };
-export default connect(mapStateToProps, mapDispatchToProps)(FilterDropDown);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ActiveFilterDropDown);

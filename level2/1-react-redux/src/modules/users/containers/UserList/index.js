@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
-import UserListItem from "./UserListItem";
-import { UserListStatus } from "./UserStatus";
-import { apiGetUsersAction } from "../state/getUsers/actions";
+import { apiGetUsersAction } from "../../state/getUsers/actions";
+import { UserListStatus } from "../UserStatus";
+import List from "./List";
+import { searchObjVals } from "src/modules/common/utils";
 
 export const UserList = ({ users, apiGetUsersAction }) => {
   console.log("UserList");
@@ -13,10 +14,7 @@ export const UserList = ({ users, apiGetUsersAction }) => {
   return (
     <>
       <UserListStatus />
-      <ul class="list-group">
-        {users &&
-          users.map((user) => <UserListItem key={user.id} user={user} />)}
-      </ul>
+      <List users={users} />
     </>
   );
 };
@@ -28,16 +26,14 @@ const getFilter = (state) => state.userState.filter;
 // 'users.filter' will be called only if 'state.userState.users.data' changes or 'state.userState.filter' changes
 const getVisibleUsers = createSelector([getUsers, getFilter], (users, filter) =>
   users.filter((user) => {
-    let searchMatched = true;
     let activeMatched = true;
-    if (filter.search)
-      searchMatched = user.name
-        .toLowerCase()
-        .startsWith(filter.search.toLowerCase());
-
     if (filter.active === "Active") activeMatched = user.isActive;
     if (filter.active === "InActive") activeMatched = !user.isActive;
     if (filter.active === "All") activeMatched = true;
+
+    let searchMatched = true;
+    if (activeMatched && filter.search)
+      searchMatched = searchObjVals(user, filter.search);
 
     return searchMatched && activeMatched;
   })

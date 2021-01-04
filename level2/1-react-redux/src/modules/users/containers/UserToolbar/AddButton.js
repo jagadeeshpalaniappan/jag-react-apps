@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { openUserModalAction } from "../../state/userModal/actions";
 
-const AddUser = ({ openUserModalAction }) => {
+const AddButton = ({ openUserModalAction }) => {
   return (
     <button
       type="button"
@@ -15,4 +15,4 @@ const AddUser = ({ openUserModalAction }) => {
 };
 
 const mapDispatchToProps = { openUserModalAction };
-export default connect(null, mapDispatchToProps)(AddUser);
+export default connect(null, mapDispatchToProps)(AddButton);
