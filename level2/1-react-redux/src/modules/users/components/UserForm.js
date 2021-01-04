@@ -130,17 +130,19 @@ function UserForm({ user, status, onSave, onCancel }) {
           {errors.role && <FormFeedback>{errors.role.message}</FormFeedback>}
         </FormGroup>
 
-        <FormGroup check>
-          <Label check>
-            <Input
-              type="checkbox"
-              name="isActive"
-              innerRef={register()}
-              defaultChecked
-            />
-            Active
-          </Label>
-        </FormGroup>
+        {user && user.id && (
+          <FormGroup check>
+            <Label check>
+              <Input
+                type="checkbox"
+                name="isActive"
+                innerRef={register()}
+                defaultChecked
+              />
+              Active
+            </Label>
+          </FormGroup>
+        )}
 
         <div className="d-flex justify-content-end align-items-center my-3">
           <Button

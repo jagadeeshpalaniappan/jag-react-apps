@@ -10,10 +10,16 @@ import { apiCreateUserAction } from "../state/createUser/actions";
 import { apiUpdateUserAction } from "../state/updateUser/actions";
 import { closeUserModalAndResetStatusAction } from "../state/userModal/actions";
 
-const UserModal = ({ isOpen, user, createUser, updateUser, onClose }) => {
+const UserModal = ({
+  isOpen,
+  user,
+  apiCreateUserAction,
+  apiUpdateUserAction,
+  onClose,
+}) => {
   const handleSave = (formUser) => {
-    if (formUser.id) updateUser(formUser);
-    else createUser(formUser);
+    if (formUser.id) apiUpdateUserAction(formUser);
+    else apiCreateUserAction(formUser);
   };
 
   const toggle = (...args) => {
@@ -41,12 +47,10 @@ const mapStateToProps = (state) => ({
   user: state.userState.userModal.user,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createUser: (payload) => dispatch(apiCreateUserAction(payload)),
-    updateUser: (payload) => dispatch(apiUpdateUserAction(payload)),
-    onClose: (payload) => dispatch(closeUserModalAndResetStatusAction(payload)),
-  };
+const mapDispatchToProps = {
+  apiCreateUserAction,
+  apiUpdateUserAction,
+  onClose: closeUserModalAndResetStatusAction,
 };
 
 export default connect(

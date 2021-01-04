@@ -36,8 +36,6 @@ const getVisibleUsers = createSelector(
     })
 );
 
-const mapStateToProps = (state) => ({
-  users: getVisibleUsers(state),
-});
+const mapStateToProps = (state) => ({ users: getVisibleUsers(state) });
 const mapDispatchToProps = { apiGetUsersAction };
 export default connect(mapStateToProps, mapDispatchToProps)(UserList);
