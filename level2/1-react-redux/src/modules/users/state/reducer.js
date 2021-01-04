@@ -101,7 +101,10 @@ const defaultState = {
     isOpen: false,
     user: null,
   },
-  visibilityFilter: "All",
+  visibilityFilter: {
+    active: "All",
+    search: "",
+  },
 };
 
 export const userReducer = handleActions(

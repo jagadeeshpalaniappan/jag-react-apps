@@ -11,32 +11,34 @@ import {
 import { setVisibilityFilterAction } from "../../state/visibilityFilter/actions";
 
 export const VisibilityDropDown = ({
-  visibilityFilter,
+  visibilityFilterActive,
   setVisibilityFilterAction,
 }) => {
   const [ddOpen, setDdOpen] = useState(false);
   return (
     <Dropdown isOpen={ddOpen} toggle={() => setDdOpen(!ddOpen)}>
-      <DropdownToggle caret>Show {visibilityFilter}</DropdownToggle>
+      <DropdownToggle caret>Show {visibilityFilterActive}</DropdownToggle>
       <DropdownMenu right>
         <DropdownItem
-          onClick={() => setVisibilityFilterAction("All")}
-          className={visibilityFilter === "All" ? "bg-primary text-white" : ""}
+          onClick={() => setVisibilityFilterAction({ active: "All" })}
+          className={
+            visibilityFilterActive === "All" ? "bg-primary text-white" : ""
+          }
         >
           All
         </DropdownItem>
         <DropdownItem
-          onClick={() => setVisibilityFilterAction("Active")}
+          onClick={() => setVisibilityFilterAction({ active: "Active" })}
           className={
-            visibilityFilter === "Active" ? "bg-primary text-white" : ""
+            visibilityFilterActive === "Active" ? "bg-primary text-white" : ""
           }
         >
           Active
         </DropdownItem>
         <DropdownItem
-          onClick={() => setVisibilityFilterAction("InActive")}
+          onClick={() => setVisibilityFilterAction({ active: "InActive" })}
           className={
-            visibilityFilter === "InActive" ? "bg-primary text-white" : ""
+            visibilityFilterActive === "InActive" ? "bg-primary text-white" : ""
           }
         >
           InActive
@@ -47,7 +49,7 @@ export const VisibilityDropDown = ({
 };
 
 const mapStateToProps = (state) => ({
-  visibilityFilter: state.userState.visibilityFilter,
+  visibilityFilterActive: state.userState.visibilityFilter.active,
 });
 
 const mapDispatchToProps = { setVisibilityFilterAction };

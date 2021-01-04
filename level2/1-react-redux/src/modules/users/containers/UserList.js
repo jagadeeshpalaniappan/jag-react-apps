@@ -30,9 +30,9 @@ const getVisibleUsers = createSelector(
   [getUsers, getVisibilityFilter],
   (users, visibilityFilter) =>
     users.filter((user) => {
-      if (visibilityFilter === "Active") return user.isActive;
-      if (visibilityFilter === "InActive") return !user.isActive;
-      if (visibilityFilter === "All") return true;
+      if (visibilityFilter.active === "Active") return user.isActive;
+      if (visibilityFilter.active === "InActive") return !user.isActive;
+      if (visibilityFilter.active === "All") return true;
     })
 );
 
