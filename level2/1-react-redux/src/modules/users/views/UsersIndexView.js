@@ -1,9 +1,9 @@
 import React from "react";
 import Page from "src/modules/app/components/Page";
-import UserList from "../containers/UserList";
-import UserModal from "../containers/UserModal";
-import { DeleteUserStatus } from "../containers/UserStatus";
-import UserToolbar from "../containers/UserToolbar";
+import UserList from "../components/UserList";
+import UserModal from "../components/UserModal";
+import { DeleteUserStatus } from "../components/UserStatus";
+import UserToolbar from "../components/UserToolbar";
 
 const UsersIndexView = () => {
   console.log("UsersIndexView");
