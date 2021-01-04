@@ -6,7 +6,7 @@ const AddUser = ({ openUserModal }) => {
   return (
     <button
       type="button"
-      class="btn btn-primary"
+      className="btn btn-primary mr-1"
       onClick={() => openUserModal()}
     >
       Add User

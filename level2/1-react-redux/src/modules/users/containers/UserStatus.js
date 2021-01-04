@@ -30,28 +30,24 @@ const StatusMsg = ({ children, success, error, onClose }) => {
 
 // connect(mapStateToProps, mapDispatchToProps)(MyComp);
 export const CreateUserStatus = connect(
-  (state) => ({
-    createUserStatus: state.userState.createUserStatus,
-  }),
-  (dispatch) => {
-    return {
-      resetCreateUserStatus: () => dispatch(resetCreateUserStatusAction()),
-    };
-  }
-)(({ createUserStatus, resetCreateUserStatus }) => {
+  (state) => ({ createUserStatus: state.userState.createUserStatus }),
+  { resetCreateUserStatusAction }
+)(({ createUserStatus, resetCreateUserStatusAction }) => {
   console.log("CreateUserStatus");
   return (
     <>
       {createUserStatus.loading && (
-        <StatusMsg onClose={resetCreateUserStatus}>Creating User...</StatusMsg>
+        <StatusMsg onClose={resetCreateUserStatusAction}>
+          Creating User...
+        </StatusMsg>
       )}
       {createUserStatus.success && (
-        <StatusMsg success onClose={resetCreateUserStatus}>
+        <StatusMsg success onClose={resetCreateUserStatusAction}>
           User Created Successfully
         </StatusMsg>
       )}
       {createUserStatus.error && (
-        <StatusMsg error onClose={resetCreateUserStatus}>
+        <StatusMsg error onClose={resetCreateUserStatusAction}>
           Failed to Create User
         </StatusMsg>
       )}
@@ -61,28 +57,24 @@ export const CreateUserStatus = connect(
 
 // connect(mapStateToProps, mapDispatchToProps)(MyComp);
 export const UpdateUserStatus = connect(
-  (state) => ({
-    updateUserStatus: state.userState.updateUserStatus,
-  }),
-  (dispatch) => {
-    return {
-      resetUpdateUserStatus: () => dispatch(resetUpdateUserStatusAction()),
-    };
-  }
-)(({ updateUserStatus, resetUpdateUserStatus }) => {
+  (state) => ({ updateUserStatus: state.userState.updateUserStatus }),
+  { resetUpdateUserStatusAction }
+)(({ updateUserStatus, resetUpdateUserStatusAction }) => {
   console.log("UpdateUserStatus");
   return (
     <>
       {updateUserStatus.loading && (
-        <StatusMsg onClose={resetUpdateUserStatus}>Updating User...</StatusMsg>
+        <StatusMsg onClose={resetUpdateUserStatusAction}>
+          Updating User...
+        </StatusMsg>
       )}
       {updateUserStatus.success && (
-        <StatusMsg success onClose={resetUpdateUserStatus}>
+        <StatusMsg success onClose={resetUpdateUserStatusAction}>
           User Updated Successfully
         </StatusMsg>
       )}
       {updateUserStatus.error && (
-        <StatusMsg error onClose={resetUpdateUserStatus}>
+        <StatusMsg error onClose={resetUpdateUserStatusAction}>
           Failed to Update User
         </StatusMsg>
       )}
@@ -92,28 +84,24 @@ export const UpdateUserStatus = connect(
 
 // connect(mapStateToProps, mapDispatchToProps)(MyComp);
 export const DeleteUserStatus = connect(
-  (state) => ({
-    deleteUserStatus: state.userState.deleteUserStatus,
-  }),
-  (dispatch) => {
-    return {
-      resetDeleteUserStatus: () => dispatch(resetDeleteUserStatusAction()),
-    };
-  }
-)(({ deleteUserStatus, resetDeleteUserStatus }) => {
+  (state) => ({ deleteUserStatus: state.userState.deleteUserStatus }),
+  { resetDeleteUserStatusAction }
+)(({ deleteUserStatus, resetDeleteUserStatusAction }) => {
   console.log("DeleteUserStatus");
   return (
     <>
       {deleteUserStatus.loading && (
-        <StatusMsg onClose={resetDeleteUserStatus}>Deleting User...</StatusMsg>
+        <StatusMsg onClose={resetDeleteUserStatusAction}>
+          Deleting User...
+        </StatusMsg>
       )}
       {deleteUserStatus.success && (
-        <StatusMsg success onClose={resetDeleteUserStatus}>
+        <StatusMsg success onClose={resetDeleteUserStatusAction}>
           User Deleted Successfully
         </StatusMsg>
       )}
       {deleteUserStatus.error && (
-        <StatusMsg error onClose={resetDeleteUserStatus}>
+        <StatusMsg error onClose={resetDeleteUserStatusAction}>
           Failed to Delete User
         </StatusMsg>
       )}
@@ -129,3 +117,18 @@ export const UserMutaionStatus = () => {
     </>
   );
 };
+
+// connect(mapStateToProps, mapDispatchToProps)(MyComp);
+export const UserListStatus = connect(
+  (state) => ({ users: state.userState.users }),
+  null
+)(({ users }) => {
+  console.log("UserListStatus");
+  if (users.loading)
+    return (
+      <div className="d-flex justify-content-center py-5">Loading Users...</div>
+    );
+  if (users.error) return <StatusMsg error>Error when getting Users</StatusMsg>;
+
+  return null;
+});

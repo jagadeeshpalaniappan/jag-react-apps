@@ -61,6 +61,9 @@ import {
   closeUserModalReducer,
 } from "./userModal/reducer";
 
+import { setVisibilityFilterAction } from "./visibilityFilter/actions";
+import { setVisibilityFilterReducer } from "./visibilityFilter/reducer";
+
 //------------------ Reducers -------------
 
 const defaultState = {
@@ -98,6 +101,7 @@ const defaultState = {
     isOpen: false,
     user: null,
   },
+  visibilityFilter: "All",
 };
 
 export const userReducer = handleActions(
@@ -128,6 +132,9 @@ export const userReducer = handleActions(
     // USER_MODAL
     [openUserModalAction]: openUserModalReducer,
     [closeUserModalAction]: closeUserModalReducer,
+
+    // VISIBILITY_FILTER:
+    [setVisibilityFilterAction]: setVisibilityFilterReducer,
   },
   defaultState
 );
