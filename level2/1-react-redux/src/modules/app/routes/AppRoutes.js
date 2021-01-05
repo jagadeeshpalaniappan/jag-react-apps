@@ -9,26 +9,26 @@ import NotFoundView from "../views/NotFound";
 
 import Users1IndexView from "../../users1/views/UsersIndexView";
 // import Users2IndexView from "../../users1/views/UsersIndexView";
-const Users2IndexView = lazy(() => import("../../users1/views/UsersIndexView"));
+const Users2IndexView = lazy(() => import("../../users2/views/UsersIndexView"));
 
 const AppRoutes = () => {
   console.log("### AppRoutes:");
   return (
-    <Suspense fallback={<div>Loading Modules...</div>}>
-      <Switch>
-        <Redirect exact from="/" to={routeConfig.user1} />
-        <Route path={routeConfig.user1}>
-          <Users1IndexView />
-        </Route>
-        <Route path={routeConfig.user2}>
+    <Switch>
+      <Redirect exact from="/" to={routeConfig.user1} />
+      <Route path={routeConfig.user1}>
+        <Users1IndexView />
+      </Route>
+      <Route path={routeConfig.user2}>
+        <Suspense fallback={<div>Loading 'User2' Module...</div>}>
           <Users2IndexView />
-        </Route>
-        <Route path="/404">
-          <NotFoundView />
-        </Route>
-        <Redirect to="/404" />
-      </Switch>
-    </Suspense>
+        </Suspense>
+      </Route>
+      <Route path="/404">
+        <NotFoundView />
+      </Route>
+      <Redirect to="/404" />
+    </Switch>
   );
 };
 
