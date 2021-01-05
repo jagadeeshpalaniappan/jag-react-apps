@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { routeConfig } from "../config";
 
-const AppNavbar = ({ title, secondaryTitle }) => {
+const AppNavbar = () => {
   console.log("### AppNavbar:");
   return (
     <nav
@@ -11,10 +12,9 @@ const AppNavbar = ({ title, secondaryTitle }) => {
       <NavLink to="/" activeClassName="active" className="nav-link" exact>
         MyReduxApp1
       </NavLink>
-
-      <div class="navbar-nav">
+      <div className="navbar-nav">
         <NavLink
-          to="/users"
+          to={routeConfig.user}
           activeClassName="active"
           className="nav-link"
           exact
@@ -22,11 +22,12 @@ const AppNavbar = ({ title, secondaryTitle }) => {
           Users
         </NavLink>
         <NavLink
-          to="/posts"
+          to={routeConfig.post}
           activeClassName="active"
-          className="nav-link disabled"
+          className="nav-link"
+          exact
         >
-          Posts [TODO]
+          Posts
         </NavLink>
       </div>
     </nav>

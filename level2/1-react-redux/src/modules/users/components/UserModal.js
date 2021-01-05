@@ -4,16 +4,22 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import UserForm from "../components/UserForm";
+import UserForm from "./UserForm";
 import { UserMutaionStatus } from "./UserStatus";
 import { apiCreateUserAction } from "../state/createUser/actions";
 import { apiUpdateUserAction } from "../state/updateUser/actions";
 import { closeUserModalAndResetStatusAction } from "../state/userModal/actions";
 
-const UserModal = ({ isOpen, user, createUser, updateUser, onClose }) => {
+const UserModal = ({
+  isOpen,
+  user,
+  apiCreateUserAction,
+  apiUpdateUserAction,
+  onClose,
+}) => {
   const handleSave = (formUser) => {
-    if (formUser.id) updateUser(formUser);
-    else createUser(formUser);
+    if (formUser.id) apiUpdateUserAction(formUser);
+    else apiCreateUserAction(formUser);
   };
 
   const toggle = (...args) => {
@@ -23,9 +29,17 @@ const UserModal = ({ isOpen, user, createUser, updateUser, onClose }) => {
 
   return (
     <div>
-      <Modal isOpen={isOpen} toggle={toggle} backdrop keyboard>
-        <ModalHeader>Modal title</ModalHeader>
-        <ModalBody>
+      <Modal
+        isOpen={isOpen}
+        toggle={toggle}
+        backdrop
+        keyboard
+        contentClassName="bg-light"
+      >
+        <ModalHeader className="border-0">
+          {user && user.id ? "Update User" : "Create User"}
+        </ModalHeader>
+        <ModalBody className="px-5">
           <UserMutaionStatus />
           <UserForm user={user} onSave={handleSave} onCancel={onClose} />
         </ModalBody>
@@ -39,12 +53,10 @@ const mapStateToProps = (state) => ({
   user: state.userState.userModal.user,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createUser: (payload) => dispatch(apiCreateUserAction(payload)),
-    updateUser: (payload) => dispatch(apiUpdateUserAction(payload)),
-    onClose: (payload) => dispatch(closeUserModalAndResetStatusAction(payload)),
-  };
+const mapDispatchToProps = {
+  apiCreateUserAction,
+  apiUpdateUserAction,
+  onClose: closeUserModalAndResetStatusAction,
 };
 
 export default connect(

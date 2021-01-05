@@ -5,7 +5,6 @@ export const apiGetUsersStartReducer = (state, action) => {
     ...state,
     users: {
       ...state.users,
-      data: [],
       loading: true,
       error: null,
     },

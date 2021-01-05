@@ -109,7 +109,7 @@ function PostForm({ post = {}, status, onSave, authorInfo = {} }) {
           <label htmlFor="user">User:</label>
           {authorInfo && authorInfo.loading && "Loading User..."}
           {authorInfo && authorInfo.error && (
-            <div class="text-danger">Error getting User!</div>
+            <div className="text-danger">Error getting User!</div>
           )}
           {((authorInfo && authorInfo.data) || !post.id) && (
             <UsersDropdown

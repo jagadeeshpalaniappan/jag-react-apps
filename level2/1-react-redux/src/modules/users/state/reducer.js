@@ -61,6 +61,9 @@ import {
   closeUserModalReducer,
 } from "./userModal/reducer";
 
+import { setFilterAction } from "./filter/actions";
+import { setFilterReducer } from "./filter/reducer";
+
 //------------------ Reducers -------------
 
 const defaultState = {
@@ -98,6 +101,10 @@ const defaultState = {
     isOpen: false,
     user: null,
   },
+  filter: {
+    active: "All",
+    search: "",
+  },
 };
 
 export const userReducer = handleActions(
@@ -128,6 +135,9 @@ export const userReducer = handleActions(
     // USER_MODAL
     [openUserModalAction]: openUserModalReducer,
     [closeUserModalAction]: closeUserModalReducer,
+
+    // FILTER:
+    [setFilterAction]: setFilterReducer,
   },
   defaultState
 );
