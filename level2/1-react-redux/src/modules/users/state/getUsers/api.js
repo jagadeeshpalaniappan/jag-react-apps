@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { apiConfig } from "../../../../modules/app/config";
+import { apiConfig } from "../../../app/config";
 const API_URL = `${apiConfig.user}/users`;
 
 export async function getUsers(config) {

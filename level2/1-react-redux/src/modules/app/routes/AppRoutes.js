@@ -7,7 +7,7 @@ import NotFoundView from "../views/NotFound";
 // import UserModule from "./modules/user";
 // const UserModule = lazy(() => import("../modules/user"));
 
-import Users1IndexView from "../../users1/views/UsersIndexView";
+import Users1IndexView from "../../users/views/UsersIndexView";
 // import PostsIndexView from "../../post/views/PostsIndexView";
 const PostsIndexView = lazy(() => import("../../post/views/PostsIndexView"));
 

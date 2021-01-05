@@ -23,7 +23,7 @@ const ListItem = ({ post, apiDeletePostAction, openPostModalAction }) => {
         </div>
       </div>
       <div className="mb-1">
-        {post.body}
+        <small>{post.body}</small>
         <span className="badge badge-light mr-1">active</span>
       </div>
     </li>
