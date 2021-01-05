@@ -2,13 +2,6 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 
-// After successfull (redux action) --redirectTo--> (some-route)
-// import { connectRouter, routerMiddleware } from 'connected-react-router';
-// import { createBrowserHistory } from 'history';
-
-// import { userReducer } from 'src/modules/user/state/user.reducer';
-// import { postReducer } from '../modules/post/state/post.reducer';
-
 import { userReducer } from "src/modules/users/state/reducer";
 
 //--------------------------------- Redux: Reducer -----------------------------------
@@ -16,12 +9,8 @@ import { userReducer } from "src/modules/users/state/reducer";
 const createRootReducer = () => {
   return combineReducers({
     userState: userReducer,
-    // userState: userReducer
-    // postState: postReducer
   });
 };
-
-// const rootReducer = combineReducers({...});
 
 //--------------------------------- Redux: Store -----------------------------------
 const rootReducer = createRootReducer();
