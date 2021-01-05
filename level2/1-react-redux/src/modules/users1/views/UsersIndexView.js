@@ -9,7 +9,7 @@ const UsersIndexView = () => {
   console.log("UsersIndexView");
   return (
     <Page className="container" title="Users">
-      <h3 className="mt-3">Users: </h3>
+      <h3 className="mt-3">Users1: </h3>
       <UserToolbar />
       <DeleteUserStatus />
       <UserList />

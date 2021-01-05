@@ -1,34 +1,28 @@
 import React, { Suspense, lazy } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { routeConfig } from "../config";
+
 import NotFoundView from "../views/NotFound";
 
 // import UserModule from "./modules/user";
 // const UserModule = lazy(() => import("../modules/user"));
-// import PostModule from "./modules/post";
-// const PostModule = lazy(() => import("../modules/post"));
 
-import UsersIndexView from "../../../modules/users/views/UsersIndexView";
-import { ROUTE as USER_ROUTE } from "src/modules/users/constants";
-
-export const basePath = {
-  user: "/users",
-  post: "/posts",
-  todo: "/todos",
-};
+import Users1IndexView from "../../users1/views/UsersIndexView";
+// import Users2IndexView from "../../users1/views/UsersIndexView";
+const Users2IndexView = lazy(() => import("../../users1/views/UsersIndexView"));
 
 const AppRoutes = () => {
   console.log("### AppRoutes:");
   return (
     <Suspense fallback={<div>Loading Modules...</div>}>
       <Switch>
-        <Redirect exact from="/" to={USER_ROUTE} />
-        <Route path={USER_ROUTE}>
-          <UsersIndexView />
+        <Redirect exact from="/" to={routeConfig.user1} />
+        <Route path={routeConfig.user1}>
+          <Users1IndexView />
         </Route>
-        {/* <Route path={basePath.post}>
-          <PostModule />
-        </Route> */}
-        <Route path={basePath.todo}>...</Route>
+        <Route path={routeConfig.user2}>
+          <Users2IndexView />
+        </Route>
         <Route path="/404">
           <NotFoundView />
         </Route>

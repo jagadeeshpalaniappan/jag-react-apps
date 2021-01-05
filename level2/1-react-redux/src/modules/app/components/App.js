@@ -1,7 +1,7 @@
 import React from "react";
 
-import AppStateProvider from "./AppStateProvider";
-import AppRouteProvider from "./AppRouteProvider";
+import AppStateProvider from "../state/AppStateProvider";
+import AppRouteProvider from "../routes/AppRouteProvider";
 import AppContainer from "./AppContainer";
 
 const App = () => {

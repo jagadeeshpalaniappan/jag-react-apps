@@ -1,6 +1,6 @@
 import React from "react";
 import AppNavbar from "./AppNavbar";
-import AppRoutes from "./AppRoutes";
+import AppRoutes from "../routes/AppRoutes";
 
 const AppContainer = () => {
   console.log("### AppContainer:");

@@ -10,7 +10,6 @@ import {
   Input,
   Label,
 } from "reactstrap";
-import { basePath } from "src/modules/app/components/AppRoutes";
 
 function UserForm({ user, status, onSave, onCancel }) {
   console.log("### UserForm:");

@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 
-import { userReducer } from "src/modules/users/state/reducer";
+import { userReducer } from "src/modules/users1/state/reducer";
 
 //--------------------------------- Redux: Reducer -----------------------------------
 

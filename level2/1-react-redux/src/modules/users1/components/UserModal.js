@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import UserForm from "../components/UserForm";
+import UserForm from "./UserForm";
 import { UserMutaionStatus } from "./UserStatus";
 import { apiCreateUserAction } from "../state/createUser/actions";
 import { apiUpdateUserAction } from "../state/updateUser/actions";
