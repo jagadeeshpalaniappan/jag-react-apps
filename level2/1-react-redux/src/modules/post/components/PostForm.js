@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import {
@@ -10,138 +10,122 @@ import {
   Input,
   Label,
 } from "reactstrap";
+// import UsersDropdown from "./UsersDropdown";
 
-function PostForm({ post, status, onSave, onCancel }) {
+function PostForm({ post = {}, status, onSave, onCancel, authorInfo = {} }) {
   console.log("### PostForm:");
+
+  const [selectedUser, setSelectedUser] = useState();
+
+  useEffect(() => {
+    if (authorInfo.data) {
+      setSelectedUser({
+        label: authorInfo.data.name,
+        value: authorInfo.data.id,
+      });
+    }
+  }, [authorInfo.data, setSelectedUser]);
+
   var history = useHistory();
   const { register, handleSubmit, errors } = useForm({ defaultValues: post });
   const onSubmit = (data) => {
     console.log("FORM-VALUES:", { data, errors });
-    if (post && post.id) onSave({ id: post.id, ...data });
-    else onSave(data);
+    // onSave({ ...data, userId: selectedUser.value });
+    if (post && post.id) onSave({ id: post.id, userId: "TMP_USER", ...data });
+    else onSave({ ...data, userId: "TMP_USER" });
   };
+  // console.log({ errors });
+
+  const handleUserSelection = useCallback((newSelectedUser) => {
+    console.log("handleUsersSelection:", { newSelectedUser });
+    setSelectedUser(newSelectedUser);
+  }, []);
 
   return (
-    <div className="mb-2">
+    <div>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {/* <pre> {JSON.stringify(errors)} </pre> */}
 
         <FormGroup>
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="title">Title:</label>
           <Input
             type="text"
-            id="name"
-            name="name"
-            placeholder="Name"
-            invalid={!!errors.name}
+            id="title"
+            name="title"
+            placeholder="Title"
+            invalid={!!errors.title}
             innerRef={register({
               required: {
                 value: true,
-                message: "Name is required",
+                message: "Title is required",
               },
               maxLength: {
                 value: 30,
-                message: "Name cannot exceed 30 chars",
+                message: "Title cannot exceed 30 chars",
               },
             })}
           />
-          {errors.name && <FormFeedback>{errors.name.message}</FormFeedback>}
+          {errors.title && <FormFeedback>{errors.title.message}</FormFeedback>}
         </FormGroup>
         <FormGroup>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="body">Body:</label>
+          <Input
+            type="textarea"
+            id="body"
+            name="body"
+            placeholder="Body"
+            invalid={!!errors.body}
+            innerRef={register()}
+          />
+          {errors.body && <FormFeedback>{errors.body.message}</FormFeedback>}
+        </FormGroup>
+        {/* 
+        <FormGroup>
+          <label htmlFor="userId">UserId: (TODO)</label>
           <Input
             type="text"
-            id="email"
-            name="email"
-            placeholder="Email"
-            invalid={!!errors.email}
+            id="userId"
+            name="userId"
+            placeholder="UserId"
+            invalid={!!errors.userId}
             innerRef={register({
               required: {
                 value: true,
-                message: "Email is required",
-              },
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: "Invalid email address",
+                message: "UserId is required",
               },
             })}
           />
-          {errors.email && <FormFeedback>{errors.email.message}</FormFeedback>}
-        </FormGroup>
-        <FormGroup>
-          <label htmlFor="username">Username:</label>
-          <Input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Username"
-            invalid={!!errors.username}
-            innerRef={register({
-              required: { value: true, message: "Username is required" },
-            })}
-          />
-          {errors.username && (
-            <FormFeedback>{errors.username.message}</FormFeedback>
+          {errors.userId && (
+            <FormFeedback>{errors.userId.message}</FormFeedback>
           )}
-        </FormGroup>
-
+        </FormGroup> */}
+        {/* 
         <FormGroup>
-          <label htmlFor="sexGroup">Sex:</label>
-          <FormGroup check>
-            <Label check className="pr-5">
-              <Input
-                type="radio"
-                name="sex"
-                value="male"
-                defaultChecked
-                innerRef={register()}
-              />{" "}
-              Male
-            </Label>
+          <label htmlFor="user">User:</label>
+          {authorInfo && authorInfo.loading && "Loading User..."}
+          {authorInfo && authorInfo.error && (
+            <div className="text-danger">Error getting User!</div>
+          )}
+          {((authorInfo && authorInfo.data) || !post.id) && (
+            <UsersDropdown
+              id="user"
+              selectedUsers={selectedUser}
+              onChange={handleUserSelection}
+            />
+          )}
+        </FormGroup> */}
 
-            <Label check>
-              <Input
-                type="radio"
-                name="sex"
-                value="female"
-                innerRef={register()}
-              />{" "}
-              Female
-            </Label>
-          </FormGroup>
+        <FormGroup check>
+          <Label check>
+            <Input
+              type="checkbox"
+              name="isActive"
+              innerRef={register()}
+              defaultChecked
+            />
+            Active
+          </Label>
         </FormGroup>
-
-        <FormGroup>
-          <Label for="exampleSelect">Role</Label>
-          <Input
-            type="select"
-            name="role"
-            id="exampleSelect"
-            invalid={!!errors.role}
-            innerRef={register({
-              required: { value: true, message: "Role is required" },
-            })}
-          >
-            <option value="admin">Admin</option>
-            <option value="dev">Devloper</option>
-            <option value="manager">Manager</option>
-          </Input>
-          {errors.role && <FormFeedback>{errors.role.message}</FormFeedback>}
-        </FormGroup>
-
-        {post && post.id && (
-          <FormGroup check>
-            <Label check>
-              <Input
-                type="checkbox"
-                name="isActive"
-                innerRef={register()}
-                defaultChecked
-              />
-              Active
-            </Label>
-          </FormGroup>
-        )}
 
         <div className="d-flex justify-content-end align-items-center my-3">
           <Button
@@ -160,8 +144,6 @@ function PostForm({ post, status, onSave, onCancel }) {
             Save
           </Button>
         </div>
-
-        {JSON.stringify(status, null, 2)}
       </Form>
     </div>
   );
