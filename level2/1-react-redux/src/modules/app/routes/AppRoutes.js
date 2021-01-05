@@ -8,20 +8,20 @@ import NotFoundView from "../views/NotFound";
 // const UserModule = lazy(() => import("../modules/user"));
 
 import Users1IndexView from "../../users1/views/UsersIndexView";
-// import Users2IndexView from "../../users1/views/UsersIndexView";
-const Users2IndexView = lazy(() => import("../../users2/views/UsersIndexView"));
+// import PostsIndexView from "../../post/views/PostsIndexView";
+const PostsIndexView = lazy(() => import("../../post/views/PostsIndexView"));
 
 const AppRoutes = () => {
   console.log("### AppRoutes:");
   return (
     <Switch>
-      <Redirect exact from="/" to={routeConfig.user1} />
-      <Route path={routeConfig.user1}>
+      <Redirect exact from="/" to={routeConfig.user} />
+      <Route path={routeConfig.user}>
         <Users1IndexView />
       </Route>
-      <Route path={routeConfig.user2}>
-        <Suspense fallback={<div>Loading 'User2' Module...</div>}>
-          <Users2IndexView />
+      <Route path={routeConfig.post}>
+        <Suspense fallback={<div>Loading 'Post' Module...</div>}>
+          <PostsIndexView />
         </Suspense>
       </Route>
       <Route path="/404">

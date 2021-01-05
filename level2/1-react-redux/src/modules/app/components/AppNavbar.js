@@ -14,20 +14,20 @@ const AppNavbar = () => {
       </NavLink>
       <div className="navbar-nav">
         <NavLink
-          to={routeConfig.user1}
+          to={routeConfig.user}
           activeClassName="active"
           className="nav-link"
           exact
         >
-          Users1
+          Users
         </NavLink>
         <NavLink
-          to={routeConfig.user2}
+          to={routeConfig.post}
           activeClassName="active"
           className="nav-link"
           exact
         >
-          Users2
+          Posts
         </NavLink>
       </div>
     </nav>

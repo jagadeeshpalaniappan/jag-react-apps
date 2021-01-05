@@ -2,13 +2,15 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 
-import { userReducer } from "src/modules/users1/state/reducer";
+import { userReducer } from "../../../modules/users1/state/reducer";
+import { postReducer } from "../../../modules/post/state/reducer";
 
 //--------------------------------- Redux: Reducer -----------------------------------
 
 const createRootReducer = () => {
   return combineReducers({
     userState: userReducer,
+    postState: postReducer,
   });
 };
 

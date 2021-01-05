@@ -10,7 +10,7 @@ export const UserList = ({ users, apiGetUsersAction }) => {
   console.log("UserList");
   useEffect(() => {
     apiGetUsersAction();
-  }, []);
+  }, [apiGetUsersAction]);
   return (
     <>
       <UserListStatus />
