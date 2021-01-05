@@ -23,7 +23,7 @@ function UserForm({ user, status, onSave, onCancel }) {
   };
 
   return (
-    <div className="bg-light p-4 mb-2">
+    <div className="mb-2">
       <Form onSubmit={handleSubmit(onSubmit)}>
         {/* <pre> {JSON.stringify(errors)} </pre> */}
 

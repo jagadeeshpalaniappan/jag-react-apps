@@ -29,11 +29,17 @@ const UserModal = ({
 
   return (
     <div>
-      <Modal isOpen={isOpen} toggle={toggle} backdrop keyboard>
-        <ModalHeader>
+      <Modal
+        isOpen={isOpen}
+        toggle={toggle}
+        backdrop
+        keyboard
+        contentClassName="bg-light"
+      >
+        <ModalHeader className="border-0">
           {user && user.id ? "Update User" : "Create User"}
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className="px-5">
           <UserMutaionStatus />
           <UserForm user={user} onSave={handleSave} onCancel={onClose} />
         </ModalBody>
