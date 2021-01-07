@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { apiDeletePostAction } from "../../state/deletePost/actions";
 import { openPostModalAction } from "../../state/postModal/actions";
+import { getPostMap } from "../../state/selectors";
 
 const ListItem = ({
   postId,
@@ -38,7 +39,7 @@ const ListItem = ({
 };
 
 const mapStateToProps = (state, props) => ({
-  post: state.postState.postMap[props.postId],
+  post: getPostMap(state)[props.postId],
 });
 
 const mapDispatchToProps = { apiDeletePostAction, openPostModalAction };

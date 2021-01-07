@@ -3,8 +3,8 @@ export const apiGetPostsStartReducer = (state, action) => {
   console.log("postReducer:apiGetPostsStartReducer", { state, action });
   return {
     ...state,
-    posts: {
-      ...state.posts,
+    getPostsStatus: {
+      ...state.getPostsStatus,
       loading: true,
       error: null,
     },
@@ -23,9 +23,10 @@ export const apiGetPostsSuccessReducer = (state, action) => {
   return {
     ...state,
     postMap,
-    posts: {
-      ...state.posts,
-      data: postIds,
+    postIds,
+    getPostsStatus: {
+      ...state.getPostsStatus,
+      success: false,
       loading: false,
       error: null,
     },
@@ -35,8 +36,9 @@ export const apiGetPostsFailureReducer = (state, action) => {
   console.log("postReducer:apiGetPostsFailureReducer", { state, action });
   return {
     ...state,
-    posts: {
-      ...state.posts,
+    getPostsStatus: {
+      ...state.getPostsStatus,
+      success: false,
       loading: false,
       error: action.payload.error,
     },

@@ -9,6 +9,7 @@ import {
 } from "reactstrap";
 
 import { setFilterAction } from "../../state/filter/actions";
+import { getFilter } from "../../state/selectors";
 
 export const ActiveFilterDropDown = ({ filterActive, setFilterAction }) => {
   const [ddOpen, setDdOpen] = useState(false);
@@ -40,7 +41,7 @@ export const ActiveFilterDropDown = ({ filterActive, setFilterAction }) => {
 };
 
 const mapStateToProps = (state) => ({
-  filterActive: state.postState.filter.active,
+  filterActive: getFilter(state).active,
 });
 
 const mapDispatchToProps = { setFilterAction };

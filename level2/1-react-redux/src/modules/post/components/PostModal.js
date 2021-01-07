@@ -9,6 +9,7 @@ import { PostMutaionStatus } from "./PostStatus";
 import { apiCreatePostAction } from "../state/createPost/actions";
 import { apiUpdatePostAction } from "../state/updatePost/actions";
 import { closePostModalAndResetStatusAction } from "../state/postModal/actions";
+import { getPostModal } from "../state/selectors";
 
 const PostModal = ({
   isOpen,
@@ -48,10 +49,10 @@ const PostModal = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  isOpen: state.postState.postModal.isOpen,
-  post: state.postState.postModal.post,
-});
+const mapStateToProps = (state) => {
+  const { isOpen, post } = getPostModal(state);
+  return { isOpen, post };
+};
 
 const mapDispatchToProps = {
   apiCreatePostAction,

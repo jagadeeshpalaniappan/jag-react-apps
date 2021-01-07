@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { debounce } from "lodash-es";
 import { setFilterAction } from "../../state/filter/actions";
+import { getFilter } from "../../state/selectors";
 
 export const Search = ({ search, searchPost }) => {
   const [searchState, setSearchState] = useState(search || "");
@@ -23,7 +24,7 @@ export const Search = ({ search, searchPost }) => {
 };
 
 const mapStateToProps = (state) => ({
-  search: state.postState.filter.search,
+  search: getFilter(state).search,
 });
 
 const mapDispatchToProps = (dispatch) => {

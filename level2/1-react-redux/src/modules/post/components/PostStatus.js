@@ -5,6 +5,13 @@ import { resetCreatePostStatusAction } from "../state/createPost/actions";
 import { resetDeletePostStatusAction } from "../state/deletePost/actions";
 import { resetUpdatePostStatusAction } from "../state/updatePost/actions";
 
+import {
+  getCreatePostStatus,
+  getUpdatePostStatus,
+  getDeletePostStatus,
+  getPostStatus,
+} from "../state/selectors";
+
 const StatusMsg = ({ children, success, error, onClose }) => {
   let status = "alert-primary";
   if (success) status = "alert-success";
@@ -30,24 +37,22 @@ const StatusMsg = ({ children, success, error, onClose }) => {
 
 // connect(mapStateToProps, mapDispatchToProps)(MyComp);
 export const CreatePostStatus = connect(
-  (state) => ({ createPostStatus: state.postState.createPostStatus }),
-  { resetCreatePostStatusAction }
-)(({ createPostStatus, resetCreatePostStatusAction }) => {
+  (state) => ({ status: getCreatePostStatus(state) }),
+  { onClose: resetCreatePostStatusAction }
+)(({ status, onClose }) => {
   console.log("CreatePostStatus");
   return (
     <>
-      {createPostStatus.loading && (
-        <StatusMsg onClose={resetCreatePostStatusAction}>
-          Creating Post...
-        </StatusMsg>
+      {status.loading && (
+        <StatusMsg onClose={onClose}>Creating Post...</StatusMsg>
       )}
-      {createPostStatus.success && (
-        <StatusMsg success onClose={resetCreatePostStatusAction}>
+      {status.success && (
+        <StatusMsg success onClose={onClose}>
           Post Created Successfully
         </StatusMsg>
       )}
-      {createPostStatus.error && (
-        <StatusMsg error onClose={resetCreatePostStatusAction}>
+      {status.error && (
+        <StatusMsg error onClose={onClose}>
           Failed to Create Post
         </StatusMsg>
       )}
@@ -57,24 +62,22 @@ export const CreatePostStatus = connect(
 
 // connect(mapStateToProps, mapDispatchToProps)(MyComp);
 export const UpdatePostStatus = connect(
-  (state) => ({ updatePostStatus: state.postState.updatePostStatus }),
-  { resetUpdatePostStatusAction }
-)(({ updatePostStatus, resetUpdatePostStatusAction }) => {
+  (state) => ({ status: getUpdatePostStatus(state) }),
+  { onClose: resetUpdatePostStatusAction }
+)(({ status, onClose }) => {
   console.log("UpdatePostStatus");
   return (
     <>
-      {updatePostStatus.loading && (
-        <StatusMsg onClose={resetUpdatePostStatusAction}>
-          Updating Post...
-        </StatusMsg>
+      {status.loading && (
+        <StatusMsg onClose={onClose}>Updating Post...</StatusMsg>
       )}
-      {updatePostStatus.success && (
-        <StatusMsg success onClose={resetUpdatePostStatusAction}>
+      {status.success && (
+        <StatusMsg success onClose={onClose}>
           Post Updated Successfully
         </StatusMsg>
       )}
-      {updatePostStatus.error && (
-        <StatusMsg error onClose={resetUpdatePostStatusAction}>
+      {status.error && (
+        <StatusMsg error onClose={onClose}>
           Failed to Update Post
         </StatusMsg>
       )}
@@ -84,24 +87,22 @@ export const UpdatePostStatus = connect(
 
 // connect(mapStateToProps, mapDispatchToProps)(MyComp);
 export const DeletePostStatus = connect(
-  (state) => ({ deletePostStatus: state.postState.deletePostStatus }),
-  { resetDeletePostStatusAction }
-)(({ deletePostStatus, resetDeletePostStatusAction }) => {
+  (state) => ({ status: getDeletePostStatus(state) }),
+  { onClose: resetDeletePostStatusAction }
+)(({ status, onClose }) => {
   console.log("DeletePostStatus");
   return (
     <>
-      {deletePostStatus.loading && (
-        <StatusMsg onClose={resetDeletePostStatusAction}>
-          Deleting Post...
-        </StatusMsg>
+      {status.loading && (
+        <StatusMsg onClose={onClose}>Deleting Post...</StatusMsg>
       )}
-      {deletePostStatus.success && (
-        <StatusMsg success onClose={resetDeletePostStatusAction}>
+      {status.success && (
+        <StatusMsg success onClose={onClose}>
           Post Deleted Successfully
         </StatusMsg>
       )}
-      {deletePostStatus.error && (
-        <StatusMsg error onClose={resetDeletePostStatusAction}>
+      {status.error && (
+        <StatusMsg error onClose={onClose}>
           Failed to Delete Post
         </StatusMsg>
       )}
@@ -120,15 +121,16 @@ export const PostMutaionStatus = () => {
 
 // connect(mapStateToProps, mapDispatchToProps)(MyComp);
 export const PostListStatus = connect(
-  (state) => ({ posts: state.postState.posts }),
+  (state) => ({ status: getPostStatus(state) }),
   null
-)(({ posts }) => {
+)(({ status }) => {
   console.log("PostListStatus");
-  if (posts.loading)
+  if (status.loading)
     return (
       <div className="d-flex justify-content-center py-4">Loading Posts...</div>
     );
-  if (posts.error) return <StatusMsg error>Error when getting Posts</StatusMsg>;
+  if (status.error)
+    return <StatusMsg error>Error when getting Posts</StatusMsg>;
 
   return null;
 });

@@ -21,10 +21,7 @@ export const apiDeletePostSuccessReducer = (state, action) => {
       ...state.postMap,
       [deletedPost.id]: null,
     },
-    posts: {
-      ...state.posts,
-      data: state.posts.data.filter((postId) => postId !== deletedPost.id),
-    },
+    postIds: state.postIds.filter((postId) => postId !== deletedPost.id),
     deletePostStatus: {
       ...state.deletePostStatus,
       success: true,

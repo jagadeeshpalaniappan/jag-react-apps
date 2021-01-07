@@ -18,10 +18,7 @@ export const apiCreatePostSuccessReducer = (state, action) => {
   state.postMap[createdPost.id] = createdPost;
   return {
     ...state,
-    posts: {
-      ...state.posts,
-      data: [...state.posts.data, createdPost.id],
-    },
+    postIds: [...state.postIds, createdPost.id],
     createPostStatus: {
       ...state.createPostStatus,
       success: true,
