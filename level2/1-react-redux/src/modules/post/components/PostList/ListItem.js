@@ -24,7 +24,9 @@ const ListItem = ({ post, apiDeletePostAction, openPostModalAction }) => {
       </div>
       <div className="mb-1">
         <small>{post.body}</small>
-        <span className="badge badge-light mr-1">active</span>
+        {post.isActive && (
+          <span className="badge badge-light mr-1">active</span>
+        )}
       </div>
     </li>
   );
