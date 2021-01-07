@@ -4,7 +4,8 @@ import ListItem from "./ListItem";
 const List = memo(function List({ posts }) {
   return (
     <ul className="list-group">
-      {posts && posts.map((post) => <ListItem key={post.id} post={post} />)}
+      {posts &&
+        posts.map((postId) => <ListItem key={postId} postId={postId} />)}
     </ul>
   );
 });

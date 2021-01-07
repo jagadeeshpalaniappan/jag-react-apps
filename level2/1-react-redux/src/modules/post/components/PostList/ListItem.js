@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 import { apiDeletePostAction } from "../../state/deletePost/actions";
 import { openPostModalAction } from "../../state/postModal/actions";
 
-const ListItem = ({ post, apiDeletePostAction, openPostModalAction }) => {
+const ListItem = ({
+  postId,
+  post,
+  apiDeletePostAction,
+  openPostModalAction,
+}) => {
   console.log("ListItem");
   return (
     <li className="list-group-item list-group-item-action">
@@ -32,5 +37,12 @@ const ListItem = ({ post, apiDeletePostAction, openPostModalAction }) => {
   );
 };
 
+const mapStateToProps = (state, props) => ({
+  post: state.postState.postMap[props.postId],
+});
+
 const mapDispatchToProps = { apiDeletePostAction, openPostModalAction };
-export default connect(null, mapDispatchToProps)(React.memo(ListItem));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(ListItem));

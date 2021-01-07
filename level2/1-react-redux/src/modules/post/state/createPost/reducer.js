@@ -14,8 +14,14 @@ export const apiCreatePostStartReducer = (state, action) => {
 
 export const apiCreatePostSuccessReducer = (state, action) => {
   console.log("postReducer:apiCreatePostSuccessReducer", { state, action });
+  const createdPost = action.payload;
+  state.postMap[createdPost.id] = createdPost;
   return {
     ...state,
+    posts: {
+      ...state.posts,
+      data: [...state.posts.data, createdPost.id],
+    },
     createPostStatus: {
       ...state.createPostStatus,
       success: true,

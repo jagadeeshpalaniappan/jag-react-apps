@@ -12,11 +12,20 @@ export const apiGetPostsStartReducer = (state, action) => {
 };
 export const apiGetPostsSuccessReducer = (state, action) => {
   console.log("postReducer:apiGetPostsSuccessReducer", { state, action });
+
+  const posts = action.payload.data;
+  const postMap = posts.reduce((res, post) => {
+    res[post.id] = post;
+    return res;
+  }, {});
+  const postIds = Object.keys(postMap);
+
   return {
     ...state,
+    postMap,
     posts: {
       ...state.posts,
-      data: action.payload.data,
+      data: postIds,
       loading: false,
       error: null,
     },

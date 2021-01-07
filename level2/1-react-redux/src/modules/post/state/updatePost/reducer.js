@@ -14,6 +14,8 @@ export const apiUpdatePostStartReducer = (state, action) => {
 
 export const apiUpdatePostSuccessReducer = (state, action) => {
   console.log("postReducer:apiUpdatePostSuccessReducer", { state, action });
+  const updatedPost = action.payload;
+  state.postMap[updatedPost.id] = updatedPost;
   return {
     ...state,
     updatePostStatus: {

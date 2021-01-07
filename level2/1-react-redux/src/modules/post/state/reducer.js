@@ -72,6 +72,7 @@ const defaultState = {
     { id: uuid(), name: "Todo 1" },
     { id: uuid(), name: "Todo 2" },
   ],
+  postMap: {},
   posts: {
     data: [],
     loading: false,

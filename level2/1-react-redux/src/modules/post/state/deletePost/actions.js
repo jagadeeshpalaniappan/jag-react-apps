@@ -23,7 +23,7 @@ export const apiDeletePostAction = (post) => async (dispatch) => {
     const response = await deletePost(post);
     dispatch(apiDeletePostSuccessAction(response));
     // refresh:
-    dispatch(apiGetPostsAction());
+    // dispatch(apiGetPostsAction());
   } catch (e) {
     console.log("apiGetPostsAction:err", e);
     dispatch(apiDeletePostFailureAction({ error: e.message }));

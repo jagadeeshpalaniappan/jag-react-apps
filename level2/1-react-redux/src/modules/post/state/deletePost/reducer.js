@@ -14,8 +14,17 @@ export const apiDeletePostStartReducer = (state, action) => {
 
 export const apiDeletePostSuccessReducer = (state, action) => {
   console.log("postReducer:apiDeletePostSuccessReducer", { state, action });
+  const deletedPost = action.payload;
   return {
     ...state,
+    postMap: {
+      ...state.postMap,
+      [deletedPost.id]: null,
+    },
+    posts: {
+      ...state.posts,
+      data: state.posts.data.filter((postId) => postId !== deletedPost.id),
+    },
     deletePostStatus: {
       ...state.deletePostStatus,
       success: true,

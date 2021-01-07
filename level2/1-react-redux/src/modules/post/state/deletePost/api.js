@@ -8,5 +8,5 @@ export async function deletePost(post) {
   const response = await axios.delete(`${API_URL}/${post.id}`);
 
   console.log("fetch::deletePost:: response:", response);
-  return response.data;
+  return response.data.post;
 }

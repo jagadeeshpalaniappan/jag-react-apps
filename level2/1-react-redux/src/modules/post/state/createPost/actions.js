@@ -23,7 +23,7 @@ export const apiCreatePostAction = (post) => async (dispatch) => {
     const response = await createPost(post);
     dispatch(apiCreatePostSuccessAction(response));
     // refresh:
-    dispatch(apiGetPostsAction());
+    // dispatch(apiGetPostsAction());
   } catch (e) {
     console.log("apiGetPostsAction:err", e);
     dispatch(apiCreatePostFailureAction({ error: e.message }));
