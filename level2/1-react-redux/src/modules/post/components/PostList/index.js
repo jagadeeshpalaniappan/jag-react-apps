@@ -5,7 +5,7 @@ import { getVisiblePosts } from "../../state/selectors";
 import { PostListStatus } from "../PostStatus";
 import List from "./List";
 
-export const PostList = ({ posts, apiGetPostsAction }) => {
+export const PostList = ({ apiGetPostsAction }) => {
   console.log("PostList");
   useEffect(() => {
     apiGetPostsAction();
@@ -13,11 +13,10 @@ export const PostList = ({ posts, apiGetPostsAction }) => {
   return (
     <>
       <PostListStatus />
-      <List posts={posts} />
+      <List />
     </>
   );
 };
 
-const mapStateToProps = (state) => ({ posts: getVisiblePosts(state) });
 const mapDispatchToProps = { apiGetPostsAction };
-export default connect(mapStateToProps, mapDispatchToProps)(PostList);
+export default connect(null, mapDispatchToProps)(PostList);

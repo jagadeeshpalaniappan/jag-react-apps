@@ -1,13 +1,18 @@
 import React, { memo } from "react";
+
+import { connect } from "react-redux";
+import { apiGetPostsAction } from "../../state/getPosts/actions";
+import { getVisiblePosts } from "../../state/selectors";
 import ListItem from "./ListItem";
 
-const List = memo(function List({ posts }) {
+function List({ postIds }) {
   return (
     <ul className="list-group">
-      {posts &&
-        posts.map((postId) => <ListItem key={postId} postId={postId} />)}
+      {postIds &&
+        postIds.map((postId) => <ListItem key={postId} postId={postId} />)}
     </ul>
   );
-});
+}
 
-export default List;
+const mapStateToProps = (state) => ({ postIds: getVisiblePosts(state) });
+export default connect(mapStateToProps, null)(memo(List));
